@@ -1,0 +1,35 @@
+name: "Yang et. al Test Data Leaked in Preprocessing"
+markings:
+  testLeakedIntoTraining:
+    name: "testLeakedIntoTraining"
+sinks:
+  "train_test_split": 
+    associated_markings: 
+      - testLeakedIntoTraining
+    args:
+      - "X"
+    validate: 
+      name: "first_contains_all"
+    error_msg: "M-24"
+sources:
+  "CountVectorizer.fit": 
+    qualnames:
+      - "CountVectorizer.fit"
+      - "CountVectorizer.fit_transform"
+      - "HashingVectorizer.fit"
+      - "HashingVectorizer.fit_transform"
+      - "TfidfTransformer.fit"
+      - "TfidfTransformer.fit_transform"
+      - "TfidfVectorizer.fit"
+      - "TfidfVectorizer.fit_transform"
+      - "PCA.fit"
+      - "PCA.fit_transform"
+    associated_markings: 
+      - testLeakedIntoTraining
+  # e.g. SelectKBest().fit_transform(X_train)
+  "TransformerMixin.fit_transform": 
+    qualnames:
+      - "TransformerMixin.fit_transform"
+      - "TransformerMixin.fit"
+    associated_markings: 
+      - testLeakedIntoTraining

@@ -1,0 +1,59 @@
+import traceback
+from .base_analysis import BaseDyLinAnalysis
+from typing import Any, Callable, Dict, Tuple
+
+"""
+Name: 
+UseInplaceSorting
+
+Source:
+-
+
+Test description:
+Inplace sorting is much faster if a copy is not needed
+
+Why useful in a dynamic analysis approach:
+No corresponding static analysis found and we can check if for some runs the
+reference to the unsorted list is not needed, indicating for some cases it might be 
+useful to skip the sorted() method and do in place sorting.
+
+Discussion:
+
+
+"""
+
+
+class InPlaceSortAnalysis(BaseDyLinAnalysis):
+    def __init__(self):
+        super().__init__()
+        self.analysis_name = "InPlaceSortAnalysis"
+        self.stored_lists = {}
+
+    threshold = 10000
+
+    def pre_call(
+        self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args
+    ) -> Any:
+        if function is sorted:
+            # we have to keep the list in memory to keep id(pos_args[0]) stable ?
+            if hasattr(pos_args[0], "__len__") and len(pos_args[0]) > self.threshold:
+                self.stored_lists[id(pos_args[0])] = {
+                    "iid": iid,
+                    "file_name": dyn_ast,
+                    "list": pos_args[0],
+                    "len": len(pos_args[0]),
+                }
+
+    def read_identifier(self, dyn_ast: str, iid: int, val: Any) -> Any:
+        if isinstance(val, type([])):
+            self.stored_lists.pop(id(val), None)
+        return None
+
+    def end_execution(self) -> None:
+        for _, l in self.stored_lists.items():
+            self.add_finding(
+                l["iid"],
+                l["file_name"],
+                "A-09",
+                f"unnessecary use of sorted(), len:{l['len']} in {l['file_name']}",
+            )

@@ -1,0 +1,23 @@
+name: "Weak hash stored Analysis"
+markings:
+  weakHash:
+    name: "weakHash"
+sinks:
+  "Response.set_cookie":
+    associated_markings: 
+      - weakHash
+    args:
+      - self
+      - key
+      - value
+    validate: 
+      name: "contains"
+    error_msg: "S-29"
+sources:
+  "openssl_sha256": 
+    associated_markings: 
+      - weakHash
+  "PasswordHasher.hash": 
+    associated_markings: 
+      - weakHash
+    function: "clear"

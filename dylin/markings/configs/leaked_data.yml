@@ -1,0 +1,25 @@
+name: "Yang et. al Test Data Used for Training"
+markings:
+  oversampled:
+    name: "oversampled"
+sinks:
+  "train_test_split": 
+    associated_markings: 
+      - oversampled
+    # has to preserve order of method signature args
+    args:
+      - "X"
+      - "y"
+    validate: 
+      name: "contains"
+    error_msg: "M-25"
+sources:
+  "SamplerMixin.fit_resample": 
+    qualnames:
+    # covers SMOTE, SMOTENC, SMOTEN, ADASYN, BorderlineSMOTE, KMeansSMOTE
+    - "SamplerMixin.fit"
+    - "SamplerMixin.fit_resample"
+    - "RandomOversampler.fit"
+    - "RandomOversampler.fit_resample"
+    associated_markings: 
+      - oversampled

@@ -1,0 +1,46 @@
+name: "Forced Order Analysis"
+markings:
+  forcedOrder:
+    name: "forcedOrder"
+  unordered:
+    name: "unordered"
+sinks:
+  "sink":
+    qualnames:
+      - "str.startswith"
+      - "str.endswith"
+      - "str.index"
+      - "str.split"
+      - "list.pop"
+      - "list.reverse"
+      - "list.index"
+      - "tuple.index"
+    associated_markings: 
+      - unordered
+      - forcedOrder
+    validate: 
+      name: "first_contains_all"
+      args:
+        - "self"
+        - "input_str"
+    error_msg: "A-18"
+sources:
+  "set": 
+    associated_markings: 
+      - unordered
+  "sorted": 
+    qualnames:
+      - "sorted"
+      - "list.sort"
+    associated_markings: 
+      - unordered
+    # removes unordered marking from object
+    function: "disjunctive_union"
+  "forcedOrder":
+    qualnames:
+      - "str"
+      - "str.join"
+      - "list"
+      - "tuple"
+    associated_markings: 
+      - forcedOrder
