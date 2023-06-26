@@ -3,7 +3,7 @@ from typing import Any, Callable, Dict, Iterable, Iterator, List, Optional
 
 from libcst import Tuple
 from .base_analysis import BaseDyLinAnalysis
-from .markings.obj_identifier import uniqueid, save_uid, get_ref, add_cleanup_hook
+from ..markings.obj_identifier import uniqueid, save_uid, get_ref, add_cleanup_hook
 from sklearn.base import TransformerMixin
 from sklearn.base import BaseEstimator
 
@@ -23,17 +23,11 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
         add_cleanup_hook(lambda x: cleanup(x))
 
     def read_subscript(self, dyn_ast, iid, base, sl, val):
-        if (
-            save_uid(base) in self.markings_storage
-            and len(self.markings_storage[save_uid(base)]) != 0
-        ):
+        if save_uid(base) in self.markings_storage and len(self.markings_storage[save_uid(base)]) != 0:
             self.markings_storage[uniqueid(val)].add("transformed")
 
     def read_attribute(self, dyn_ast, iid, base, name, val):
-        if (
-            save_uid(base) in self.markings_storage
-            and len(self.markings_storage[save_uid(base)]) != 0
-        ):
+        if save_uid(base) in self.markings_storage and len(self.markings_storage[save_uid(base)]) != 0:
             self.markings_storage[uniqueid(val)].add("transformed")
 
     def post_call(
@@ -49,9 +43,7 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
         if _self is None:
             return
 
-        in_args = list(kw_args.values() if not kw_args is None else []) + list(
-            pos_args if not pos_args is None else []
-        )
+        in_args = list(kw_args.values() if not kw_args is None else []) + list(pos_args if not pos_args is None else [])
 
         in_args.append(_self)
 
@@ -68,24 +60,18 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
             transformed = None
             count = len(in_args)
             for arg in in_args:
-                if (
-                    save_uid(arg) in self.markings_storage
-                    and len(self.markings_storage[save_uid(arg)]) > 0
-                ):
+                if save_uid(arg) in self.markings_storage and len(self.markings_storage[save_uid(arg)]) > 0:
                     transformed = str(arg)
                     count = count - 1
 
             if count != 0 and count != len(in_args):
-                self.add_finding(
-                    iid, dyn_ast, "M-23", f"only {transformed} has been transformed"
-                )
+                self.add_finding(iid, dyn_ast, "M-23", f"only {transformed} has been transformed")
 
         else:
             # propagate marking
             is_arg_marked = any(
                 [
-                    save_uid(arg) in self.markings_storage
-                    and len(self.markings_storage[save_uid(arg)]) > 0
+                    save_uid(arg) in self.markings_storage and len(self.markings_storage[save_uid(arg)]) > 0
                     for arg in in_args
                 ]
             )

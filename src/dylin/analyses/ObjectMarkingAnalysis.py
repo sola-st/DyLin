@@ -1,8 +1,8 @@
 from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 from .base_analysis import BaseDyLinAnalysis
-from .markings import models
-from .markings.obj_identifier import uniqueid, cleanup, save_uid, has_obj
+from ..markings import models
+from ..markings.obj_identifier import uniqueid, cleanup, save_uid, has_obj
 import yaml
 
 
@@ -74,7 +74,7 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
         import pathlib
 
         pwd = pathlib.Path(__file__).parent.resolve()
-        configPath = pwd / "markings" / "configs" / config_name
+        configPath = pwd / ".." / "markings" / "configs" / config_name
 
         with open(configPath, "r") as config:
             self.load_config(config)
@@ -146,9 +146,7 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
 
             if "qualnames" in sink:
                 for qualname in sink["qualnames"]:
-                    sinks[qualname] = models.Sink(
-                        m, error_msg, args, resulting_function
-                    )
+                    sinks[qualname] = models.Sink(m, error_msg, args, resulting_function)
             else:
                 sinks[key] = models.Sink(m, error_msg, args, resulting_function)
 
@@ -158,9 +156,7 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
     # returns markings as a list of sets, where the outer list preserves
     # the order of arguments of the original method signature
     # if method contains __self__ its the first argument, if not we ignore it
-    def _get_in_markings(
-        self, pos_args: Tuple, kw_args: Dict, _self: Optional[Any]
-    ) -> List[Set[models.Marking]]:
+    def _get_in_markings(self, pos_args: Tuple, kw_args: Dict, _self: Optional[Any]) -> List[Set[models.Marking]]:
         in_markings = []
         if not _self is None:
             element = self.stored_elements.get(save_uid(_self))
@@ -201,26 +197,18 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
         if func_name in self.sources:
             source: models.Source = self.sources[func_name]
             _self = getattr(function, "__self__", lambda: None)
-            out_markings = source.get_output_markings(
-                self._get_in_markings(pos_args, kw_args, _self)
-            )
+            out_markings = source.get_output_markings(self._get_in_markings(pos_args, kw_args, _self))
 
             # TODO store markings to arguments as well if desired
             if source.assign_to_output and not result is None:
                 if type(result) is tuple:
                     for r in result:
-                        self.stored_elements[uniqueid(r)] = models.StoredElement(
-                            out_markings, (iid, None, func_name)
-                        )
+                        self.stored_elements[uniqueid(r)] = models.StoredElement(out_markings, (iid, None, func_name))
                 else:
-                    self.stored_elements[uniqueid(result)] = models.StoredElement(
-                        out_markings, (iid, None, func_name)
-                    )
+                    self.stored_elements[uniqueid(result)] = models.StoredElement(out_markings, (iid, None, func_name))
 
             if source.assign_to_self and not _self is None:
-                self.stored_elements[uniqueid(_self)] = models.StoredElement(
-                    out_markings, (iid, None, func_name)
-                )
+                self.stored_elements[uniqueid(_self)] = models.StoredElement(out_markings, (iid, None, func_name))
             function_is_of_interest = True
         if func_name in self.sinks:
             sink: models.Sink = self.sinks[func_name]
@@ -230,16 +218,10 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
                 _selfstr = str(self.stored_elements.get(save_uid(_self)))
                 self.add_finding(iid, dyn_ast, error, _selfstr)
             function_is_of_interest = True
-        if (
-            not function_is_of_interest
-            and not result is None
-            and len(self.stored_elements) > 0
-        ):
+        if not function_is_of_interest and not result is None and len(self.stored_elements) > 0:
             _self = getattr(function, "__self__", lambda: None)
             # default for functions: union of input markings
-            out_markings_result = models.union(
-                self._get_in_markings(pos_args, kw_args, _self)
-            )
+            out_markings_result = models.union(self._get_in_markings(pos_args, kw_args, _self))
 
             """
             Consider the following case:
@@ -259,25 +241,15 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
             if not type(result) is tuple and not type(result) is list:
                 is_result_stored = self.stored_elements.get(save_uid(result)) != None
 
-                if (
-                    not result is None
-                    and len(out_markings_result) > 0
-                    and not is_result_stored
-                ):
+                if not result is None and len(out_markings_result) > 0 and not is_result_stored:
                     self.stored_elements[uniqueid(result)] = models.StoredElement(
                         out_markings_result, (iid, None, func_name)
                     )
             else:
                 i = 0
                 for r in result:
-                    is_result_stored = (
-                        self.stored_elements.get(save_uid(result)) != None
-                    )
-                    if (
-                        not r is None
-                        and len(out_markings_result) > 0
-                        and not is_result_stored
-                    ):
+                    is_result_stored = self.stored_elements.get(save_uid(result)) != None
+                    if not r is None and len(out_markings_result) > 0 and not is_result_stored:
                         self.stored_elements[uniqueid(r)] = models.StoredElement(
                             out_markings_result, (iid, None, str(func_name) + str(i))
                         )
@@ -289,6 +261,4 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
         cleanup()
 
     def end_execution(self) -> None:
-        self.add_meta(
-            f"stored elements {len(self.stored_elements)}, {list(self.stored_elements.values())[:100]}"
-        )
+        self.add_meta(f"stored elements {len(self.stored_elements)}, {list(self.stored_elements.values())[:100]}")

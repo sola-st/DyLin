@@ -1,1 +1,9 @@
 dynapyt
+pytest
+numpy
+torch
+tensorflow
+scikit-learn
+libcst
+pandas
+PyYAML

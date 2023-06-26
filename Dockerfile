@@ -1,6 +1,6 @@
 FROM ubuntu:22.04
 
-WORKDIR /DyLin
+WORKDIR /Work
 
 RUN apt update
 RUN apt install -q -y python3 python3-pip python3-venv
@@ -10,12 +10,19 @@ ENV PATH="/opt/dylinVenv/bin:$PATH"
 RUN pip install --upgrade pip setuptools wheel
 RUN apt install -q -y git
 
-COPY requirements.txt .
+RUN mkdir ./DyLin
 
-RUN pip install --no-cache-dir -r requirements.txt
+COPY ./requirements.txt ./DyLin/requirements.txt
+RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
 
-COPY dylin/ ./dylin
+COPY ./scripts ./DyLin/scripts
+COPY ./src ./DyLin/src
+COPY ./tests ./DyLin/tests
+COPY ./pyproject.toml ./DyLin/pyproject.toml
+COPY ./README.md ./DyLin/README.md
 
-RUN chmod -R 777 ./dylin
+RUN chmod -R 777 ./DyLin
 
-CMD python dylin/scripts/analyze_repo.py --repo 1
+RUN pip install ./DyLin/
+
+CMD python ./DyLin/scripts/analyze_repo.py --repo 2

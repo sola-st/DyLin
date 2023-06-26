@@ -3,7 +3,7 @@ import collections
 
 from torch import Tensor
 from .base_analysis import BaseDyLinAnalysis
-from .markings.obj_identifier import uniqueid, get_ref, add_cleanup_hook, save_uid
+from ..markings.obj_identifier import uniqueid, get_ref, add_cleanup_hook, save_uid
 
 import tensorflow as tf
 import torch.nn as nn
@@ -28,14 +28,9 @@ class GradientAnalysis(BaseDyLinAnalysis):
 
         add_cleanup_hook(cleanup_torch_model)
 
-    def pre_call(
-        self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict
-    ):
+    def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict):
         # tensorflow
-        if (
-            "__func__" in dir(function)
-            and function.__func__ == tf.optimizers.Optimizer.apply_gradients
-        ):
+        if "__func__" in dir(function) and function.__func__ == tf.optimizers.Optimizer.apply_gradients:
             if isinstance(pos_args[0], collections.abc.Iterator):
                 # pos_args[0] can be a zip object, which is an Iterator. These objects
                 # can only be used once and then return an emtpy list, to prevent that
@@ -47,9 +42,7 @@ class GradientAnalysis(BaseDyLinAnalysis):
                 gradients = list(pos_args[0])
 
             for i in range(0, len(gradients)):
-                self.total_gradients_investigated = (
-                    self.total_gradients_investigated + 1
-                )
+                self.total_gradients_investigated = self.total_gradients_investigated + 1
                 # gradients[i] is a tuple where first element is gradient, second trainable variable
                 grad: tf.Tensor = gradients[i][0]
                 _min = tf.math.reduce_min(grad)
@@ -93,9 +86,7 @@ class GradientAnalysis(BaseDyLinAnalysis):
                         params: List[nn.parameter.Parameter] = model.parameters()
                         grads: List[Optional[Tensor]] = [p.grad for p in params]
                         if len(grads) > 0:
-                            self.total_gradients_investigated = (
-                                self.total_gradients_investigated + 1
-                            )
+                            self.total_gradients_investigated = self.total_gradients_investigated + 1
                         for grad in grads:
                             if not grad is None:
                                 _max = torch.max(grad)
@@ -110,6 +101,4 @@ class GradientAnalysis(BaseDyLinAnalysis):
                                     return
 
     def end_execution(self) -> None:
-        self.add_meta(
-            {"total_gradients_investigated": self.total_gradients_investigated}
-        )
+        self.add_meta({"total_gradients_investigated": self.total_gradients_investigated})

@@ -1,7 +1,7 @@
 import types
 from typing import Any, Callable, Dict, Tuple
 from .base_analysis import BaseDyLinAnalysis
-from .markings.obj_identifier import uniqueid, save_uid
+from ..markings.obj_identifier import uniqueid, save_uid
 import pandas as pd
 import numpy as np
 
@@ -43,9 +43,7 @@ class NonFinitesAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
-        args = list(kw_args.values() if not kw_args is None else []) + list(
-            pos_args if not pos_args is None else []
-        )
+        args = list(kw_args.values() if not kw_args is None else []) + list(pos_args if not pos_args is None else [])
         no_nan_in_input = True
 
         for arg in args:
