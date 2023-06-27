@@ -1,5 +1,6 @@
 dynapyt
 pytest
+pytest-xdist
 numpy
 torch
 tensorflow
