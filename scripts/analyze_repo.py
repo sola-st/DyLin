@@ -59,7 +59,10 @@ if __name__ == "__main__":
     analysis = "AnalysisWrapper"
     instrument_dir(installation_dir, analysis, module="dylin.analyses", use_external_dir=False)
     instrument_dir(name, analysis, module="dylin.analyses", use_external_dir=False)
-    entry = f"{name}/{tests}/dylin_run_all_tests.py"
+    if tests.endswith(".py"):
+        entry = f"{name}/dylin_run_all_tests.py"
+    else:
+        entry = f"{name}/{tests}/dylin_run_all_tests.py"
     with open(entry, "w") as f:
         f.write(f"import pytest\n\npytest.main(['-n', 'auto', '--import-mode=importlib', '{name}/{tests}'])\n")
     run_analysis(entry, analysis, module="dylin.analyses")
