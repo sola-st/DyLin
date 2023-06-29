@@ -61,7 +61,7 @@ if __name__ == "__main__":
     instrument_dir(name, analysis, module="dylin.analyses", use_external_dir=False)
     entry = f"{name}/{tests}/dylin_run_all_tests.py"
     with open(entry, "w") as f:
-        f.write(f"import pytest\n\npytest.main(['-n', 'auto', '--import-mode=importlib', '{name}/{tests}'])\n")
+        f.write(f"import pytest\n\npytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])\n")
     run_analysis(entry, analysis, module="dylin.analyses")
 
     # subprocess.run(["pip", "show", name])
