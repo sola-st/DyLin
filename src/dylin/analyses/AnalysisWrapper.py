@@ -131,6 +131,12 @@ class AnalysisWrapper(BaseDyLinAnalysis):
     def comparison(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
         return self.call_if_exists("comparison", dyn_ast, iid, left, op, right, result)
 
+    def equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
+        return self.call_if_exists("equal", dyn_ast, iid, left, right, result)
+
+    def not_equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
+        return self.call_if_exists("not_equal", dyn_ast, iid, left, right, result)
+
     def add_assign(self, dyn_ast: str, iid: int, left: Any, right: Any) -> Any:
         return self.call_if_exists("add_assign", dyn_ast, iid, left, right)
 

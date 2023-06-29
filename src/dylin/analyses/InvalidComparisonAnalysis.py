@@ -43,9 +43,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
             "NotEqual",
         ]
 
-    def comparison(
-        self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any
-    ) -> bool:
+    def comparison(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
         self.nmb_comparisons += 1
         try:
             if op in self.float_comparisons_to_check:
@@ -64,8 +62,6 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                         f"inf floats left {left} right {right} in comparison used",
                     )
 
-                op_function = operator.eq if op == "Equal" else operator.ne
-
                 if self.compare_floats(left, right, op):
                     self.add_finding(
                         iid,
@@ -80,9 +76,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                 # self.compared_with_none(dyn_ast, iid, left, right)
 
                 if self.compare_types(left, right):
-                    self.add_finding(
-                        iid, dyn_ast, "A-13", f"compared with type {left} and {right}"
-                    )
+                    self.add_finding(iid, dyn_ast, "A-13", f"compared with type {left} and {right}")
 
                 if self.compare_funct(left, right):
                     self.add_finding(
@@ -92,6 +86,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                         f"compared with functon {left} and {right}",
                     )
 
+                op_function = operator.eq if op == "Equal" else operator.ne
                 if self.compare_diff_in_operator(left, right, op_function):
                     self.add_finding(
                         iid,
@@ -141,7 +136,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
 
     def compare_floats(self, left: float, right: float, op: Callable) -> bool:
         if self._is_float(left) and self._is_float(right):
-            return math.isclose(left, right, rel_tol=1e-8) and left != right
+            return math.isclose(left, right, rel_tol=1e-8)
         return False
 
     # Change this to analyse iff == returns false but is returns true -> flag issue
@@ -156,9 +151,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         return False
 
     def in_type_mismatch(self, left: Any, right: Any) -> bool:
-        if (type(left) is list and type(right) is list) or (
-            type(left) is set and type(right) is set
-        ):
+        if (type(left) is list and type(right) is list) or (type(left) is set and type(right) is set):
             if len(left) == 1 and next(iter(left)) in right:
                 return True
         return False
@@ -175,9 +168,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         left_is_slot_type = isinstance(left, type(int.__abs__))
         right_is_slot_type = isinstance(right, type(int.__abs__))
         # xor
-        if left_is_func ^ right_is_func and not (
-            left_is_slot_type or right_is_slot_type
-        ):
+        if left_is_func ^ right_is_func and not (left_is_slot_type or right_is_slot_type):
             return True
         return False
 
@@ -214,19 +205,13 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
     Therefore this might be a common useless error.
     """
 
-    def compared_with_itself(
-        self, dyn_ast: str, iid: int, left: Any, right: Any
-    ) -> bool:
+    def compared_with_itself(self, dyn_ast: str, iid: int, left: Any, right: Any) -> bool:
         if id(left) == id(right):
-            self.add_finding(
-                iid, dyn_ast, "compare_with_itself", f"compared {left} with itself"
-            )
+            self.add_finding(iid, dyn_ast, "compare_with_itself", f"compared {left} with itself")
             return True
         return False
 
-    def compared_different_types(
-        self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any
-    ) -> bool:
+    def compared_different_types(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
         # we ignore float / int comparisons
         if (isinstance(left, type(0)) and isinstance(right, type(0.0))) or (
             isinstance(left, type(0.0)) and isinstance(right, type(0))
@@ -237,9 +222,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         type_right = type(right)
 
         # we have to check for isinstance here as well because subtypes can be used regarding the == operator
-        if not result and not (
-            isinstance(left, type_right) or isinstance(right, type_left)
-        ):
+        if not result and not (isinstance(left, type_right) or isinstance(right, type_left)):
             self.add_finding(
                 iid,
                 dyn_ast,

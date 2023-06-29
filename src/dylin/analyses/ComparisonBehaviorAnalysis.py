@@ -25,15 +25,15 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
     """
 
     def is_excluded(self, val: any) -> bool:
-        return (
-            isinstance(val, type(0.0))
-            or isinstance(val, type(None))
-            or isinstance(val, np.floating)
-        )
+        return isinstance(val, type(0.0)) or isinstance(val, type(None)) or isinstance(val, np.floating)
 
-    def comparison(
-        self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any
-    ) -> bool:
+    def equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
+        return self.chack_all(dyn_ast, iid, left, "Equal", right, result)
+
+    def not_equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
+        return self.chack_all(dyn_ast, iid, left, "NotEqual", right, result)
+
+    def chack_all(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
         op_function = None
         if op == "Equal":
             op_function = operator.eq
@@ -54,9 +54,7 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
                     f"bad symmetry for {op_function} with {left} {right}",
                 )
             if self.check_stability(left, right, op_function):
-                self.add_finding(
-                    iid, dyn_ast, "A-02", f"bad stability for {op_function}"
-                )
+                self.add_finding(iid, dyn_ast, "A-02", f"bad stability for {op_function}")
             elif self.check_identity(left, op_function):
                 self.add_finding(
                     iid,
@@ -95,7 +93,7 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
 
     def check_stability(self, left: Any, right: Any, op: Any) -> bool:
         normal = op(left, right)
-        for i in range(0, 10):
+        for i in range(2):
             if op(left, right) != normal:
                 return True
         return False

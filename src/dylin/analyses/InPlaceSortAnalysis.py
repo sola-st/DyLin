@@ -31,16 +31,13 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
 
     threshold = 10000
 
-    def pre_call(
-        self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args
-    ) -> Any:
+    def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args) -> Any:
         if function is sorted:
-            # we have to keep the list in memory to keep id(pos_args[0]) stable ?
+            # we have to keep the list in memory to keep id(pos_args[0]) stable ? nope!
             if hasattr(pos_args[0], "__len__") and len(pos_args[0]) > self.threshold:
                 self.stored_lists[id(pos_args[0])] = {
                     "iid": iid,
                     "file_name": dyn_ast,
-                    "list": pos_args[0],
                     "len": len(pos_args[0]),
                 }
 
