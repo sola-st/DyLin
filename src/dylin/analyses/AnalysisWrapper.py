@@ -54,7 +54,7 @@ class AnalysisWrapper(BaseDyLinAnalysis):
         for file in files:
             module = importlib.import_module("dylin.analyses.ObjectMarkingAnalysis")
             cls: BaseDyLinAnalysis = getattr(module, "ObjectMarkingAnalysis")()
-            cls.add_meta({"configName": file})
+            cls.add_meta({"configName": str(file)})
             cls.setup()
             if cls is not None:
                 self.analysis_classes.append(cls)
