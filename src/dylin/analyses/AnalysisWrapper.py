@@ -69,7 +69,7 @@ class AnalysisWrapper(BaseDyLinAnalysis):
         # filename = str(self.analysis_name) + "report.json"
         filename = "report.json"
         # collect_dicts.append({"log": self.log_msgs})
-        with open(self.path / filename, "a+") as report:
+        with open(self.path / filename, "w") as report:
             report.write(json.dumps(result, indent=4))
 
     def _write_overview(self):
@@ -82,7 +82,7 @@ class AnalysisWrapper(BaseDyLinAnalysis):
                 row_findings[int(col_index) - 1] = len(results[f_name])
 
         csv_row = [self.analysis_name] + row_findings
-        with open(self.path / "findings.csv", "a+") as f:
+        with open(self.path / "findings.csv", "w") as f:
             writer = csv.writer(f)
             writer.writerow(csv_row)
 
