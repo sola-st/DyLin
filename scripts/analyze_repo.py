@@ -68,5 +68,5 @@ if __name__ == "__main__":
         )
     run_analysis(entry, analysis, module="dylin.analyses")
 
-    Path("Work", "reports", "report.json").rename(f"Work/reports/report_{name}.json")
-    Path("Work", "reports", "findings.csv").rename(f"Work/reports/findings_{name}.csv")
+    Path("/Work", "reports", "report.json").rename(f"Work/reports/report_{name}.json")
+    Path("/Work", "reports", "findings.csv").rename(f"Work/reports/findings_{name}.csv")

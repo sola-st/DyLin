@@ -34,7 +34,7 @@ class AnalysisWrapper(BaseDyLinAnalysis):
         ]
         self.metadata = None
         here = Path(__file__).parent.resolve()
-        self.path = Path("Work", "reports")
+        self.path = Path("/Work", "reports")
         self.analysis_name = None
 
         # TODO workaround, make this dynamic later
