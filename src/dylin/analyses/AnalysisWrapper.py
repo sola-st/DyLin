@@ -66,7 +66,8 @@ class AnalysisWrapper(BaseDyLinAnalysis):
         for cls in self.analysis_classes:
             collect_dicts.append(cls.get_result())
         result = {"meta": self.metadata, "results": collect_dicts}
-        filename = str(self.analysis_name) + "report.json"
+        # filename = str(self.analysis_name) + "report.json"
+        filename = "report.json"
         # collect_dicts.append({"log": self.log_msgs})
         with open(self.path / filename, "a+") as report:
             report.write(json.dumps(result, indent=4))
