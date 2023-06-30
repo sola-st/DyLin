@@ -33,7 +33,8 @@ class AnalysisWrapper(BaseDyLinAnalysis):
             "InconsistentPreprocessing",
         ]
         self.metadata = None
-        self.path = Path(os.path.expanduser("~"))
+        here = Path(__file__).parent.resolve()
+        self.path = here / ".." / ".." / ".." / ".." / "reports"
         self.analysis_name = None
 
         # TODO workaround, make this dynamic later
@@ -47,14 +48,9 @@ class AnalysisWrapper(BaseDyLinAnalysis):
             else:
                 raise ValueError(f"class with name {name} not found")
 
-        import pathlib
-        from os import listdir
-        from os.path import isfile, join
+        configs_path = here / ".." / "markings" / "configs"
 
-        pwd = pathlib.Path(__file__).parent.resolve()
-        configs_path = pwd / ".." / "markings" / "configs"
-
-        files = [f for f in listdir(configs_path) if isfile(join(configs_path, f))]
+        files = [f for f in configs_path.iterdir() if f.is_file()]
         for file in files:
             module = importlib.import_module("dylin.analyses.ObjectMarkingAnalysis")
             cls: BaseDyLinAnalysis = getattr(module, "ObjectMarkingAnalysis")()

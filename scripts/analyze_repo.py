@@ -49,7 +49,6 @@ if __name__ == "__main__":
     name = url.split("/")[-1].split(".")[0].replace("-", "_")
     install_special(url)
 
-    # subprocess.run(["ls", ".."])
     subprocess.run(["sh", here / "get_repo.sh", url, commit, name])
     if requirements:
         subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
@@ -64,7 +63,10 @@ if __name__ == "__main__":
     else:
         entry = f"{name}/{tests}/dylin_run_all_tests.py"
     with open(entry, "w") as f:
-        f.write(f"import pytest\n\npytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])\n")
+        f.write(
+            f"import pytest\n\npytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])\n"
+        )
     run_analysis(entry, analysis, module="dylin.analyses")
 
-    # subprocess.run(["pip", "show", name])
+    (here / ".." / ".." / "reports" / "report.json").rename(here / ".." / ".." / "reports" / f"report_{name}.json")
+    (here / ".." / ".." / "reports" / "findings.csv").rename(here / ".." / ".." / "reports" / f"findings_{name}.csv")

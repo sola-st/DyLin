@@ -10,6 +10,9 @@ ENV PATH="/opt/dylinVenv/bin:$PATH"
 RUN pip install --upgrade pip setuptools wheel
 RUN apt install -q -y git
 
+RUN mkdir ./reports
+RUN chmod -R 777 ./reports
+
 RUN mkdir ./DyLin
 
 COPY ./requirements.txt ./DyLin/requirements.txt
