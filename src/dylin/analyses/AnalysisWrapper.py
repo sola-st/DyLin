@@ -34,7 +34,7 @@ class AnalysisWrapper(BaseDyLinAnalysis):
         ]
         self.metadata = None
         here = Path(__file__).parent.resolve()
-        self.path = here / ".." / ".." / ".." / ".." / "reports"
+        self.path = Path("/Work", "reports")
         self.analysis_name = None
 
         # TODO workaround, make this dynamic later
@@ -54,7 +54,7 @@ class AnalysisWrapper(BaseDyLinAnalysis):
         for file in files:
             module = importlib.import_module("dylin.analyses.ObjectMarkingAnalysis")
             cls: BaseDyLinAnalysis = getattr(module, "ObjectMarkingAnalysis")()
-            cls.add_meta({"configName": file})
+            cls.add_meta({"configName": str(file)})
             cls.setup()
             if cls is not None:
                 self.analysis_classes.append(cls)
