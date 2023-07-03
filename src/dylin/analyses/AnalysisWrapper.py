@@ -104,10 +104,6 @@ class AnalysisWrapper(BaseDyLinAnalysis):
         self._write_detailed_results()
         self._write_overview()
 
-    def begin_execution(self, dyn_ast: str, iid: int) -> None:
-        if self.analysis_name is None:
-            self.analysis_name = dyn_ast.split("/")[-1]
-
     def read_attribute(self, dyn_ast, iid, base, name, val):
         return self.call_if_exists("read_attribute", dyn_ast, iid, base, name, val)
 
