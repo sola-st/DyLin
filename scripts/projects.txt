@@ -1,3 +1,4 @@
+# DyPyBench
 https://github.com/lorien/grab.git b6af38ca4bb4323c52a61346b781378273ee0f9d rt requirements_dev.txt tests
 https://github.com/AtsushiSakai/PythonRobotics.git 6bade5000dca75b91cc9de94f797e5d558082855 rt requirements/requirements.txt tests
 https://github.com/flask-api/flask-api.git a62fef6b602966512ebbe63611b30ecaf35079c2 t flask_api/tests
@@ -48,3 +49,5 @@ https://github.com/miracle2k/webassets.git 41ff9e57f5c872eeeb253ef6c6b1853742231
 https://github.com/Alir3z4/html2text.git a3ed67b69160746b03a5861bf5c1b7a5ba76a4e1 t test
 https://github.com/aaugustin/websockets.git e3abb88ad6c8fc3e57f42aed4a00b9644c4e65df t tests
 https://github.com/benoitc/gunicorn.git add8a4c951f02a67ca1f81264e5c107fa68e6496 rt requirements_dev.txt tests
+# Added by Aryaz
+https://github.com/python-trio/trustme.git b627746574eb837fcc490242c68f453ed7f924f1 rt test-requirements.txt tests

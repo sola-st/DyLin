@@ -40,6 +40,8 @@ if __name__ == "__main__":
     with open(here / "projects.txt", "r") as f:
         project_infos = f.read().split("\n")
 
+    project_infos = [p for p in project_infos if not p.startswith("#")]
+
     project_info = project_infos[args.repo - 1].split(" ")
     if "r" in project_info[2]:
         url, commit, flags, requirements, tests = tuple(project_info)
