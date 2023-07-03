@@ -104,7 +104,7 @@ class AnalysisWrapper(BaseDyLinAnalysis):
         self._write_detailed_results()
         self._write_overview()
 
-    def runtime_event(self, dyn_ast: str, iid: int) -> None:
+    def begin_execution(self, dyn_ast: str, iid: int) -> None:
         if self.analysis_name is None:
             self.analysis_name = dyn_ast.split("/")[-1]
 
