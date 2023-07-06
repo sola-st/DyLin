@@ -57,9 +57,29 @@ if __name__ == "__main__":
     subprocess.run(["pip", "install", f"{name}/"])
 
     installation_dir = f"/opt/dylinVenv/lib/python3.10/site-packages/{name}"
-    analysis = "AnalysisWrapper"
-    instrument_dir(installation_dir, analysis, module="dylin.analyses", use_external_dir=False)
-    instrument_dir(name, analysis, module="dylin.analyses", use_external_dir=False)
+    analyses = [
+        f"dylin.analyses.{a}.{a}"
+        for a in [
+            "FilesClosedAnalysis",
+            "ComparisonBehaviorAnalysis",
+            "InPlaceSortAnalysis",
+            "SideEffectsDunderAnalysis",
+            "InvalidComparisonAnalysis",
+            "MutableDefaultArgsAnalysis",
+            "StringConcatAnalysis",
+            "WrongTypeAddedAnalysis",
+            "BuiltinAllAnalysis",
+            "ChangeListWhileIterating",
+            "StringStripAnalysis",
+            "NonFinitesAnalysis",
+            # Analyses below require tensorflow, pytorch, scikit-learn dependencies
+            "GradientAnalysis",
+            "TensorflowNonFinitesAnalysis",
+            "InconsistentPreprocessing",
+        ]
+    ]
+    instrument_dir(installation_dir, analyses, use_external_dir=False)
+    instrument_dir(name, analyses, use_external_dir=False)
     if tests.endswith(".py"):
         entry = f"{name}/dylin_run_all_tests.py"
     else:
@@ -68,7 +88,7 @@ if __name__ == "__main__":
         f.write(
             f"import pytest\n\npytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])\n"
         )
-    run_analysis(entry, analysis, module="dylin.analyses")
+    run_analysis(entry, analyses)
 
     Path("/Work", "reports", "report.json").rename(f"/Work/reports/report_{name}.json")
     Path("/Work", "reports", "findings.csv").rename(f"/Work/reports/findings_{name}.csv")
