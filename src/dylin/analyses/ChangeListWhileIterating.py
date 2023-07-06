@@ -4,6 +4,8 @@ import collections
 
 
 class ChangeListWhileIterating(BaseDyLinAnalysis):
+    # PyLint has a check for this, code W4701
+    # PyLint also has checks for dictionaries and sets (E4702, E4703). These seem more severe than the list check
     class ListMeta:
         def __init__(self, l: Iterable, length: int, dyn_ast: str, iid: int, warned: bool = False):
             self.l = l
