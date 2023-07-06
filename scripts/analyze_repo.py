@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 import subprocess
+
 from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
 
@@ -84,10 +85,19 @@ if __name__ == "__main__":
         entry = f"{name}/dylin_run_all_tests.py"
     else:
         entry = f"{name}/{tests}/dylin_run_all_tests.py"
+
+    code_args = {'analyses': repr(analyses), 'name': name, 'tests': tests}
+    run_all_tests = '''
+import pytest
+def pytest_sessionstart(session):
+    import dynapyt.runtime as rt
+    rt.set_analysis({analyses})
+
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+        **code_args
+    )
     with open(entry, "w") as f:
-        f.write(
-            f"import pytest\n\npytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])\n"
-        )
+        f.write(run_all_tests)
     run_analysis(entry, analyses)
 
     Path("/Work", "reports", "report.json").rename(f"/Work/reports/report_{name}.json")
