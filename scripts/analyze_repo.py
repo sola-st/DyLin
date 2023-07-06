@@ -86,21 +86,16 @@ if __name__ == "__main__":
     else:
         entry = f"{name}/{tests}/dylin_run_all_tests.py"
 
-    code_args = {'analyses': repr(analyses), 'name': name, 'tests': tests}
+    code_args = {'name': name, 'tests': tests}
     run_all_tests = '''
 import pytest
 
-class AnalysisPlugin:
-    def pytest_sessionstart(self):
-        import dynapyt.runtime as rt
-        rt.set_analysis({analyses})
-
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'], plugins=[AnalysisPlugin()])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
     with open(entry, "w") as f:
         f.write(run_all_tests)
-    run_analysis(entry, analyses)
+    run_analysis(entry.replace("/", ".")[:-3], analyses)
 
     Path("/Work", "reports", "report.json").rename(f"/Work/reports/report_{name}.json")
     Path("/Work", "reports", "findings.csv").rename(f"/Work/reports/findings_{name}.csv")
