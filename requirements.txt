@@ -1,4 +1,4 @@
-dynapyt @ git+https://github.com/sola-st/DynaPyt@main
+dynapyt @ git+https://github.com/sola-st/DynaPyt@dev
 pytest
 pytest-xdist
 numpy
