@@ -89,11 +89,13 @@ if __name__ == "__main__":
     code_args = {'analyses': repr(analyses), 'name': name, 'tests': tests}
     run_all_tests = '''
 import pytest
-def pytest_sessionstart(session):
-    import dynapyt.runtime as rt
-    rt.set_analysis({analyses})
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+class AnalysisPlugin:
+    def pytest_sessionstart(self):
+        import dynapyt.runtime as rt
+        rt.set_analysis({analyses})
+
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'], plugins=[AnalysisPlugin()])'''.format(
         **code_args
     )
     with open(entry, "w") as f:
