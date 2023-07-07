@@ -99,8 +99,11 @@ pytest.main(['--import-mode=importlib', '{name}/{tests}'])'''.format(
     #     )
     with open(entry, "w") as f:
         f.write(run_all_tests)
-    sys.path.append(str(Path(name).resolve()))
-    run_analysis(entry[len(name) + 1 : -3].replace("/", "."), analyses)
+    if tests.endswith(".py"):
+        sys.path.append(str(Path(name).resolve()))
+    else:
+        sys.path.append(str((Path(name).resolve()) / tests))
+    run_analysis("dylin_run_all_tests", analyses)
 
     Path("/Work", "reports", "report.json").rename(f"/Work/reports/report_{name}.json")
     Path("/Work", "reports", "findings.csv").rename(f"/Work/reports/findings_{name}.csv")
