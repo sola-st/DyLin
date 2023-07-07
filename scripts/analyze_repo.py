@@ -1,4 +1,5 @@
 import argparse
+import sys
 from pathlib import Path
 import subprocess
 
@@ -95,6 +96,7 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{n
     )
     with open(entry, "w") as f:
         f.write(run_all_tests)
+    sys.path.append(str(Path(name).resolve()))
     run_analysis(entry[:-3].replace("/", "."), analyses)
 
     Path("/Work", "reports", "report.json").rename(f"/Work/reports/report_{name}.json")
