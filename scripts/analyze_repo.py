@@ -108,9 +108,10 @@ import pytest
 #         import dynapyt.runtime as rt
 #         rt.set_analysis({analyses})
 
-pytest.main(['-n', '1', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])#, plugins=[AnalysisSetupPlugin()])'''.format(
+pytest.main(['--import-mode=importlib', '{name}/{tests}'])#, plugins=[AnalysisSetupPlugin()])'''.format(
         **code_args
     )
+    #'-n', '1', '--dist', 'worksteal',
     with open(entry, "w") as f:
         f.write(run_all_tests)
     if tests.endswith(".py"):
