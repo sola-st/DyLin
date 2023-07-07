@@ -97,7 +97,7 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{n
     with open(entry, "w") as f:
         f.write(run_all_tests)
     sys.path.append(str(Path(name).resolve()))
-    run_analysis(entry[:-3].replace("/", "."), analyses)
+    run_analysis(entry[len(name) + 1 : -3].replace("/", "."), analyses)
 
     Path("/Work", "reports", "report.json").rename(f"/Work/reports/report_{name}.json")
     Path("/Work", "reports", "findings.csv").rename(f"/Work/reports/findings_{name}.csv")
