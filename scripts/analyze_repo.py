@@ -93,11 +93,11 @@ import pytest
 
 class AnalysisSetupPlugin:
     def pytest_xdist_node_collection_finished(self, node, ids):
-        print(f"Collection finished, \{node\} \{ids\}}")
+        print("Collection finished " + repr(node) + " " + repr(ids))
         import dynapyt.runtime as rt
         rt.set_analysis({analyses})
     def pytest_collection_modifyitems(self, items):
-        print(f"Collection modify items, \{items\}")
+        print(f"Collection modify items " + repr(items))
         import dynapyt.runtime as rt
         rt.set_analysis({analyses})
 
