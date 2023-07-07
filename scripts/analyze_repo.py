@@ -91,9 +91,12 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
+    # pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+    #         **code_args
+    #     )
     with open(entry, "w") as f:
         f.write(run_all_tests)
     sys.path.append(str(Path(name).resolve()))
