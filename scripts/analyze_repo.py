@@ -92,7 +92,7 @@ if __name__ == "__main__":
 import pytest
 
 class AnalysisSetupPlugin:
-    def pytest_configure_node(self, node):
+    def pytest_testnodeready(self, node):
         import dynapyt.runtime as rt
         rt.set_analysis({analyses})
 
