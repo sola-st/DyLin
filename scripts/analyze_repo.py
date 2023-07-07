@@ -33,6 +33,11 @@ def install_special(url):
     subprocess.run(command.split(" "))
 
 
+def post_process_special(url):
+    if url == "https://github.com/pallets/click.git":
+        (Path("click").resolve() / "tests" / "test_imports.py").unlink(missing_ok=True)
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Analyze a git repo")
     parser.add_argument("--repo", help="the repo index", type=int)
@@ -57,6 +62,8 @@ if __name__ == "__main__":
     if requirements:
         subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
     subprocess.run(["pip", "install", f"{name}/"])
+
+    post_process_special(url)
 
     installation_dir = f"/opt/dylinVenv/lib/python3.10/site-packages/{name}"
     analyses = [
@@ -101,10 +108,9 @@ class AnalysisSetupPlugin:
         import dynapyt.runtime as rt
         rt.set_analysis({analyses})
 
-pytest.main(['--import-mode=importlib', '{name}/{tests}'], plugins=[AnalysisSetupPlugin()])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'], plugins=[AnalysisSetupPlugin()])'''.format(
         **code_args
     )
-    # '-n', 'auto', '--dist', 'worksteal',
     with open(entry, "w") as f:
         f.write(run_all_tests)
     if tests.endswith(".py"):
