@@ -87,16 +87,18 @@ if __name__ == "__main__":
     else:
         entry = f"{name}/{tests}/dylin_run_all_tests.py"
 
-    code_args = {'name': name, 'tests': tests}
+    code_args = {'name': name, 'tests': tests, 'analyses': repr(analyses)}
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+class AnalysisSetupPlugin:
+    def pytest_collection_finish(self, session):
+        import dynapyt.runtime as rt
+        rt.set_analysis({analyses})
+
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'], plugins=[AnalysisSetupPlugin()])'''.format(
         **code_args
     )
-    # pytest.main(['--import-mode=importlib', '{name}/{tests}'])'''.format(
-    #         **code_args
-    #     )
     with open(entry, "w") as f:
         f.write(run_all_tests)
     if tests.endswith(".py"):
