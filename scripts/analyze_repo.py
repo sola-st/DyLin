@@ -101,9 +101,10 @@ class AnalysisSetupPlugin:
         import dynapyt.runtime as rt
         rt.set_analysis({analyses})
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'], plugins=[AnalysisSetupPlugin()])'''.format(
+pytest.main(['--import-mode=importlib', '{name}/{tests}'], plugins=[AnalysisSetupPlugin()])'''.format(
         **code_args
     )
+    # '-n', 'auto', '--dist', 'worksteal',
     with open(entry, "w") as f:
         f.write(run_all_tests)
     if tests.endswith(".py"):
@@ -111,6 +112,3 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{n
     else:
         sys.path.append(str((Path(name).resolve()) / tests))
     run_analysis("dylin_run_all_tests", analyses)
-
-    Path("/Work", "reports", "report.json").rename(f"/Work/reports/report_{name}.json")
-    Path("/Work", "reports", "findings.csv").rename(f"/Work/reports/findings_{name}.csv")
