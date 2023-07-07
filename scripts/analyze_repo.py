@@ -92,7 +92,10 @@ if __name__ == "__main__":
 import pytest
 
 class AnalysisSetupPlugin:
-    def pytest_testnodeready(self, node):
+    def pytest_xdist_node_collection_finished(self, node, ids):
+        import dynapyt.runtime as rt
+        rt.set_analysis({analyses})
+    def pytest_collection_modifyitems(self, items):
         import dynapyt.runtime as rt
         rt.set_analysis({analyses})
 
