@@ -98,20 +98,15 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-# class AnalysisSetupPlugin:
-#     def pytest_xdist_node_collection_finished(self, node, ids):
-#         print("Collection finished " + repr(node) + " " + repr(ids))
-#         import dynapyt.runtime as rt
-#         rt.set_analysis({analyses})
-#     def pytest_collection_modifyitems(self, items):
-#         print(f"Collection modify items " + repr(items))
-#         import dynapyt.runtime as rt
-#         rt.set_analysis({analyses})
+def pytest_sessionstart(session):
+    if hasattr(session.config, 'workerinput'):
+        import dynapyt.runtime as rt
+        rt.set_analysis({analyses})
 
-pytest.main(['--import-mode=importlib', '{name}/{tests}'])#, plugins=[AnalysisSetupPlugin()])'''.format(
+pytest.main(['-n', '1', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])#, plugins=[AnalysisSetupPlugin()])'''.format(
         **code_args
     )
-    #'-n', '1', '--dist', 'worksteal',
+
     with open(entry, "w") as f:
         f.write(run_all_tests)
     if tests.endswith(".py"):
