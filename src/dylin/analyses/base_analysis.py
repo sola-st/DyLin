@@ -97,6 +97,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
         return self._format_issues(self.findings)
 
     def _write_detailed_results(self):
+        print("write detailed results")
         collect_dicts = []
         collect_dicts.append(self.get_result())
         result = {"meta": self.metadata, "results": collect_dicts}
@@ -108,6 +109,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
                 report.write(json.dumps(result, indent=4))
 
     def _write_overview(self):
+        print("write overview")
         row_findings = [0] * self.number_unique_findings_possible
         # prevent reporting findings multiple times to the same iid
         results = self.get_unique_findings()
