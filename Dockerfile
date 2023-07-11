@@ -2,13 +2,13 @@ FROM ubuntu:22.04
 
 WORKDIR /Work
 
-RUN apt update
-RUN apt install -q -y python3 python3-pip python3-venv
+RUN apt-get update
+RUN apt-get install -q -y python3 python3-pip python3-venv
 RUN python3 -m venv /opt/dylinVenv
 ENV PATH="/opt/dylinVenv/bin:$PATH"
 
 RUN pip install --upgrade pip setuptools wheel
-RUN apt install -q -y git
+RUN apt-get install -q -y git
 
 RUN mkdir ./reports
 RUN chmod -R 777 ./reports

@@ -87,6 +87,11 @@ if __name__ == "__main__":
             "InconsistentPreprocessing",
         ]
     ]
+
+    if Path("/tmp/dynapyt_analyses.txt").exists():
+        Path("/tmp/dynapyt_analyses.txt").unlink()
+    with open('/tmp/dynapyt_analyses.txt', 'w') as f:
+        f.write('\n'.join(analyses))
     instrument_dir(installation_dir, analyses, use_external_dir=False)
     instrument_dir(name, analyses, use_external_dir=False)
     if tests.endswith(".py"):
@@ -98,12 +103,7 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-def pytest_sessionstart(session):
-    if hasattr(session.config, 'workerinput'):
-        import dynapyt.runtime as rt
-        rt.set_analysis({analyses})
-
-pytest.main(['-n', '1', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])#, plugins=[AnalysisSetupPlugin()])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
 
@@ -113,4 +113,4 @@ pytest.main(['-n', '1', '--dist', 'worksteal', '--import-mode=importlib', '{name
         sys.path.append(str(Path(name).resolve()))
     else:
         sys.path.append(str((Path(name).resolve()) / tests))
-    run_analysis("dylin_run_all_tests", analyses)
+    run_analysis(entry, analyses)
