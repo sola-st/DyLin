@@ -7,6 +7,7 @@ from pathlib import Path
 from dynapyt.analyses.BaseAnalysis import BaseAnalysis
 from dynapyt.instrument.IIDs import Location
 import traceback
+from filelock import FileLock
 
 
 class BaseDyLinAnalysis(BaseAnalysis):
@@ -102,8 +103,9 @@ class BaseDyLinAnalysis(BaseAnalysis):
         filename = str(self.analysis_name) + "report.json"
         # filename = "report.json"
         # collect_dicts.append({"log": self.log_msgs})
-        with open(self.path / filename, "w") as report:
-            report.write(json.dumps(result, indent=4))
+        with FileLock(str(self.path / filename) + ".lock"):
+            with open(self.path / filename, "a") as report:
+                report.write(json.dumps(result, indent=4))
 
     def _write_overview(self):
         row_findings = [0] * self.number_unique_findings_possible
@@ -113,9 +115,10 @@ class BaseDyLinAnalysis(BaseAnalysis):
             col_index = f_name.split("-")[-1]
             row_findings[int(col_index) - 1] = len(results[f_name])
         csv_row = [self.analysis_name] + row_findings
-        with open(self.path / "findings.csv", "w") as f:
-            writer = csv.writer(f)
-            writer.writerow(csv_row)
+        with FileLock(str(self.path / "findings.csv") + ".lock"):
+            with open(self.path / "findings.csv", "a") as f:
+                writer = csv.writer(f)
+                writer.writerow(csv_row)
 
     def end_execution(self) -> None:
         self.call_if_exists("end_execution")
