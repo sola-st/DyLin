@@ -51,3 +51,5 @@ https://github.com/aaugustin/websockets.git e3abb88ad6c8fc3e57f42aed4a00b9644c4e
 https://github.com/benoitc/gunicorn.git add8a4c951f02a67ca1f81264e5c107fa68e6496 rt requirements_dev.txt tests
 # Added by Aryaz
 https://github.com/python-trio/trustme.git b627746574eb837fcc490242c68f453ed7f924f1 rt test-requirements.txt tests
+# For test purposes
+https://github.com/miso-belica/sumy.git 7fd49700082b217ab254bbc6ae4ca72404985f24 t tests
