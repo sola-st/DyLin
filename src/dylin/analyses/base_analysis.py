@@ -22,6 +22,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
         logging.basicConfig(stream=sys.stderr)
         self.log = logging.getLogger("TestsuiteWrapper")
         self.log.setLevel(logging.DEBUG)
+        self.number_unique_findings_possible = 33
 
     def setup(self):
         # Hook for subclasses
