@@ -100,7 +100,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
         print("write detailed results")
         collect_dicts = []
         collect_dicts.append(self.get_result())
-        result = {"meta": self.metadata, "results": collect_dicts}
+        result = {"meta": self.meta, "results": collect_dicts}
         filename = str(self.analysis_name) + "report.json"
         # filename = "report.json"
         # collect_dicts.append({"log": self.log_msgs})
