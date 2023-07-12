@@ -2,7 +2,7 @@ import argparse
 import sys
 from pathlib import Path
 import subprocess
-
+import shutil
 from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
 
@@ -103,7 +103,8 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+#pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
 
@@ -113,4 +114,5 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{n
         sys.path.append(str(Path(name).resolve()))
     else:
         sys.path.append(str((Path(name).resolve()) / tests))
-    run_analysis(entry, analyses)
+    run_analysis(entry, analyses, coverage=True)
+    shutil.copy("/tmp/dynapyt_coverage/covered.json", "/Work/reports/")

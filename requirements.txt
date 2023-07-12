@@ -1,5 +1,6 @@
 dynapyt @ git+https://github.com/sola-st/DynaPyt@dev
 pytest
+pytest-cov
 pytest-xdist
 numpy
 torch
