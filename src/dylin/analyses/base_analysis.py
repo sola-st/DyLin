@@ -123,6 +123,5 @@ class BaseDyLinAnalysis(BaseAnalysis):
                 writer.writerow(csv_row)
 
     def end_execution(self) -> None:
-        self.call_if_exists("end_execution")
         self._write_detailed_results()
         self._write_overview()
