@@ -28,6 +28,8 @@ def install_special(url):
         command = "pip install pytz simplejson"  # required for running tests
     elif url == "https://github.com/pytest-dev/pytest.git":
         command = "pip install hypothesis xmlschema"  # required for running tests
+    elif url == "https://github.com/miso-belica/sumy.git":
+        command = "python -c \"import nltk; nltk.download('punkt')\""
     else:
         return
     subprocess.run(command.split(" "))
@@ -104,7 +106,7 @@ if __name__ == "__main__":
 import pytest
 
 pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
-#pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+        # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
 
