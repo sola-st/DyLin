@@ -109,7 +109,7 @@ if __name__ == "__main__":
     else:
         entry = f"{name}/{tests}/dylin_run_all_tests.py"
 
-    code_args = {'name': name, 'tests': tests, 'analyses': repr(analyses)}
+    code_args = {'name': name, 'tests': tests, 'analyses': repr(analyses), 'installation_dir': installation_dir}
     run_all_tests = '''
 import pytest
 
