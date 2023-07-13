@@ -234,3 +234,4 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
 
     def end_execution(self) -> None:
         self.add_meta({"total_comp": self.nmb_comparisons})
+        super().end_execution()

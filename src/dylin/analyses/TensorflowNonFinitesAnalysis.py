@@ -27,11 +27,7 @@ class TensorflowNonFinitesAnalysis(BaseDyLinAnalysis):
         return False
 
     def check_tf_issue_found(self, value: any) -> bool:
-        if (
-            isinstance(value, tf.Tensor)
-            and tf.is_tensor(value)
-            and self.check_contains_nan_or_inf(value)
-        ):
+        if isinstance(value, tf.Tensor) and tf.is_tensor(value) and self.check_contains_nan_or_inf(value):
             return True
         return False
 
@@ -44,9 +40,7 @@ class TensorflowNonFinitesAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
-        args = list(kw_args.values() if not kw_args is None else []) + list(
-            pos_args if not pos_args is None else []
-        )
+        args = list(kw_args.values() if not kw_args is None else []) + list(pos_args if not pos_args is None else [])
         no_nan_in_input = True
 
         for arg in args:
@@ -70,3 +64,4 @@ class TensorflowNonFinitesAnalysis(BaseDyLinAnalysis):
 
     def end_execution(self) -> None:
         self.add_meta({"total_tensors_investigated": self.total_tensors_investigated})
+        super().end_execution()

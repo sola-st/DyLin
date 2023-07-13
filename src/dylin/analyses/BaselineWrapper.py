@@ -75,6 +75,7 @@ class BaselineWrapper(BaseDyLinAnalysis):
 
     def end_execution(self) -> None:
         self.call_if_exists("end_execution")
+        super().end_execution()
 
     def runtime_event(self, dyn_ast: str, iid: int) -> None:
         pass
@@ -83,9 +84,7 @@ class BaselineWrapper(BaseDyLinAnalysis):
         return self.call_if_exists("read_attribute", dyn_ast, iid, base, name, val)
 
     def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args):
-        return self.call_if_exists(
-            "pre_call", dyn_ast, iid, function, pos_args, kw_args
-        )
+        return self.call_if_exists("pre_call", dyn_ast, iid, function, pos_args, kw_args)
 
     def post_call(
         self,
@@ -96,21 +95,15 @@ class BaselineWrapper(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
-        return self.call_if_exists(
-            "post_call", dyn_ast, iid, val, function, pos_args, kw_args
-        )
+        return self.call_if_exists("post_call", dyn_ast, iid, val, function, pos_args, kw_args)
 
-    def comparison(
-        self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any
-    ) -> bool:
+    def comparison(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
         return self.call_if_exists("comparison", dyn_ast, iid, left, op, right, result)
 
     def add_assign(self, dyn_ast: str, iid: int, left: Any, right: Any) -> Any:
         return self.call_if_exists("add_assign", dyn_ast, iid, left, right)
 
-    def add(
-        self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any = None
-    ) -> Any:
+    def add(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any = None) -> Any:
         return self.call_if_exists("add", dyn_ast, iid, left, right, result)
 
     def write(self, dyn_ast: str, iid: int, old_val: Any, new_val: Any) -> Any:
@@ -119,36 +112,22 @@ class BaselineWrapper(BaseDyLinAnalysis):
     def read_identifier(self, dyn_ast: str, iid: int, val: Any) -> Any:
         return self.call_if_exists("read_identifier", dyn_ast, iid, val)
 
-    def function_enter(
-        self, dyn_ast: str, iid: int, args: List[Any], name: str, is_lambda: bool
-    ) -> None:
-        return self.call_if_exists(
-            "function_enter", dyn_ast, iid, args, name, is_lambda
-        )
+    def function_enter(self, dyn_ast: str, iid: int, args: List[Any], name: str, is_lambda: bool) -> None:
+        return self.call_if_exists("function_enter", dyn_ast, iid, args, name, is_lambda)
 
-    def function_exit(
-        self, dyn_ast: str, iid: int, function_name: str, result: Any
-    ) -> Any:
+    def function_exit(self, dyn_ast: str, iid: int, function_name: str, result: Any) -> Any:
         return self.call_if_exists("function_exit", dyn_ast, iid, function_name, result)
 
     def _list(self, dyn_ast: str, iid: int, value: List) -> List:
         return self.call_if_exists("_list", dyn_ast, iid, value)
 
-    def binary_operation(
-        self, dyn_ast: str, iid: int, op: str, left: Any, right: Any, result: Any
-    ) -> Any:
-        return self.call_if_exists(
-            "binary_operation", dyn_ast, iid, op, left, right, result
-        )
+    def binary_operation(self, dyn_ast: str, iid: int, op: str, left: Any, right: Any, result: Any) -> Any:
+        return self.call_if_exists("binary_operation", dyn_ast, iid, op, left, right, result)
 
-    def read_subscript(
-        self, dyn_ast: str, iid: int, base: Any, sl: List[Union[int, Tuple]], val: Any
-    ) -> Any:
+    def read_subscript(self, dyn_ast: str, iid: int, base: Any, sl: List[Union[int, Tuple]], val: Any) -> Any:
         return self.call_if_exists("read_subscript", dyn_ast, iid, base, sl, val)
 
-    def enter_for(
-        self, dyn_ast: str, iid: int, next_value: Any, iterator: Iterator
-    ) -> Optional[Any]:
+    def enter_for(self, dyn_ast: str, iid: int, next_value: Any, iterator: Iterator) -> Optional[Any]:
         return self.call_if_exists("enter_for", dyn_ast, iid, next_value, iterator)
 
     def exit_for(self, dyn_ast, iid):

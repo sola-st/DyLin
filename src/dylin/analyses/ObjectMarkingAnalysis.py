@@ -262,3 +262,4 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
 
     def end_execution(self) -> None:
         self.add_meta(f"stored elements {len(self.stored_elements)}, {list(self.stored_elements.values())[:100]}")
+        super().end_execution()

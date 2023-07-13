@@ -102,3 +102,4 @@ class GradientAnalysis(BaseDyLinAnalysis):
 
     def end_execution(self) -> None:
         self.add_meta({"total_gradients_investigated": self.total_gradients_investigated})
+        super().end_execution()

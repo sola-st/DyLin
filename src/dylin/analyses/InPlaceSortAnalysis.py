@@ -54,3 +54,4 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
                 "A-09",
                 f"unnessecary use of sorted(), len:{l['len']} in {l['file_name']}",
             )
+        super().end_execution()

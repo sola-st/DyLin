@@ -67,3 +67,4 @@ class NonFinitesAnalysis(BaseDyLinAnalysis):
 
     def end_execution(self) -> None:
         self.add_meta({"total_values_investigated": self.total_values_investigated})
+        super().end_execution()

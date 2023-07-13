@@ -34,10 +34,7 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
         self.analysis_name = "WrongTypeAddedAnalysis"
 
     def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args):
-        if (
-            isinstance(function, types.BuiltinFunctionType)
-            and function.__name__ in self.function_names
-        ):
+        if isinstance(function, types.BuiltinFunctionType) and function.__name__ in self.function_names:
             list_or_set = function.__self__
 
             if not "__len__" in dir(list_or_set) or len(list_or_set) <= self.threshold:
@@ -74,9 +71,7 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
         # for some reason left is a lambda
         self.add(dyn_ast, iid, left(), right)
 
-    def add(
-        self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any = None
-    ) -> Any:
+    def add(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any = None) -> Any:
         if isinstance(left, type(set)) or isinstance(left, type([])):
             if len(left) <= self.threshold:
                 return
@@ -105,3 +100,4 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
                 "nmb_interesing_functions": self.nmb_functions,
             }
         )
+        super().end_execution()

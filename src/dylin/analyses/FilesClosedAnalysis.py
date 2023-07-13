@@ -57,3 +57,4 @@ class FilesClosedAnalysis(BaseDyLinAnalysis):
                     )
             except AttributeError:
                 pass
+        super().end_execution()
