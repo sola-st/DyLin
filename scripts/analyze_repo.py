@@ -59,14 +59,19 @@ if __name__ == "__main__":
         url, commit, flags, tests = tuple(project_info)
         requirements = None
     name = url.split("/")[-1].split(".")[0].replace("-", "_")
+    print("Extracted repo info")
     install_special(url)
+    print("Installed special requirements")
 
     subprocess.run(["sh", here / "get_repo.sh", url, commit, name])
+    print("Cloned repo and switched to commit")
     if requirements:
         subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
     subprocess.run(["pip", "install", f"{name}/"])
+    print("Installed requirements")
 
     post_process_special(url)
+    print("Post processed special requirements")
 
     installation_dir = f"/opt/dylinVenv/lib/python3.10/site-packages/{name}"
     analyses = [
@@ -95,8 +100,10 @@ if __name__ == "__main__":
         Path("/tmp/dynapyt_analyses.txt").unlink()
     with open('/tmp/dynapyt_analyses.txt', 'w') as f:
         f.write('\n'.join(analyses))
+    print("Wrote analyses to file, starting instrumentation")
     instrument_dir(installation_dir, analyses, use_external_dir=False)
     instrument_dir(name, analyses, use_external_dir=False)
+    print("Instrumented repo")
     if tests.endswith(".py"):
         entry = f"{name}/dylin_run_all_tests.py"
     else:
@@ -117,5 +124,7 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--import-mode
         sys.path.append(str(Path(name).resolve()))
     else:
         sys.path.append(str((Path(name).resolve()) / tests))
+    print("Wrote test runner, starting analysis")
     run_analysis(entry, analyses, coverage=True)
+    print("Finished analysis, copying coverage")
     shutil.copy("/tmp/dynapyt_coverage/covered.json", "/Work/reports/")
