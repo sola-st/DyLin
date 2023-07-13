@@ -113,7 +113,7 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--cov={installation_dir}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
