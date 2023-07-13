@@ -29,7 +29,7 @@ def install_special(url):
     elif url == "https://github.com/pytest-dev/pytest.git":
         command = "pip install hypothesis xmlschema"  # required for running tests
     elif url == "https://github.com/miso-belica/sumy.git":
-        command = "python -c \"import nltk; nltk.download('punkt')\""
+        command = "pip install nltk && python -m nltk.downloader all"
     else:
         return
     subprocess.run(command.split(" "))
