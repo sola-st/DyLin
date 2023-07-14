@@ -73,6 +73,7 @@ if __name__ == "__main__":
     post_process_special(url)
     print("Post processed special requirements")
 
+    print(str(list(Path("/Work/DyLin/src/dylin/analyses/markings/configs/").iterdir())))
     installation_dir = f"/opt/dylinVenv/lib/python3.10/site-packages/{name}"
     analyses = [
         f"dylin.analyses.{a}.{a}"
