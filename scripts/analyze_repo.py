@@ -94,6 +94,14 @@ if __name__ == "__main__":
             "TensorflowNonFinitesAnalysis",
             "InconsistentPreprocessing",
         ]
+    ] + [
+        f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:{a}"
+        for a in [
+            "/Work/DyLin/src/dylin/analyses/markings/configs/forced_order.yml",
+            "/Work/DyLin/src/dylin/analyses/markings/configs/leak_preprocessing.yml",
+            "/Work/DyLin/src/dylin/analyses/markings/configs/leaked_data.yml",
+            "/Work/DyLin/src/dylin/analyses/markings/configs/weak_hash.yml",
+        ]
     ]
 
     if Path("/tmp/dynapyt_analyses.txt").exists():

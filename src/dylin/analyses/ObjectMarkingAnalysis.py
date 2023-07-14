@@ -55,13 +55,15 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
     TODO: add binary etc operations to be treated as normal operation
     """
 
-    def __init__(self):
+    def __init__(self, config=None):
         super().__init__()
         self.analysis_name = "ObjectMarkingAnalysis"
         self.stored_elements = {}
         self.sources = {}
         self.sinks = {}
         self.log = []
+        if config is not None:
+            self.load_config(config)
 
     def setup(self):
         config_name: str = self.meta.get("configName")
@@ -76,11 +78,11 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
         pwd = pathlib.Path(__file__).parent.resolve()
         configPath = pwd / ".." / "markings" / "configs" / config_name
 
-        with open(configPath, "r") as config:
-            self.load_config(config)
+        self.load_config(str(configPath))
 
-    def load_config(self, yaml_str: str) -> models.TaintConfig:
-        yml = yaml.safe_load(yaml_str)
+    def load_config(self, yaml_path: str) -> models.TaintConfig:
+        with open(yaml_path, "r") as yaml_str:
+            yml = yaml.safe_load(yaml_str)
 
         name = yml.get("name")
         if name:
