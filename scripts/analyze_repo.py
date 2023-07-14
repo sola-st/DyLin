@@ -110,8 +110,8 @@ if __name__ == "__main__":
     with open('/tmp/dynapyt_analyses.txt', 'w') as f:
         f.write('\n'.join(analyses))
     print("Wrote analyses to file, starting instrumentation")
-    instrument_dir(installation_dir, analyses, use_external_dir=False)
-    instrument_dir(name, analyses, use_external_dir=False)
+    instrument_dir(installation_dir, [a.split(":")[0] for a in analyses], use_external_dir=False)
+    instrument_dir(name, [a.split(":")[0] for a in analyses], use_external_dir=False)
     print("Instrumented repo")
     if tests.endswith(".py"):
         entry = f"{name}/dylin_run_all_tests.py"
