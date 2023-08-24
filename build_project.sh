@@ -1,0 +1,1 @@
+docker build -f Dockerfile.project -t dylin_project .

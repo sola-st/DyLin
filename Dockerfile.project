@@ -29,4 +29,4 @@ RUN chmod -R 777 ./DyLin
 RUN pip install ./DyLin/
 
 ENTRYPOINT [ "python", "./DyLin/scripts/analyze_repo.py", "--repo" ]
-CMD [ "2" ]
+CMD [ "1" ]

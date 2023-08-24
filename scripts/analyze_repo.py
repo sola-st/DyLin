@@ -5,6 +5,8 @@ import subprocess
 import shutil
 from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
 def install_special(url):
@@ -44,6 +46,7 @@ def post_process_special(url):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Analyze a git repo")
     parser.add_argument("--repo", help="the repo index", type=int)
+    parser.add_argument("--config", help="DyLin config file path", type=str)
     args = parser.parse_args()
 
     here = Path(__file__).parent.resolve()
@@ -63,47 +66,60 @@ if __name__ == "__main__":
     install_special(url)
     print("Installed special requirements")
 
-    subprocess.run(["sh", here / "get_repo.sh", url, commit, name])
-    print("Cloned repo and switched to commit")
-    if requirements:
-        subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
-    subprocess.run(["pip", "install", f"{name}/"])
-    print("Installed requirements")
-
+    if url.startswith("http"):
+        subprocess.run(["sh", here / "get_repo.sh", url, commit, name])
+        print("Cloned repo and switched to commit")
+        if requirements:
+            subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
+        subprocess.run(["pip", "install", f"{name}/"])
+        print("Installed requirements")
+    else:
+        if requirements:
+            subprocess.run(["pip", "install", "-r", f"{str(here/url/requirements)}"])
+        subprocess.run(["pip", "install", f"{str(here/url)}/"])
+    
     post_process_special(url)
     print("Post processed special requirements")
+    installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/', name))}"
 
-    print(str(list(Path("/Work/DyLin/src/dylin/analyses/markings/configs/").iterdir())))
-    installation_dir = f"/opt/dylinVenv/lib/python3.10/site-packages/{name}"
-    analyses = [
-        f"dylin.analyses.{a}.{a}"
-        for a in [
-            "FilesClosedAnalysis",
-            "ComparisonBehaviorAnalysis",
-            "InPlaceSortAnalysis",
-            "SideEffectsDunderAnalysis",
-            "InvalidComparisonAnalysis",
-            "MutableDefaultArgsAnalysis",
-            "StringConcatAnalysis",
-            "WrongTypeAddedAnalysis",
-            "BuiltinAllAnalysis",
-            "ChangeListWhileIterating",
-            "StringStripAnalysis",
-            "NonFinitesAnalysis",
-            # Analyses below require tensorflow, pytorch, scikit-learn dependencies
-            "GradientAnalysis",
-            "TensorflowNonFinitesAnalysis",
-            "InconsistentPreprocessing",
+    if not url.startswith("http"):
+        name = str(here/url)
+
+    if hasattr(args, "config"):
+        with open(args.config, "r") as f:
+            config_content = f.read()
+        analyses = config_content.strip().split("\n")
+    else:
+        analyses = [
+            f"dylin.analyses.{a}.{a}"
+            for a in [
+                "FilesClosedAnalysis",
+                "ComparisonBehaviorAnalysis",
+                "InPlaceSortAnalysis",
+                "InefficientTruthCheck",
+                "SideEffectsDunderAnalysis",
+                "InvalidComparisonAnalysis",
+                "MutableDefaultArgsAnalysis",
+                "StringConcatAnalysis",
+                "WrongTypeAddedAnalysis",
+                "BuiltinAllAnalysis",
+                "ChangeListWhileIterating",
+                "StringStripAnalysis",
+                "NonFinitesAnalysis",
+                # Analyses below require tensorflow, pytorch, scikit-learn dependencies
+                "GradientAnalysis",
+                "TensorflowNonFinitesAnalysis",
+                "InconsistentPreprocessing",
+            ]
+        ] + [
+            f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:{a}"
+            for a in [
+                "/Work/DyLin/src/dylin/markings/configs/forced_order.yml",
+                "/Work/DyLin/src/dylin/markings/configs/leak_preprocessing.yml",
+                "/Work/DyLin/src/dylin/markings/configs/leaked_data.yml",
+                "/Work/DyLin/src/dylin/markings/configs/weak_hash.yml",
+            ]
         ]
-    ] + [
-        f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:{a}"
-        for a in [
-            "/Work/DyLin/src/dylin/analyses/markings/configs/forced_order.yml",
-            "/Work/DyLin/src/dylin/analyses/markings/configs/leak_preprocessing.yml",
-            "/Work/DyLin/src/dylin/analyses/markings/configs/leaked_data.yml",
-            "/Work/DyLin/src/dylin/analyses/markings/configs/weak_hash.yml",
-        ]
-    ]
 
     if Path("/tmp/dynapyt_analyses.txt").exists():
         Path("/tmp/dynapyt_analyses.txt").unlink()
@@ -122,7 +138,7 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--cov={installation_dir}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--cov={name}', '--cov={installation_dir}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
@@ -136,4 +152,4 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--cov={instal
     print("Wrote test runner, starting analysis")
     run_analysis(entry, analyses, coverage=True)
     print("Finished analysis, copying coverage")
-    shutil.copy("/tmp/dynapyt_coverage/covered.json", "/Work/reports/")
+    shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")

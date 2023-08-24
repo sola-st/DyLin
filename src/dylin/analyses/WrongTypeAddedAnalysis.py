@@ -51,20 +51,26 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
                 type_ok = True
                 if function.__name__ in ["append", "add"]:
                     type_ok = isinstance(pos_args[0], type_to_check)
+                    if not type_ok:
+                        odd_type = type(pos_args[0])
                 elif function.__name__ == "extend":
                     sample = pos_args[0]
                     if "__len__" in dir(sample) and len(sample) >= 50:
                         sample = random.sample(pos_args[0], 50)
                     type_ok = all(isinstance(n, type_to_check) for n in sample)
+                    if not type_ok:
+                        odd_type = [type(n) for n in sample]
                 elif function.__name__ == "insert":
                     type_ok = isinstance(pos_args[1], type_to_check)
+                    if not type_ok:
+                        odd_type = type(pos_args[1])
 
                 if not type_ok:
                     self.add_finding(
                         iid,
                         dyn_ast,
                         "A-11",
-                        f"added potentially wrong type to list of type {type_to_check} in {dyn_ast}",
+                        f"added potentially wrong type {odd_type} to list of type {type_to_check} in {dyn_ast}",
                     )
 
     def add_assign(self, dyn_ast: str, iid: int, left: Any, right: Any) -> Any:

@@ -1,0 +1,25 @@
+FROM gcr.io/kaggle-images/python
+
+RUN useradd -r -u 9999 -g dylinuser dylinuser
+USER dylinuser
+
+# Add competition arg
+ARG kaggle_competition
+ENV KAGGLE_COMPETITION=$kaggle_competition
+
+RUN echo $KAGGLE_COMPETITION
+
+# Add files
+ADD . /home/dylinuser/kaggle_test
+WORKDIR "/home/dylinuser/kaggle_test"
+
+# Install dependencies
+RUN python -m pip install -r requirements.txt
+RUN python -m pip install pebble
+RUN python -m pip install .
+
+# Add kaggle.json
+RUN mkdir /home/dylinuser/.kaggle
+RUN mv kaggle.json /home/dylinuser/.kaggle/
+
+ENTRYPOINT ["sh", "scripts/analyze_kaggle.sh"]

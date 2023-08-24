@@ -1,3 +1,5 @@
+# Local
+../tests/Projects/simpletoy nohash t tests
 # DyPyBench
 https://github.com/lorien/grab.git b6af38ca4bb4323c52a61346b781378273ee0f9d rt requirements_dev.txt tests
 https://github.com/AtsushiSakai/PythonRobotics.git 6bade5000dca75b91cc9de94f797e5d558082855 rt requirements/requirements.txt tests

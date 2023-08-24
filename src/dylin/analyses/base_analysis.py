@@ -106,7 +106,15 @@ class BaseDyLinAnalysis(BaseAnalysis):
         # filename = "report.json"
         # collect_dicts.append({"log": self.log_msgs})
         with FileLock(str(self.path / filename) + ".lock"):
-            with open(self.path / filename, "a") as report:
+            if (self.path / filename).exists():
+                with open(self.path / filename, "r") as f:
+                    rep = json.load(f)
+                for k, v in rep.items():
+                    if k == "meta" and "total_comp" in result["meta"] and "total_comp" in v:
+                        result["meta"]["total_comp"] += v["total_comp"]
+                    elif k == "results":
+                        result["results"].extend(v)
+            with open(self.path / filename, "w") as report:
                 report.write(json.dumps(result, indent=4))
 
     def _write_overview(self):
@@ -119,9 +127,25 @@ class BaseDyLinAnalysis(BaseAnalysis):
             row_findings[int(col_index) - 1] = len(results[f_name])
         csv_row = [self.analysis_name] + row_findings
         with FileLock(str(self.path / "findings.csv") + ".lock"):
-            with open(self.path / "findings.csv", "a") as f:
+            csv_rows = []
+            if (self.path / "findings.csv").exists():
+                with open(self.path / "findings.csv", "r") as f:
+                    reader = csv.reader(f)
+                    existed = False
+                    for row in reader:
+                        if self.analysis_name == row[0]:
+                            csv_row = [self.analysis_name] + [(int(a) + int(b)) for a, b in zip(row[1:], row_findings)]
+                            existed = True
+                            csv_rows.append(csv_row)
+                        else:
+                            csv_rows.append(row)
+                    if not existed:
+                        csv_rows.append(csv_row)
+            else:
+                csv_rows = [csv_row]
+            with open(self.path / "findings.csv", "w") as f:
                 writer = csv.writer(f)
-                writer.writerow(csv_row)
+                writer.writerows(csv_rows)
 
     def end_execution(self) -> None:
         self._write_detailed_results()

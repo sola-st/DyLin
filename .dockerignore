@@ -1,2 +1,9 @@
 .git
 __pycache__
+run_single_project.sh
+run_all.sh
+run_kaggle.sh
+results/
+kaggle_results/
+results_*/
+log*.txt

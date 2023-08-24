@@ -1,0 +1,1 @@
+docker run -v ./kaggle_results:/home/dylinuser/results dylin_kaggle
