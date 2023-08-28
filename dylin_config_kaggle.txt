@@ -14,7 +14,7 @@ dylin.analyses.NonFinitesAnalysis.NonFinitesAnalysis
 dylin.analyses.GradientAnalysis.GradientAnalysis
 dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis
 dylin.analyses.InconsistentPreprocessing.InconsistentPreprocessing
-dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:/home/dylinuser/kaggle_test/src/dylin/markings/configs/forced_order.yml
-dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:/home/dylinuser/kaggle_test/src/dylin/markings/configs/leak_preprocessing.yml
-dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:/home/dylinuser/kaggle_test/src/dylin/markings/configs/leaked_data.yml
-dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:/home/dylinuser/kaggle_test/src/dylin/markings/configs/weak_hash.yml
+dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:/Work/src/dylin/markings/configs/forced_order.yml
+dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:/Work/src/dylin/markings/configs/leak_preprocessing.yml
+dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:/Work/src/dylin/markings/configs/leaked_data.yml
+dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:/Work/src/dylin/markings/configs/weak_hash.yml

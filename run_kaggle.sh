@@ -1,1 +1,1 @@
-docker run -v ./kaggle_results:/home/dylinuser/results dylin_kaggle
+docker run -v ./kaggle_results:/Work/results dylin_kaggle

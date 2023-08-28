@@ -13,7 +13,6 @@ import json
 from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
 
-from kaggle.models.kaggle_models_extended import Kernel
 from pebble import ProcessExpired, ProcessPool
 
 parser = argparse.ArgumentParser()
@@ -30,7 +29,13 @@ parser.add_argument(
 parser.add_argument(
     "--search", help="Search query"
 )
+parser.add_argument(
+    "--kaggleConf", help="Kaggle config dir")
 args = parser.parse_args()
+
+os.environ["KAGGLE_CONFIG_DIR"] = args.kaggleConf
+
+from kaggle.models.kaggle_models_extended import Kernel
 
 """
 For some competitions the rules have to be accepted on kaggles website first!
@@ -53,7 +58,6 @@ if not args.only_run:
     from kaggle.api_client import ApiClient
 
     api = KaggleApi(ApiClient())
-    # requires auth file at ~/.kaggle/kaggle.json
     api.authenticate()
     print("authenticated")
 
@@ -144,10 +148,10 @@ if not args.only_run:
         subprocess.run(f"unzip -o {path}/*.zip -d {path}", shell=True)
         subprocess.run(f"rm {path}/*.zip", shell=True)
 
-    dl_datasets(pathlib.Path("../input"))
-    dl_datasets(pathlib.Path("../input/"+competition))
-    # dl_datasets(pathlib.Path("/kaggle/input"))
-    # dl_datasets(pathlib.Path("/kaggle/input/"+competition))
+    dl_datasets(pathlib.Path("input"))
+    dl_datasets(pathlib.Path("input/"+competition))
+    dl_datasets(pathlib.Path("/kaggle/input"))
+    dl_datasets(pathlib.Path("/kaggle/input/"+competition))
 
     print("downloaded datasets")
 

@@ -1,17 +1,18 @@
 #!/bin/bash
-python scripts/kaggle_evaluation.py --number 10 --competition $KAGGLE_COMPETITION --path /home/dylinuser/kaggle_files
+python scripts/kaggle_evaluation.py --number 10 --competition $KAGGLE_COMPETITION --path /Work/kaggle_files --kaggleConf /Work/.kaggle
 
 # Copy report jsons
-mkdir /home/dylinuser/results
-cd /home/dylinuser/results
+mkdir /Work/results
+cd /Work/results
 mkdir results_$KAGGLE_COMPETITION
-cp /home/dylinuser/*.json results_$KAGGLE_COMPETITION
+cp /Work/reports/*.json results_$KAGGLE_COMPETITION
 
 # Copy report csv
 mkdir results_$KAGGLE_COMPETITION/table
-cp /home/dylinuser/*.csv results_$KAGGLE_COMPETITION/table
+cp /Work/reports/*.csv results_$KAGGLE_COMPETITION/table
 
 # Copy downloaded submissions
 mkdir results_$KAGGLE_COMPETITION/submissions
-cp /home/dylinuser/kaggle_files/*.py results_$KAGGLE_COMPETITION/submissions
-cp /home/dylinuser/kaggle_files/*.json results_$KAGGLE_COMPETITION/submissions
+cp /Work/kaggle_files/*.py results_$KAGGLE_COMPETITION/submissions
+cp /Work/kaggle_files/*.py.orig results_$KAGGLE_COMPETITION/submissions
+cp /Work/kaggle_files/*.json results_$KAGGLE_COMPETITION/submissions
