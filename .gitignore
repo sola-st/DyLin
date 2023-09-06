@@ -165,3 +165,5 @@ log*.txt
 results*/
 kaggle_results/
 kaggle.json
+kaggle_results_old/
+project_results/

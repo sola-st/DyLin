@@ -5,5 +5,7 @@ run_all.sh
 run_kaggle.sh
 results/
 kaggle_results/
+kaggle_results_old/
+project_results/
 results_*/
 log*.txt

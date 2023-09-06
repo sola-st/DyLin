@@ -119,13 +119,12 @@ class BaseDyLinAnalysis(BaseAnalysis):
 
     def _write_overview(self):
         print("write overview")
-        row_findings = [0] * self.number_unique_findings_possible
         # prevent reporting findings multiple times to the same iid
         results = self.get_unique_findings()
+        row_findings = 0
         for f_name in results:
-            col_index = f_name.split("-")[-1]
-            row_findings[int(col_index) - 1] = len(results[f_name])
-        csv_row = [self.analysis_name] + row_findings
+            row_findings += len(results[f_name])
+        csv_row = [self.analysis_name, row_findings]
         with FileLock(str(self.path / "findings.csv") + ".lock"):
             csv_rows = []
             if (self.path / "findings.csv").exists():
@@ -134,7 +133,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
                     existed = False
                     for row in reader:
                         if self.analysis_name == row[0]:
-                            csv_row = [self.analysis_name] + [(int(a) + int(b)) for a, b in zip(row[1:], row_findings)]
+                            csv_row = [self.analysis_name, row_findings[1] + row[1]]
                             existed = True
                             csv_rows.append(csv_row)
                         else:

@@ -85,7 +85,7 @@ if __name__ == "__main__":
     if not url.startswith("http"):
         name = str(here/url)
 
-    if hasattr(args, "config"):
+    if hasattr(args, "config") and args.config is not None:
         with open(args.config, "r") as f:
             config_content = f.read()
         analyses = config_content.strip().split("\n")
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--cov={name}', '--cov={installation_dir}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--cov={installation_dir}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )

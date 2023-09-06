@@ -1,8 +1,7 @@
 #!/bin/bash
-python scripts/kaggle_evaluation.py --number 10 --competition $KAGGLE_COMPETITION --path /Work/kaggle_files --kaggleConf /Work/.kaggle
+python scripts/kaggle_evaluation.py --number 50 --competition $KAGGLE_COMPETITION --path /Work/kaggle_files --kaggleConf /Work/.kaggle
 
 # Copy report jsons
-mkdir /Work/results
 cd /Work/results
 mkdir results_$KAGGLE_COMPETITION
 cp /Work/reports/*.json results_$KAGGLE_COMPETITION

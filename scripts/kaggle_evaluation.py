@@ -212,7 +212,7 @@ if not args.only_prepare:
     start_time = time.time()
     print("#################### starting analyses...")
 
-    TIMEOUT_SECONDS = 30*60
+    TIMEOUT_SECONDS = 5*60
 
     nmb_timeouts = 0
     nmb_errors = 0
