@@ -25,7 +25,7 @@ class StringStripAnalysis(BaseDyLinAnalysis):
             arg = pos_args[0]
             _self = function.__self__
             if len(set(arg)) != len(arg):
-                if not arg in _self:
+                if not _self.startswith(arg) and not _self.endswith(arg) and len(_self) > len(val):
                     self.add_finding(
                         iid,
                         dyn_ast,

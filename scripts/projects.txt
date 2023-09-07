@@ -1,3 +1,5 @@
+# Local
+../tests/Projects/simpletoy nohash t tests
 # DyPyBench
 https://github.com/lorien/grab.git b6af38ca4bb4323c52a61346b781378273ee0f9d rt requirements_dev.txt tests
 https://github.com/AtsushiSakai/PythonRobotics.git 6bade5000dca75b91cc9de94f797e5d558082855 rt requirements/requirements.txt tests
@@ -51,7 +53,39 @@ https://github.com/aaugustin/websockets.git e3abb88ad6c8fc3e57f42aed4a00b9644c4e
 https://github.com/benoitc/gunicorn.git add8a4c951f02a67ca1f81264e5c107fa68e6496 rt requirements_dev.txt tests
 # Added by Aryaz
 https://github.com/python-trio/trustme.git b627746574eb837fcc490242c68f453ed7f924f1 rt test-requirements.txt tests
+https://github.com/pandas-dev/pandas.git 4e0630cce89222385b44003d6077c39107a3dd35 t pandas/tests
+https://github.com/open-mmlab/mmrotate.git e1d96ec6ccfc87456f01614a9c31c662b69a0da6 rt requirements/tests.txt tests
+https://github.com/voxel51/fiftyone.git 7232d9a1f695938f06103537e5ca043e8c52fc1b rt requirements/test.txt tests
+https://github.com/RobertTLange/evosax.git 413c5ca95a97c213ad399e59590497013eff3021 t tests
+https://github.com/scikit-learn/scikit-learn.git 2998f30c9e0e20da891a5c4b2bccec2daf2338de t sklearn/tests
+https://github.com/google/jax.git d02b59e4105d0edcfeadce2a17c0ec3d1a0e93f3 rt build/test-requirements.txt tests
+https://github.com/pytorch/pytorch.git 3a79621c9dce17f77fbddc06aab21f6bc477f313 rt requirements.txt test
 # For test purposes
 https://github.com/miso-belica/sumy.git 7fd49700082b217ab254bbc6ae4ca72404985f24 t tests
 https://github.com/Textualize/rich.git aca9467ec6a482b3bed1ba7d2e3de72271c5f817 t tests
 https://github.com/OpenLEADR/openleadr-python.git d7385cf04ed83d8ac202d5ed5e0a5a7122fd2eac rt dev_requirements.txt test
+https://github.com/translate/translate.git f67d643e05565d6933833af2954c31de94937c1d rt requirements/test.txt tests
+# Known bugs (starting from id 64)
+# File not closed
+https://github.com/xonsh/xonsh.git da8299b3b48c5c2b3807efd67ca53e6a4647865f rt requirements-tests.txt tests
+https://github.com/sphinx-doc/sphinx.git ca0fc7aa86cb8acfb4445aab17666a836abaee43 t tests
+https://github.com/cherrypy/cherrypy.git c9362b1493b4169b4df82d8ed1a59ef524fadb1d t cherrypy/test
+# Float comparison inaccuracy
+https://github.com/vllm-project/vllm.git 4338cc475029dcd37a291a867d52419122648e72 rt requirements.txt tests
+https://github.com/BigRoy/OpenPype.git 054eead045d9ba62f1420fb16589f8e41042bf44 t tests
+https://github.com/brechtm/rinohtype.git ad38d254efbcb24120ad4e73664ca2106e04f3f9 t tests
+https://github.com/automl/auto-sklearn.git 6a93e91cd17905962687017232ab3e65ea7735c8 t tests
+# Float comparison inaccuracy (no tests)
+# https://github.com/Lynn-Quantum-Optics/Summer-2023.git 92ea08bef49bcf497a8d30abadfd629920782ce3
+# Slow __bool__ function
+https://github.com/pytorch/pytorch.git 0e4752bafc24755893bd1657c42d8937c275ce74 rt requirements.txt test
+# Mutable default args
+https://github.com/llm-workflow-engine/llm-workflow-engine.git dbe4a482378b1b1455c6a35c8e685c34839a21ad rt requirements.txt tests
+# Might have bugs
+# Potential nan bug
+https://github.com/patrick-kidger/diffrax.git 737bf39b0d6fe751228cb44f575546497dc4e35b t test
+https://github.com/librosa/librosa.git 09e4a622456bbad314e2e6d5c75879f56d728b9b t tests
+https://github.com/elastic/apm-agent-python.git e29f762b845a21fdfcaa705802131a580f1219e4 t tests
+https://github.com/unit8co/darts.git 6096968537da2a6d45591692329fdbdea48b8829 rt requirements/dev.txt darts/tests
+# Potential un-closed file
+https://github.com/jelmer/janitor.git 3cf6932cdefd1b07543d2baa66aa8f70678224e1 t tests
