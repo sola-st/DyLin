@@ -22,7 +22,7 @@ def pytest_generate_tests(metafunc):
         start_dir = current_dir
     test_ids = []
     for root, dirs, files in walk(start_dir):
-        if all([f in files for f in ["program.py", "expected.txt"]]):
+        if all([f in files for f in ["program.py", "checkers.txt"]]):
             relative_path = root[len(current_dir) + len(sep) :]
             directories.append([root, relative_path])
             test_ids.append(relative_path)

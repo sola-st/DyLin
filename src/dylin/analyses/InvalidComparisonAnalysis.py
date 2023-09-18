@@ -28,8 +28,8 @@ TODO: fix testcases
 
 
 class InvalidComparisonAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.nmb_comparisons = 0
 
         self.stack_levels = 20

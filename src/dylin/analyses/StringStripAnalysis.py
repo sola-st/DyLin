@@ -3,8 +3,8 @@ from .base_analysis import BaseDyLinAnalysis
 
 
 class StringStripAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super(StringStripAnalysis, self).__init__()
+    def __init__(self, **kwargs):
+        super(StringStripAnalysis, self).__init__(**kwargs)
         self.analysis_name = "StringStripAnalysis"
 
     def post_call(

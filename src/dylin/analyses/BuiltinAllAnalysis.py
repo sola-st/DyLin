@@ -4,8 +4,8 @@ import builtins
 
 
 class BuiltinAllAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super(BuiltinAllAnalysis, self).__init__()
+    def __init__(self, **kwargs):
+        super(BuiltinAllAnalysis, self).__init__(**kwargs)
         self.analysis_name = "BuiltinAllAnalysis"
 
     def _flatten(self, l):

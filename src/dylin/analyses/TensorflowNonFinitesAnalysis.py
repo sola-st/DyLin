@@ -4,8 +4,8 @@ import tensorflow as tf
 
 
 class TensorflowNonFinitesAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         tf.get_logger().setLevel("INFO")
         self.analysis_name = "TensorflowNonFinitesAnalysis"
         self.tracked_objects = {}

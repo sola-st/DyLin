@@ -5,8 +5,8 @@ import inspect
 
 
 class SideEffectsDunderAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super(SideEffectsDunderAnalysis, self).__init__()
+    def __init__(self, **kwargs):
+        super(SideEffectsDunderAnalysis, self).__init__(**kwargs)
         self.analysis_name = "SideEffectsDunderAnalysis"
         self.stack_levels = 20
         self.dunder_method_stack: List[Callable] = []
@@ -90,35 +90,27 @@ class SideEffectsDunderAnalysis(BaseDyLinAnalysis):
             "__subclasscheck__",
         }
 
-    def function_enter(
-        self, dyn_ast: str, iid: int, args: List[Any], name: str, is_lambda: bool
-    ) -> None:
+    def function_enter(self, dyn_ast: str, iid: int, args: List[Any], name: str, is_lambda: bool) -> None:
         if name in self.dunder_methods_to_check:
             self.dunder_method_stack.append(name)
 
     # TODO does not work, old_vals can contain _read_ which uses external variables
     # Consider calling dunder method twice, compare state of object after first call and after second call,
     # nothing should not have changed
-    def write(
-        self, dyn_ast: str, iid: int, old_vals: List[Callable], new_val: Any
-    ) -> None:
+    def write(self, dyn_ast: str, iid: int, old_vals: List[Callable], new_val: Any) -> None:
         if len(self.dunder_method_stack) > 0:
             try:
                 closure_vars = inspect.getclosurevars(old_vals[0])
             except ValueError:
                 return
-            if closure_vars.globals and self._check_stack_sanity(
-                self.dunder_method_stack
-            ):
+            if closure_vars.globals and self._check_stack_sanity(self.dunder_method_stack):
                 self.add_finding(
                     iid,
                     dyn_ast,
                     "A-06",
                     f"wrote to global variable in {self.dunder_method_stack[-1]} global vars: {closure_vars.globals}",
                 )
-            elif "self" in closure_vars.nonlocals.keys() and self._check_stack_sanity(
-                self.dunder_method_stack
-            ):
+            elif "self" in closure_vars.nonlocals.keys() and self._check_stack_sanity(self.dunder_method_stack):
                 pass
                 # self.add_finding(iid, dyn_ast, "A-07", f"wrote to attribute in {self.dunder_method_stack[-1]} attribute {closure_vars.nonlocals.keys()}")
 
@@ -130,9 +122,7 @@ class SideEffectsDunderAnalysis(BaseDyLinAnalysis):
     def _check_stack_sanity(self, dunder_method_stack):
         if len(dunder_method_stack) > 0:
             function_name = dunder_method_stack[-1]
-            method_name_stack = list(
-                map(lambda frame_info: frame_info.function, inspect.stack())
-            )
+            method_name_stack = list(map(lambda frame_info: frame_info.function, inspect.stack()))
             res = function_name in method_name_stack
             if not res:
                 self.dunder_method_stack = []
@@ -143,10 +133,7 @@ class SideEffectsDunderAnalysis(BaseDyLinAnalysis):
         if not str(function_name) in self.dunder_methods_to_check:
             return
 
-        if (
-            len(self.dunder_method_stack) > 0
-            and self.dunder_method_stack[-1] == function_name
-        ):
+        if len(self.dunder_method_stack) > 0 and self.dunder_method_stack[-1] == function_name:
             self.dunder_method_stack.pop()
 
     def function_exit(self, dyn_ast: str, iid: int, name: str, result: Any) -> Any:

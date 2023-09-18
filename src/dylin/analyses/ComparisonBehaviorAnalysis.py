@@ -5,8 +5,8 @@ import numpy as np
 
 
 class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.analysis_name = "ComparisonBehaviorAnalysis"
         self.excluded_types = [type(0.0), type(None)]
         self.stack_levels = 20

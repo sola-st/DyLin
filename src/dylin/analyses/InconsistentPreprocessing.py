@@ -9,8 +9,8 @@ from sklearn.base import BaseEstimator
 
 
 class InconsistentPreprocessing(BaseDyLinAnalysis):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.analysis_name = "InconsistentPreprocessing"
         # Note: a boolean here is actually enough, we use a set though to allow
         # more detailed analyses in the future

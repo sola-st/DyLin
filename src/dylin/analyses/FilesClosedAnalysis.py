@@ -25,8 +25,8 @@ Discussion:
 
 
 class FilesClosedAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.analysis_name = "FilesClosedAnalysis"
         self.files = {}
 

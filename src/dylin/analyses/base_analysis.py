@@ -11,14 +11,17 @@ from filelock import FileLock
 
 
 class BaseDyLinAnalysis(BaseAnalysis):
-    def __init__(self) -> None:
+    def __init__(self, config=None, report_path=Path("/Work", "reports")) -> None:
         super(BaseDyLinAnalysis, self).__init__()
         self.findings = {}
         self.number_findings = 0
         self.meta = {}
         self.analysis_name = "BaseAnalysis"
         self.stack_levels = 100
-        self.path = Path("/Work", "reports")
+        if isinstance(report_path, str):
+            self.path = Path(report_path)
+        else:
+            self.path = report_path
         logging.basicConfig(stream=sys.stderr)
         self.log = logging.getLogger("TestsuiteWrapper")
         self.log.setLevel(logging.DEBUG)
@@ -133,7 +136,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
                     existed = False
                     for row in reader:
                         if self.analysis_name == row[0]:
-                            csv_row = [self.analysis_name, row_findings[1] + row[1]]
+                            csv_row = [self.analysis_name, row_findings + int(row[1])]
                             existed = True
                             csv_rows.append(csv_row)
                         else:

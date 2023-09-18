@@ -26,8 +26,8 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
     function_names = ["append", "extend", "insert", "add"]
     threshold = 100
 
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.nmb_add = 0
         self.nmb_add_assign = 0
         self.nmb_functions = 0

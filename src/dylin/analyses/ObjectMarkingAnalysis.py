@@ -55,8 +55,8 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
     TODO: add binary etc operations to be treated as normal operation
     """
 
-    def __init__(self, config=None):
-        super().__init__()
+    def __init__(self, config=None, **kwargs):
+        super().__init__(**kwargs)
         self.analysis_name = "ObjectMarkingAnalysis"
         self.stored_elements = {}
         self.sources = {}

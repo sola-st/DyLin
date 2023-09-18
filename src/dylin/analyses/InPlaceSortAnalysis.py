@@ -24,8 +24,8 @@ Discussion:
 
 
 class InPlaceSortAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.analysis_name = "InPlaceSortAnalysis"
         self.stored_lists = {}
 

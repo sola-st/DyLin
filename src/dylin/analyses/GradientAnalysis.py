@@ -11,8 +11,8 @@ import torch
 
 
 class GradientAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.analysis_name = "GradientAnalysis"
         # common clipping values are 1,3,5,8,10
         self.threshold = float(10.0)

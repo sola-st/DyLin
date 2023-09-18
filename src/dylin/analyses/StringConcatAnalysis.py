@@ -25,8 +25,8 @@ Discussion:
 
 
 class StringConcatAnalysis(BaseDyLinAnalysis):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.concats = {}
         self.adds = {}
         self.analysis_name = "StringConcatAnalysis"

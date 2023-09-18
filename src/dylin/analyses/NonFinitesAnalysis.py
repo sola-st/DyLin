@@ -7,8 +7,8 @@ import numpy as np
 
 
 class NonFinitesAnalysis(BaseDyLinAnalysis):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.analysis_name = "NonFinitesAnalysis"
         self.tracked_objects = {}
         self.total_values_investigated = 0

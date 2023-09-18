@@ -23,8 +23,8 @@ deliberately.
 
 
 class MutableDefaultArgsAnalysis(BaseDyLinAnalysis):
-    def __init__(self) -> None:
-        super().__init__()
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
         self.function_calls = {}
         self.analysis_name = "MutableDefaultArgsAnalysis"
 
@@ -62,11 +62,7 @@ class MutableDefaultArgsAnalysis(BaseDyLinAnalysis):
 
         res = []
         for i in defaults:
-            if (
-                isinstance(i, type([]))
-                or isinstance(i, type({}))
-                or isinstance(i, type(set()))
-            ):
+            if isinstance(i, type([])) or isinstance(i, type({})) or isinstance(i, type(set())):
                 res.append(i)
         if len(res) == 0:
             return None

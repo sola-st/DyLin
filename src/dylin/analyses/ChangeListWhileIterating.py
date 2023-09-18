@@ -14,12 +14,13 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
             self.dyn_ast = dyn_ast
             self.iid = iid
 
-    def __init__(self):
-        super(ChangeListWhileIterating, self).__init__()
+    def __init__(self, **kwargs):
+        super(ChangeListWhileIterating, self).__init__(**kwargs)
         self.analysis_name = "ChangeListWhileIterating"
         self.iterator_stack: List[self.ListMeta] = []
 
     def enter_for(self, dyn_ast: str, iid: int, next_value: Any, iterable: Iterable) -> Optional[Any]:
+        print(f"enter_for: {dyn_ast}, {iid}, {next_value}, {iterable}, {self.iterator_stack}")
         if isinstance(iterable, collections.abc.Iterator) or isinstance(iterable, type({})):
             return
 
@@ -48,7 +49,7 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
                     )
                     list_meta.warned = True
         # necessary for dynamically loaded lists during runtime which sometimes can not be compared in certain
-        # text cases
+        # test cases
         except Exception as e:
             print(e)
 

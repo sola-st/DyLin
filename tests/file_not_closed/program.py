@@ -1,9 +1,8 @@
 import tempfile
 from pathlib import Path
 
-def test():
-    d = { "Ensure Files Closed": "FilesClosedAnalysis"}
 
+def test():
     '''
     setup
     '''
@@ -12,7 +11,7 @@ def test():
     '''
     buggy cases
     '''
-    buggy_file = open(tmpDir / '0', "a+")
+    buggy_file = open(tmpDir / '0', "a+")  # DyLin warn
     a = buggy_file.read()
 
     '''
@@ -25,6 +24,5 @@ def test():
     a = file2.read()
     file2.close()
 
-    f'END EXECUTION; buggy_file has not been closed'
 
 test()
