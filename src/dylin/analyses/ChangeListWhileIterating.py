@@ -20,7 +20,6 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
         self.iterator_stack: List[self.ListMeta] = []
 
     def enter_for(self, dyn_ast: str, iid: int, next_value: Any, iterable: Iterable) -> Optional[Any]:
-        print(f"enter_for: {dyn_ast}, {iid}, {next_value}, {iterable}, {self.iterator_stack}")
         if isinstance(iterable, collections.abc.Iterator) or isinstance(iterable, type({})):
             return
 

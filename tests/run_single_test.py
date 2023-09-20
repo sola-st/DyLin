@@ -87,7 +87,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
         for wcode, findings in analysis_output["results"][0][analysis_name]["results"].items():
             for finding in findings:
                 if finding["finding"]["location"]["start_line"] not in [ew[1] for ew in expected_warnings]:
-                    fail.append(f"Expected finding not found: {finding}")
+                    fail.append(f"Found something weird: {finding}")
         for expected_warning in expected_warnings:
             found = False
             for wcode, findings in analysis_output["results"][0][analysis_name]["results"].items():

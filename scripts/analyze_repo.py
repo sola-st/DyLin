@@ -6,6 +6,7 @@ import shutil
 from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
 import os
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 
@@ -77,13 +78,13 @@ if __name__ == "__main__":
         if requirements:
             subprocess.run(["pip", "install", "-r", f"{str(here/url/requirements)}"])
         subprocess.run(["pip", "install", f"{str(here/url)}/"])
-    
+
     post_process_special(url)
     print("Post processed special requirements")
     installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/', name))}"
 
     if not url.startswith("http"):
-        name = str(here/url)
+        name = str(here / url)
 
     if hasattr(args, "config") and args.config is not None:
         with open(args.config, "r") as f:
@@ -93,11 +94,9 @@ if __name__ == "__main__":
         analyses = [
             f"dylin.analyses.{a}.{a}"
             for a in [
-                "FilesClosedAnalysis",
                 "ComparisonBehaviorAnalysis",
                 "InPlaceSortAnalysis",
                 "InefficientTruthCheck",
-                "SideEffectsDunderAnalysis",
                 "InvalidComparisonAnalysis",
                 "MutableDefaultArgsAnalysis",
                 "StringConcatAnalysis",

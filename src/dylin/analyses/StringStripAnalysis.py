@@ -1,5 +1,6 @@
 from typing import Any, Callable, Dict, Tuple
 from .base_analysis import BaseDyLinAnalysis
+from dynapyt.instrument.filters import only
 
 
 class StringStripAnalysis(BaseDyLinAnalysis):
@@ -7,6 +8,7 @@ class StringStripAnalysis(BaseDyLinAnalysis):
         super(StringStripAnalysis, self).__init__(**kwargs)
         self.analysis_name = "StringStripAnalysis"
 
+    @only(patterns=["strip"])
     def post_call(
         self,
         dyn_ast: str,

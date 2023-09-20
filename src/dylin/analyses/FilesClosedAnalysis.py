@@ -1,6 +1,7 @@
 import builtins
 from typing import Any, Callable, Dict, Tuple
 from .base_analysis import BaseDyLinAnalysis
+from dynapyt.instrument.filters import only
 
 """
 Name: 
@@ -30,6 +31,7 @@ class FilesClosedAnalysis(BaseDyLinAnalysis):
         self.analysis_name = "FilesClosedAnalysis"
         self.files = {}
 
+    @only(patterns=["open"])
     def post_call(
         self,
         dyn_ast: str,

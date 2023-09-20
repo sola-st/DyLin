@@ -15,8 +15,8 @@ def test():
         a = a + "x"  # DyLin warn
         b = "x" + b  # DyLin warn
         b += a  # DyLin warn
-        b = a + b
-        a = b + a
+        b = a + b  # DyLin warn
+        a = b + a  # DyLin warn
 
     '''
     fixed cases

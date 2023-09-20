@@ -1,6 +1,7 @@
 import traceback
 from .base_analysis import BaseDyLinAnalysis
 from typing import Any, Callable, Dict, Tuple
+from dynapyt.instrument.filters import only
 
 """
 Name: 
@@ -31,6 +32,7 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
 
     threshold = 10000
 
+    @only(patterns=["sorted"])
     def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args) -> Any:
         if function is sorted:
             # we have to keep the list in memory to keep id(pos_args[0]) stable ? nope!

@@ -78,14 +78,6 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                 if self.compare_types(left, right):
                     self.add_finding(iid, dyn_ast, "A-13", f"compared with type {left} and {right}")
 
-                if self.compare_funct(left, right):
-                    self.add_finding(
-                        iid,
-                        dyn_ast,
-                        "A-15",
-                        f"compared with functon {left} and {right}",
-                    )
-
                 op_function = operator.eq if op == "Equal" else operator.ne
                 if self.compare_diff_in_operator(left, right, op_function):
                     self.add_finding(
@@ -102,6 +94,13 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                         "A-17",
                         f"Type mismatch for in operator left {left} and {right}, where left contained in right",
                     )
+            if self.compare_funct(left, right):
+                self.add_finding(
+                    iid,
+                    dyn_ast,
+                    "A-15",
+                    f"compared with functon {left} and {right}",
+                )
             """
             elif op == 'Is' or op == 'IsNot':
                 if self.compare_types(left, right):
@@ -136,7 +135,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
 
     def compare_floats(self, left: float, right: float, op: Callable) -> bool:
         if self._is_float(left) and self._is_float(right):
-            return math.isclose(left, right, rel_tol=1e-8)
+            return left != right and math.isclose(left, right, rel_tol=1e-8)
         return False
 
     # Change this to analyse iff == returns false but is returns true -> flag issue
@@ -177,10 +176,10 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
     """
 
     def compare_types(self, left: Any, right: Any) -> bool:
-        left_is_type = isinstance(left, type(type(None)))
-        right_is_type = isinstance(right, type(type(None)))
+        left_is_type = isinstance(left, type)
+        right_is_type = isinstance(right, type)
 
-        if left_is_type and right_is_type:
+        if left_is_type and right_is_type and left != right:
             return True
         return False
 

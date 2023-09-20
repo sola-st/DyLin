@@ -1,6 +1,7 @@
 from typing import Any, Callable, Dict, Tuple
 from .base_analysis import BaseDyLinAnalysis
 import builtins
+from dynapyt.instrument.filters import only
 
 
 class BuiltinAllAnalysis(BaseDyLinAnalysis):
@@ -17,6 +18,7 @@ class BuiltinAllAnalysis(BaseDyLinAnalysis):
                 new_list.append(i)
         return new_list
 
+    @only(patterns=["all", "any"])
     def post_call(
         self,
         dyn_ast: str,

@@ -26,19 +26,22 @@ def test_cmp_func():
 
 def test_cmp_types():
     type(0) == type("")  # DyLin warn
-    type(0) == type(0)  # DyLin warn
+    type(0) == type(0)
     type("") == type(0)  # DyLin warn
-    type("") == type("")  # DyLin warn
-    type(0) is type("")  # DyLin warn
-    type(0) is type(0)  # DyLin warn
+    type("") == type("")
+    type(0) is type("")
+    type(0) is type(0)
 
     2 == 3
-    type(0) is 2
+    two = 2
+    type(0) is two
     "" == ""
-    -2 is ""
+    minus_two = -2
+    empty_string = ""
+    minus_two is empty_string
     type(0) == 1
     1 == type(231)
-    type("") is 2
+    type("") is two
 
 
 def test_comparison():
@@ -94,11 +97,11 @@ def test_comparison():
     '''
     buggy cases
     '''
-    for i in range(0, len(all_builtin_types) - 1):
+    for i in range(len(all_builtin_types)):
         # custom types
-        type_some_type == all_builtin_types[i]  # DyLin warn
-        all_builtin_types[i] == type_some_type  # DyLin warn
-        for j in range(0, len(all_builtin_types) - 1):
+        type(type_some_type) == type(all_builtin_types[i])  # DyLin warn
+        type(all_builtin_types[i]) == type(type_some_type)  # DyLin warn
+        for j in range(len(all_builtin_types)):
             if (
                 i != j
                 and not isinstance(all_builtin_types[i], type(all_builtin_types[j]))
@@ -107,21 +110,21 @@ def test_comparison():
                 # TODO don't compare int - float / float - int
 
                 # builtins
-                all_builtin_types[i] == all_builtin_types[j]  # DyLin warn
+                type(all_builtin_types[i]) == type(all_builtin_types[j])  # DyLin warn
 
     # custom types, no inheritance
-    type_some_type == type_another_type  # DyLin warn
-    type_another_type == type_some_type  # DyLin warn
+    type(type_some_type) == type(type_another_type)  # DyLin warn
+    type(type_another_type) == type(type_some_type)  # DyLin warn
+
+    # inherited types
+    type(type_inerhited_some_type) == type(type_some_type)  # DyLin warn
+    type(type_some_type) == type(type_inerhited_some_type)  # DyLin warn
 
     '''
     fixed cases
     '''
-    for i in range(0, len(all_builtin_types)):
-        all_builtin_types[i] == all_builtin_types[i]
-
-    # checks for inherited types where comparison is valid
-    type_inerhited_some_type == type_some_type
-    type_some_type == type_inerhited_some_type
+    for i in range(len(all_builtin_types)):
+        type(all_builtin_types[i]) == type(all_builtin_types[i])
 
 
 def test_list_in_type_mismatch(asSet: bool):
@@ -146,6 +149,7 @@ def test_list_in_type_mismatch(asSet: bool):
     b in c
     a in d
     f in e
+    a in f
 
 
 def test_difference_is_eq_operators():
@@ -216,6 +220,6 @@ def test_numpy():
 test_cmp_func()
 test_cmp_types()
 test_bad_floats()
-# test_comparison()
+test_comparison()
 test_difference_is_eq_operators()
 test_numpy()
