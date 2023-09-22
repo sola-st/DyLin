@@ -6,6 +6,7 @@ import shutil
 from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
 import os
+import time
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
@@ -125,8 +126,12 @@ if __name__ == "__main__":
     with open('/tmp/dynapyt_analyses.txt', 'w') as f:
         f.write('\n'.join(analyses))
     print("Wrote analyses to file, starting instrumentation")
+    start = time.time()
     instrument_dir(installation_dir, [a.split(":")[0] for a in analyses], use_external_dir=False)
+    inst_time_1 = time.time() - start
+    start = time.time()
     instrument_dir(name, [a.split(":")[0] for a in analyses], use_external_dir=False)
+    inst_time_2 = time.time() - start
     print("Instrumented repo")
     if tests.endswith(".py"):
         entry = f"{name}/dylin_run_all_tests.py"
@@ -149,6 +154,10 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--cov={instal
     else:
         sys.path.append(str((Path(name).resolve()) / tests))
     print("Wrote test runner, starting analysis")
+    start = time.time()
     run_analysis(entry, analyses, coverage=True)
+    analysis_time = time.time() - start
     print("Finished analysis, copying coverage")
     shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
+    with open("/Work/reports/timing.txt", "w") as f:
+        f.write(f"{name} {inst_time_1} {inst_time_2} {analysis_time}\n")
