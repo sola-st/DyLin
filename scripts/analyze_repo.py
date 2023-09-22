@@ -35,6 +35,8 @@ def install_special(url):
     elif url == "https://github.com/miso-belica/sumy.git":
         subprocess.run(["pip", "install", "nltk"])
         command = "python -m nltk.downloader all"
+    elif url == "https://github.com/python-telegram-bot/python-telegram-bot.git":
+        subprocess.run(["pre-commit install"])
     else:
         return
     subprocess.run(command.split(" "))
