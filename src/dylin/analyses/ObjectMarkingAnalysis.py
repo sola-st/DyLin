@@ -190,7 +190,6 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
         kw_args: Dict,
     ) -> Any:
         function_is_of_interest = False
-
         # TODO: use __module__ + '.' + __qualname__ to receive fully qualified name
         func_name = getattr(function, "__qualname__", lambda: None)
 

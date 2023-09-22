@@ -5,6 +5,7 @@ from shutil import copyfile, move, rmtree
 from typing import Tuple
 import pytest
 import json
+from pathlib import Path
 
 from dynapyt.instrument.instrument import instrument_file
 from dynapyt.utils.hooks import get_hooks_from_analysis
@@ -28,6 +29,11 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     checkers_file = join(abs_dir, "checkers.txt")
     with open(checkers_file, "r") as file:
         checkers = file.read().splitlines()
+
+    for i, checker in enumerate(checkers):
+        if ":" in checker:
+            the_analysis, the_config = checker.split(":")
+            checkers[i] = the_analysis + ":" + str(Path(the_config).resolve())
 
     # gather hooks used by the analysis
     selected_hooks = get_hooks_from_analysis(checkers)
@@ -59,10 +65,10 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
         else:
             analysis_path, config = analysis.split(":")
         module_prefix, analysis_name = analysis_path.rsplit(".", 1)
-        analysis_names.append(analysis_name)
         module = import_module(module_prefix)
         analysis_class = getattr(module, analysis_name)
         analysis_instances.append(analysis_class(config=config, report_path=abs_dir))
+        analysis_names.append(analysis_instances[-1].analysis_name)
 
     _rt.set_analysis(analysis_instances)
 

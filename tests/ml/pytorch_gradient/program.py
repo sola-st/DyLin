@@ -81,27 +81,26 @@ def init_weights(m):
         m.bias.data.fill_(0.01)
 
 
-if __name__ == "__main__":
-    device = torch.device("cpu")
+device = torch.device("cpu")
 
-    # prepare data
-    X, y = make_regression(n_samples=100, n_features=20, noise=0.1, random_state=1)
+# prepare data
+X, y = make_regression(n_samples=100, n_features=20, noise=0.1, random_state=1)
 
-    X = torch.Tensor(X)
-    y = torch.Tensor(y)
+X = torch.Tensor(X)
+y = torch.Tensor(y)
 
-    dataset = torch.utils.data.TensorDataset(X, y)
-    train_loader = torch.utils.data.DataLoader(dataset=dataset, batch_size=128, shuffle=True)
+dataset = torch.utils.data.TensorDataset(X, y)
+train_loader = torch.utils.data.DataLoader(dataset=dataset, batch_size=128, shuffle=True)
 
-    model = Net().to(device)
-    model.apply(init_weights)
-    optimizer = optim.SGD(model.parameters(), lr=0.07, momentum=0.8)
-    criterion = nn.MSELoss()
+model = Net().to(device)
+model.apply(init_weights)
+optimizer = optim.SGD(model.parameters(), lr=0.07, momentum=0.8)
+criterion = nn.MSELoss()
 
-    norms = train_model(
-        model=model,
-        criterion=criterion,
-        optimizer=optimizer,
-        num_epochs=5,
-        with_clip=False,  # make it True to use clipping and remove issues
-    )
+norms = train_model(
+    model=model,
+    criterion=criterion,
+    optimizer=optimizer,
+    num_epochs=5,
+    with_clip=False,  # make it True to use clipping and remove issues
+)

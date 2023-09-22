@@ -1,7 +1,5 @@
 from typing import Set
 
-d = {"Forced Order Test": "ObjectMarkingAnalysis", "configName": "forced_order"}
-
 a = 1
 b = 2
 c, d = a, b
