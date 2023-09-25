@@ -119,7 +119,7 @@ if __name__ == "__main__":
                 "/Work/DyLin/src/dylin/markings/configs/forced_order.yml",
                 "/Work/DyLin/src/dylin/markings/configs/leak_preprocessing.yml",
                 "/Work/DyLin/src/dylin/markings/configs/leaked_data.yml",
-                "/Work/DyLin/src/dylin/markings/configs/weak_hash.yml",
+                #"/Work/DyLin/src/dylin/markings/configs/weak_hash.yml",
             ]
         ]
 
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--cov={installation_dir}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
@@ -157,9 +157,9 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--cov={name}', '--cov={instal
         sys.path.append(str((Path(name).resolve()) / tests))
     print("Wrote test runner, starting analysis")
     start = time.time()
-    run_analysis(entry, analyses, coverage=True)
+    run_analysis(entry, analyses)#, coverage=True)
     analysis_time = time.time() - start
-    print("Finished analysis, copying coverage")
-    shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
+    #print("Finished analysis, copying coverage")
+    #shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
     with open("/Work/reports/timing.txt", "w") as f:
         f.write(f"{name} {inst_time_1} {inst_time_2} {analysis_time}\n")
