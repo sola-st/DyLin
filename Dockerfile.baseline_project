@@ -1,0 +1,29 @@
+FROM ubuntu:22.04
+
+WORKDIR /Work
+
+RUN apt-get update
+RUN apt-get install -q -y python3 python3-pip python3-venv
+RUN python3 -m venv /opt/dylinVenv
+RUN apt-get install -q -y sloccount
+ENV PATH="/opt/dylinVenv/bin:$PATH"
+
+RUN pip install --upgrade pip setuptools wheel
+RUN apt-get install -q -y git
+RUN pip install pytest pytest-xdist dynapyt
+
+RUN mkdir ./reports
+RUN chmod -R 777 ./reports
+
+RUN mkdir ./DyLin
+
+COPY ./scripts ./DyLin/scripts
+COPY ./src ./DyLin/src
+COPY ./tests ./DyLin/tests
+COPY ./pyproject.toml ./DyLin/pyproject.toml
+COPY ./README.md ./DyLin/README.md
+
+RUN chmod -R 777 ./DyLin
+
+ENTRYPOINT [ "python", "./DyLin/scripts/baseline_repo.py", "--repo" ]
+CMD [ "1" ]

@@ -156,6 +156,7 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{n
     else:
         sys.path.append(str((Path(name).resolve()) / tests))
     print("Wrote test runner, starting analysis")
+    subprocess.run(["sloccount", str(Path(name).resolve())])
     start = time.time()
     run_analysis(entry, [], coverage=False)
     analysis_time = time.time() - start
