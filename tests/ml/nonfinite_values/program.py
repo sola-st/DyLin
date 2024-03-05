@@ -18,7 +18,7 @@ def pandas():
     df3.iloc[1:3, 1] = np.nan
 
     # does return finite value but contains NaN in input
-    x = np.sum(df3)  # DyLin warn
+    x = np.sum(df3)
 
 
 def numpy():
@@ -26,7 +26,7 @@ def numpy():
 
     m = np.matrix([[1.0, 1.1], [float("inf"), 0.0]])  # DyLin warn
 
-    m2 = np.matrix([[1.0, 1.1], [float("NaN"), 0.0]])  # DyLin warn
+    m2 = np.matrix([[1.0, 1.1], [float("NaN"), 0.0]])
 
     m3 = np.matrix([[1.0, 1.1], [0.0, 0.0]])
     a2 = np.array([0, 1, 2, 3])

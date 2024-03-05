@@ -18,14 +18,14 @@ class NonFinitesAnalysis(BaseDyLinAnalysis):
 
     def numpy_check_not_finite(self, df: any) -> bool:
         try:
-            is_finite = np.isfinite(df)
+            is_inf = np.isinf(df)
             self.total_values_investigated = self.total_values_investigated + 1
             try:
                 # need to extract values from pandas.Dataframes first
-                result = False in is_finite.values
+                result = True in is_inf.values
                 return result
             except AttributeError as e:
-                return False in is_finite
+                return True in is_inf
         except TypeError as e:
             return False
 
