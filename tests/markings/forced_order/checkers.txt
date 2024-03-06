@@ -1,1 +1,1 @@
-dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:./src/dylin/markings/configs/forced_order.yml
+dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=./src/dylin/markings/configs/forced_order.yml

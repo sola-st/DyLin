@@ -44,7 +44,7 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
             type_to_check = type(random.choice(list(list_or_set)))
 
             # optimization to reduce overhead for large lists sample size has to be lower than threshold
-            list_or_set = random.sample(list_or_set, 50)
+            list_or_set = random.sample(list(list_or_set), 50)
             same_type = all(isinstance(n, type_to_check) for n in list_or_set)
 
             if same_type:

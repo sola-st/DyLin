@@ -1,7 +1,7 @@
 import operator
 import types
 from .base_analysis import BaseDyLinAnalysis
-from typing import Any, Callable, Type
+from typing import Any, Callable
 import math
 import numpy as np
 

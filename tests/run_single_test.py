@@ -5,6 +5,7 @@ from shutil import copyfile, move, rmtree
 from typing import Tuple
 import pytest
 import json
+import yaml
 from pathlib import Path
 
 from dynapyt.instrument.instrument import instrument_file
@@ -13,8 +14,6 @@ from dynapyt.run_analysis import run_analysis
 
 
 def test_runner(directory_pair: Tuple[str, str], capsys):
-    import dynapyt.runtime as _rt
-
     abs_dir, rel_dir = directory_pair
 
     # load warnings
@@ -23,17 +22,35 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     expected_warnings = []
     for ln, line in enumerate(lines):
         if "# DyLin warn" in line:
-            expected_warnings.append((line.split("# DyLin warn")[1].strip(), ln + 1))
+            expected_warnings.append((line.split("# DyLin warn")[0].strip(), ln + 1))
 
     # load checkers
     checkers_file = join(abs_dir, "checkers.txt")
     with open(checkers_file, "r") as file:
         checkers = file.read().splitlines()
 
+    analysis_names = []
     for i, checker in enumerate(checkers):
-        if ":" in checker:
-            the_analysis, the_config = checker.split(":")
-            checkers[i] = the_analysis + ":" + str(Path(the_config).resolve())
+        if ";" in checker:
+            parts = checker.split(";")
+            the_analysis = parts[0]
+            analysis_name = the_analysis.split(".")[-1]
+            for j in range(1, len(parts)):
+                if parts[j].startswith("config="):
+                    the_config = parts[j].split("=")[1]
+                    config_path = Path(the_config).resolve()
+                    parts[j] = f"config={config_path}"
+                    with open(config_path, "r") as yaml_str:
+                        yml = yaml.safe_load(yaml_str)
+
+                    name = yml.get("name")
+
+                    if name:
+                        analysis_name = name
+            checkers[i] = ";".join(parts)
+            analysis_names.append(analysis_name)
+        else:
+            analysis_names.append(checker.split(".")[-1])
 
     # gather hooks used by the analysis
     selected_hooks = get_hooks_from_analysis(checkers)
@@ -56,30 +73,14 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
         instrument_file(join(abs_dir, "__init__.py"), selected_hooks)
 
     # analyze
-    analysis_instances = []
-    analysis_names = []
-    for analysis in checkers:
-        if ":" not in analysis:
-            analysis_path = analysis
-            config = None
-        else:
-            analysis_path, config = analysis.split(":")
-        module_prefix, analysis_name = analysis_path.rsplit(".", 1)
-        module = import_module(module_prefix)
-        analysis_class = getattr(module, analysis_name)
-        analysis_instances.append(analysis_class(config=config, report_path=abs_dir))
-        analysis_names.append(analysis_instances[-1].analysis_name)
-
-    _rt.set_analysis(analysis_instances)
 
     captured = capsys.readouterr()
-    for analysis_instance in analysis_instances:
-        if hasattr(analysis_instance, "begin_execution"):
-            analysis_instance.begin_execution()
-    import_module(f"{rel_dir.replace(sep, '.')}.program")
-    _rt.end_execution()
-    del _rt
-    del analysis_instances
+    print(captured.out)
+    session_id = run_analysis(
+        f"{rel_dir.replace(sep, '.')}.program",
+        checkers,
+        output_dir=abs_dir,
+    )
 
     captured = capsys.readouterr()
     print(captured.out)
@@ -87,7 +88,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     # check output
     fail = []
     for analysis_name in analysis_names:
-        with open(join(abs_dir, f"{analysis_name}report.json"), "r") as file:
+        with open(join(abs_dir, f"dynapyt_output-{session_id}", f"{analysis_name}report.json"), "r") as file:
             analysis_output = json.load(file)
         # print(analysis_output)
         for wcode, findings in analysis_output["results"][0][analysis_name]["results"].items():
@@ -106,15 +107,20 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     # restore uninstrumented program and remove temporary files
     move(orig_program_file, program_file)
     remove(join(abs_dir, "program-dynapyt.json"))
-    remove(join(abs_dir, "findings.csv"))
-    remove(join(abs_dir, "findings.csv.lock"))
+    remove(join(abs_dir, f"dynapyt_output-{session_id}", "findings.csv"))
+    remove(join(abs_dir, f"dynapyt_output-{session_id}", "findings.csv.lock"))
     for analysis_name in analysis_names:
-        remove(join(abs_dir, f"{analysis_name}report.json"))
-        remove(join(abs_dir, f"{analysis_name}report.json.lock"))
+        if not fail:
+            remove(join(abs_dir, f"dynapyt_output-{session_id}", f"{analysis_name}report.json"))
+        remove(join(abs_dir, f"dynapyt_output-{session_id}", f"{analysis_name}report.json.lock"))
     if exists(join(abs_dir, "__init__.py")) and exists(join(abs_dir, "__init__.py.orig")):
         move(join(abs_dir, "__init__.py.orig"), join(abs_dir, "__init__.py"))
         remove(join(abs_dir, "__init__-dynapyt.json"))
     rmtree(join(abs_dir, "__pycache__"))
+    if not fail:
+        rmtree(join(abs_dir, f"dynapyt_output-{session_id}"))
 
-    for failure in fail:
-        pytest.fail(failure)
+    if fail:
+        pytest.fail("\n".join(fail))
+    # for failure in fail:
+    #     pytest.fail(failure)

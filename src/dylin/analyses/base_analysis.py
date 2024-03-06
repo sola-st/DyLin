@@ -11,17 +11,16 @@ from filelock import FileLock
 
 
 class BaseDyLinAnalysis(BaseAnalysis):
-    def __init__(self, config=None, report_path=Path("/Work", "reports")) -> None:
-        super(BaseDyLinAnalysis, self).__init__()
+    def __init__(self, **kwargs) -> None:
+        super().__init__(**kwargs)
         self.findings = {}
         self.number_findings = 0
         self.meta = {}
-        self.analysis_name = "BaseAnalysis"
         self.stack_levels = 100
-        if isinstance(report_path, str):
-            self.path = Path(report_path)
+        if isinstance(self.output_dir, str):
+            self.path = Path(self.output_dir)
         else:
-            self.path = report_path
+            self.path = self.output_dir
         logging.basicConfig(stream=sys.stderr)
         self.log = logging.getLogger("TestsuiteWrapper")
         self.log.setLevel(logging.DEBUG)

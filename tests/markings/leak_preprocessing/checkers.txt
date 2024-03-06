@@ -1,1 +1,1 @@
-dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:./src/dylin/markings/configs/leak_preprocessing.yml
+dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=./src/dylin/markings/configs/leak_preprocessing.yml

@@ -4,10 +4,10 @@ from .base_analysis import BaseDyLinAnalysis
 from ..markings import models
 from ..markings.obj_identifier import uniqueid, cleanup, save_uid, has_obj
 import yaml
+import json
 
 
 class ObjectMarkingAnalysis(BaseDyLinAnalysis):
-
     """
     We only care about values on the heap here.
     Furthermore, we define that values can only be tainted if some function has been
@@ -55,15 +55,18 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
     TODO: add binary etc operations to be treated as normal operation
     """
 
-    def __init__(self, config=None, **kwargs):
-        super().__init__(**kwargs)
+    def __init__(self, **kwargs):
         self.analysis_name = "ObjectMarkingAnalysis"
         self.stored_elements = {}
         self.sources = {}
         self.sinks = {}
         self.log = []
-        if config is not None:
-            self.load_config(config)
+        if "config" in kwargs:
+            self.load_config(kwargs["config"])
+            del kwargs["config"]
+        else:
+            raise ValueError(f"no config set for ObjectMarkingAnalysis {kwargs}")
+        super().__init__(**kwargs)
 
     def setup(self):
         config_name: str = self.meta.get("configName")

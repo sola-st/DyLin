@@ -127,20 +127,13 @@ def test_comparison():
         type(all_builtin_types[i]) == type(all_builtin_types[i])
 
 
-def test_list_in_type_mismatch(asSet: bool):
+def test_list_in_type_mismatch():
     a = ["a"]
     b = ["a", "b", "c", "d"]
     c = [3]
     d = list(range(0, 100))
     e = [["a"]]
     f = [["a"], ["b"], ["c"]]
-
-    if asSet:
-        a = set(a)
-        b = set(b)
-        c = set(c)
-        d = set(d)
-        # e,f are not hashable
 
     a in b  # DyLin warn
     c in d  # DyLin warn
@@ -150,6 +143,19 @@ def test_list_in_type_mismatch(asSet: bool):
     a in d
     f in e
     a in f
+
+
+def test_set_in_type_mismatch():
+    a = set(["a"])
+    b = set(["a", "b", "c", "d"])
+    c = set([3])
+    d = set(list(range(0, 100)))
+
+    a in b  # DyLin warn
+    c in d  # DyLin warn
+
+    b in c
+    a in d
 
 
 def test_difference_is_eq_operators():
@@ -223,3 +229,5 @@ test_bad_floats()
 test_comparison()
 test_difference_is_eq_operators()
 test_numpy()
+test_list_in_type_mismatch()
+test_set_in_type_mismatch()
