@@ -13,6 +13,8 @@ RUN apt-get install -q -y git
 RUN mkdir ./reports
 RUN chmod -R 777 ./reports
 
+RUN chmod -R 777 /tmp
+
 RUN mkdir ./DyLin
 
 COPY ./requirements.txt ./DyLin/requirements.txt
@@ -21,6 +23,7 @@ RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
 COPY ./scripts ./DyLin/scripts
 COPY ./src ./DyLin/src
 COPY ./tests ./DyLin/tests
+COPY ./test_projects ./DyLin/test_projects
 COPY ./pyproject.toml ./DyLin/pyproject.toml
 COPY ./README.md ./DyLin/README.md
 

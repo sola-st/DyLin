@@ -79,14 +79,17 @@ if __name__ == "__main__":
         print("Installed requirements")
     else:
         if requirements:
-            subprocess.run(["pip", "install", "-r", f"{str(here/url/requirements)}"])
-        subprocess.run(["pip", "install", "-e", f"{str(here/url)}/"])
+            print((here/url/requirements).exists())
+            subprocess.run(["pip", "install", "-r", f"{str((here/url/requirements).resolve())}"])
+        print((here/url).exists())
+        subprocess.run(["ls", f"{str(here)}/.."])
+        subprocess.run(["pip", "install", "-e", f"{str((here/url).resolve())}/"])
 
     post_process_special(url)
     print("Post processed special requirements")
 
     if not url.startswith("http"):
-        name = str(here / url)
+        name = str((here / url).resolve())
 
     if hasattr(args, "config") and args.config is not None:
         with open(args.config, "r") as f:
@@ -123,7 +126,7 @@ if __name__ == "__main__":
         ]
 
     start = time.time()
-    instrument_dir(name, [a.split(";")[0] for a in analyses], use_external_dir=False)
+    instrument_dir(name, analyses, use_external_dir=False)
     inst_time_2 = time.time() - start
     print("Instrumented repo")
     if tests.endswith(".py"):
@@ -140,15 +143,15 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{n
         **code_args
     )
 
-    with open(entry, "w") as f:
-        f.write(run_all_tests)
-    if tests.endswith(".py"):
-        sys.path.append(str(Path(name).resolve()))
-    else:
-        sys.path.append(str((Path(name).resolve()) / tests))
-    print("Wrote test runner, starting analysis")
+    #with open(entry, "w") as f:
+    #    f.write(run_all_tests)
+    #if tests.endswith(".py"):
+    #    sys.path.append(str(Path(name).resolve()))
+    #else:
+    #    sys.path.append(str((Path(name).resolve()) / tests))
+    #print("Wrote test runner, starting analysis")
     start = time.time()
-    run_analysis(entry, analyses, coverage=True)
+    run_analysis(entry, analyses, coverage=True, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
     analysis_time = time.time() - start
     # print("Finished analysis, copying coverage")
     # shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
