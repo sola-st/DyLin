@@ -16,21 +16,13 @@ from dynapyt.run_analysis import run_analysis
 from pebble import ProcessExpired, ProcessPool
 
 parser = argparse.ArgumentParser()
-parser.add_argument(
-    "--number", help="Number of submissions to prepare")
-parser.add_argument(
-    "--competition", help="Selects competition")
-parser.add_argument(
-    "--path", help="Directory to work in")
-parser.add_argument(
-    "--only-run", help="Only run analysis", default=False, action="store_true")
-parser.add_argument(
-    "--only-prepare", help="Only prepare files to run", default=False, action="store_true")
-parser.add_argument(
-    "--search", help="Search query"
-)
-parser.add_argument(
-    "--kaggleConf", help="Kaggle config dir")
+parser.add_argument("--number", help="Number of submissions to prepare")
+parser.add_argument("--competition", help="Selects competition")
+parser.add_argument("--path", help="Directory to work in")
+parser.add_argument("--only-run", help="Only run analysis", default=False, action="store_true")
+parser.add_argument("--only-prepare", help="Only prepare files to run", default=False, action="store_true")
+parser.add_argument("--search", help="Search query")
+parser.add_argument("--kaggleConf", help="Kaggle config dir")
 args = parser.parse_args()
 
 os.environ["KAGGLE_CONFIG_DIR"] = args.kaggleConf
@@ -88,7 +80,7 @@ if not args.only_run:
             tmp_kernels = dl_kernels(page, 100)
         else:
             tmp_kernels = dl_kernels(page, to_download)
-        
+
         if len(tmp_kernels) == 0:
             print("Can't find more kernels matching criteria")
             break
@@ -96,8 +88,7 @@ if not args.only_run:
         # kaggle does not provide us with a score, therefore we filter by number of votes
         # Note: this might skew how representative the sample is but will hopefully filter
         #       out most empty and bad kernels (e.g. they crash right away or don't do anything related to the task)
-        filtered = [
-            kernel for kernel in tmp_kernels if kernel.totalVotes > 2 and kernel.isPrivate is False]
+        filtered = [kernel for kernel in tmp_kernels if kernel.totalVotes > 2 and kernel.isPrivate is False]
         kernels = kernels + filtered
         page = page + 1
         to_download = to_download - len(filtered)
@@ -122,7 +113,7 @@ if not args.only_run:
     class DateTimeEncoder(json.JSONEncoder):
         def default(self, z):
             if isinstance(z, datetime.datetime):
-                return (str(z))
+                return str(z)
             else:
                 return super().default(z)
 
@@ -136,6 +127,7 @@ if not args.only_run:
 
     We download to ../input /kaggle/input and /kaggle/input/<competitionname> as users can use both paths on the platform
     """
+
     def dl_datasets(path: pathlib.Path):
         try:
             print("creating dir " + str(path))
@@ -149,9 +141,9 @@ if not args.only_run:
         subprocess.run(f"rm {path}/*.zip", shell=True)
 
     dl_datasets(pathlib.Path("input"))
-    dl_datasets(pathlib.Path("input/"+competition))
+    dl_datasets(pathlib.Path("input/" + competition))
     dl_datasets(pathlib.Path("/kaggle/input"))
-    dl_datasets(pathlib.Path("/kaggle/input/"+competition))
+    dl_datasets(pathlib.Path("/kaggle/input/" + competition))
 
     print("downloaded datasets")
 
@@ -170,8 +162,7 @@ if not args.only_run:
 
     We consider get_ipython calls to be dangerous as they may install packages etc.
     """
-    subprocess.run(
-        f"find {path} -type f -name '*.py' -print0 | xargs -0 sed -i 's/^get_ipython/#&/'", shell=True)
+    subprocess.run(f"find {path} -type f -name '*.py' -print0 | xargs -0 sed -i 's/^get_ipython/#&/'", shell=True)
 
     print("commented out all get_ipython() calls")
 
@@ -183,7 +174,7 @@ if not args.only_run:
 
     # run instrumentation
     here = pathlib.Path(__file__).parent.resolve()
-    with open(here/".."/"dylin_config_kaggle.txt", "r") as f:
+    with open(here / ".." / "dylin_config_kaggle.txt", "r") as f:
         config_content = f.read()
     analyses = config_content.strip().split("\n")
     instrument_dir(path, analyses)
@@ -197,8 +188,9 @@ if not args.only_prepare:
 
     We use pebbles Process Pool here because the default Python Pool does not properly kill processes
     """
+
     def run_dylin(path):
-        run_analysis(path, analyses)
+        run_analysis(path, analyses, coverage=True)
         # result = subprocess.run(f"python -m dynapyt.run_analysis --entry {path} --analysis AnalysisWrapper --module dylin",
         #                         shell=True)
         # if result.returncode != 0:
@@ -206,13 +198,12 @@ if not args.only_prepare:
         # else:
         #     print(f"done with {result}")
 
-    onlypy = [join(path, f) for f in os.listdir(
-        path) if isfile(join(path, f)) and f.endswith("py")]
+    onlypy = [join(path, f) for f in os.listdir(path) if isfile(join(path, f)) and f.endswith("py")]
 
     start_time = time.time()
     print("#################### starting analyses...")
 
-    TIMEOUT_SECONDS = 5*60
+    TIMEOUT_SECONDS = 5 * 60
 
     nmb_timeouts = 0
     nmb_errors = 0
@@ -243,5 +234,4 @@ if not args.only_prepare:
                     nmb_errors = nmb_errors + 1
 
     print(f"#################### done - took {time.time() - start_time}")
-    print(
-        f"#################### number errors: {nmb_errors} number timeouts: {nmb_timeouts}")
+    print(f"#################### number errors: {nmb_errors} number timeouts: {nmb_timeouts}")

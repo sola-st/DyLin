@@ -75,16 +75,15 @@ if __name__ == "__main__":
         print("Cloned repo and switched to commit")
         if requirements:
             subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
-        subprocess.run(["pip", "install", f"{name}/"])
+        subprocess.run(["pip", "install", "-e", f"{name}/"])
         print("Installed requirements")
     else:
         if requirements:
             subprocess.run(["pip", "install", "-r", f"{str(here/url/requirements)}"])
-        subprocess.run(["pip", "install", f"{str(here/url)}/"])
+        subprocess.run(["pip", "install", "-e", f"{str(here/url)}/"])
 
     post_process_special(url)
     print("Post processed special requirements")
-    installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/', name))}"
 
     if not url.startswith("http"):
         name = str(here / url)
@@ -114,25 +113,17 @@ if __name__ == "__main__":
                 "InconsistentPreprocessing",
             ]
         ] + [
-            f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis:{a}"
+            f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config={a}"
             for a in [
                 "/Work/DyLin/src/dylin/markings/configs/forced_order.yml",
                 "/Work/DyLin/src/dylin/markings/configs/leak_preprocessing.yml",
                 "/Work/DyLin/src/dylin/markings/configs/leaked_data.yml",
-                #"/Work/DyLin/src/dylin/markings/configs/weak_hash.yml",
+                # "/Work/DyLin/src/dylin/markings/configs/weak_hash.yml",
             ]
         ]
 
-    if Path("/tmp/dynapyt_analyses.txt").exists():
-        Path("/tmp/dynapyt_analyses.txt").unlink()
-    with open('/tmp/dynapyt_analyses.txt', 'w') as f:
-        f.write('\n'.join(analyses))
-    print("Wrote analyses to file, starting instrumentation")
     start = time.time()
-    instrument_dir(installation_dir, [a.split(":")[0] for a in analyses], use_external_dir=False)
-    inst_time_1 = time.time() - start
-    start = time.time()
-    instrument_dir(name, [a.split(":")[0] for a in analyses], use_external_dir=False)
+    instrument_dir(name, [a.split(";")[0] for a in analyses], use_external_dir=False)
     inst_time_2 = time.time() - start
     print("Instrumented repo")
     if tests.endswith(".py"):
@@ -140,7 +131,7 @@ if __name__ == "__main__":
     else:
         entry = f"{name}/{tests}/dylin_run_all_tests.py"
 
-    code_args = {'name': name, 'tests': tests, 'analyses': repr(analyses), 'installation_dir': installation_dir}
+    code_args = {'name': name, 'tests': tests}
     run_all_tests = '''
 import pytest
 
@@ -157,9 +148,9 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{n
         sys.path.append(str((Path(name).resolve()) / tests))
     print("Wrote test runner, starting analysis")
     start = time.time()
-    run_analysis(entry, analyses)#, coverage=True)
+    run_analysis(entry, analyses, coverage=True)
     analysis_time = time.time() - start
-    #print("Finished analysis, copying coverage")
-    #shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
+    # print("Finished analysis, copying coverage")
+    # shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
     with open("/Work/reports/timing.txt", "w") as f:
-        f.write(f"{name} {inst_time_1} {inst_time_2} {analysis_time}\n")
+        f.write(f"{name} {inst_time_2} {analysis_time}\n")
