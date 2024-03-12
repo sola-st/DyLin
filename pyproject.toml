@@ -25,7 +25,6 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "dynapyt"
 ]
 
 [project.urls]

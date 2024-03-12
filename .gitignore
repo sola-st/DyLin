@@ -162,8 +162,9 @@ cython_debug/
 .vscode/
 reports/
 log*.txt
-results*/
+*results*/
 kaggle_results/
 kaggle.json
 kaggle_results_old/
 project_results/
+all_kaggle_submissions/
