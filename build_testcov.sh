@@ -1,0 +1,1 @@
+docker build -f Dockerfile.testcov -t testcov_project .
