@@ -169,3 +169,4 @@ kaggle_results_old/
 project_results/
 all_kaggle_submissions/
 project_testcovs/
+ruff_tests.json

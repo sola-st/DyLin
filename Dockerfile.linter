@@ -1,0 +1,36 @@
+FROM ubuntu:22.04
+
+WORKDIR /Work
+
+RUN apt-get update
+RUN apt-get install -q -y python3 python3-pip python3-venv
+RUN python3 -m venv /opt/dylinVenv
+ENV PATH="/opt/dylinVenv/bin:$PATH"
+
+RUN pip install --upgrade pip setuptools wheel
+RUN apt-get install -q -y git
+
+RUN mkdir ./reports
+RUN chmod -R 777 ./reports
+
+RUN chmod -R 777 /tmp
+
+RUN mkdir ./DyLin
+
+COPY ./requirements.txt ./DyLin/requirements.txt
+RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
+RUN pip install --no-cache-dir ruff
+
+COPY ./scripts ./DyLin/scripts
+COPY ./src ./DyLin/src
+COPY ./tests ./DyLin/tests
+COPY ./test_projects ./DyLin/test_projects
+COPY ./pyproject.toml ./DyLin/pyproject.toml
+COPY ./README.md ./DyLin/README.md
+
+RUN chmod -R 777 ./DyLin
+
+RUN pip install ./DyLin/
+
+ENTRYPOINT [ "bash", "./DyLin/scripts/lint_repo.sh"]
+CMD [ "1" ]

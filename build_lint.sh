@@ -1,0 +1,1 @@
+docker build -f Dockerfile.linter -t lint_project .
