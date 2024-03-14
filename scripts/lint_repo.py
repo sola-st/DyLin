@@ -33,8 +33,8 @@ if __name__ == "__main__":
         name = str((here / url).resolve())
 
     result = subprocess.run(
-        ["ruff", "check", "--select", "ALL", "--output-format", "json", name], stdout=subprocess.PIPE
+        ["ruff", "check", "--select", "ALL", "--output-format", "concise", name], stdout=subprocess.PIPE
     )
 
-    with open("/Work/lint_reports/results.json", "w") as f:
+    with open("/Work/lint_reports/results.txt", "w") as f:
         f.write(result.stdout.decode("utf-8"))

@@ -170,3 +170,5 @@ project_results/
 all_kaggle_submissions/
 project_testcovs/
 ruff_tests.json
+project_lints/
+lint_reports/
