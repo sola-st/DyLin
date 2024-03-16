@@ -28,12 +28,12 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
         return isinstance(val, type(0.0)) or isinstance(val, type(None)) or isinstance(val, np.floating)
 
     def equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
-        self.chack_all(dyn_ast, iid, left, "Equal", right, result)
+        self.check_all(dyn_ast, iid, left, "Equal", right, result)
 
     def not_equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
-        self.chack_all(dyn_ast, iid, left, "NotEqual", right, result)
+        self.check_all(dyn_ast, iid, left, "NotEqual", right, result)
 
-    def chack_all(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
+    def check_all(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
         op_function = None
         if op == "Equal":
             op_function = operator.eq

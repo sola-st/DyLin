@@ -3,7 +3,7 @@ from pathlib import Path
 from fire import Fire
 
 def summarize_coverage(root_dir: str):
-    checkers = ["InconsistentPreprocessing", "InPlaceSortAnalysis", "MutableDefaultArgsAnalysis", "WrongTypeAddedAnalysis", "GradientAnalysis", "BuiltinAllAnalysis", "StringStripAnalysis", "NonFinitesAnalysis", "TensorflowNonFinitesAnalysis", "ObjectMarkingAnalysis", "StringConcatAnalysis", "InefficientTruthCheck", "InvalidComparisonAnalysis", "ComparisonBehaviorAnalysis", "ChangeListWhileIterating"]
+    checkers = ["InconsistentPreprocessing", "InPlaceSortAnalysis", "MutableDefaultArgsAnalysis", "WrongTypeAddedAnalysis", "GradientAnalysis", "BuiltinAllAnalysis", "StringStripAnalysis", "NonFinitesAnalysis", "TensorflowNonFinitesAnalysis", "ObjectMarkingAnalysis", "StringConcatAnalysis", "InvalidComparisonAnalysis", "ComparisonBehaviorAnalysis", "ChangeListWhileIterating"]
     here = Path(__file__).resolve().parent
     with open(here / "projects.txt") as f:
         projects = [p for p in f.read().split("\n") if not p.startswith("#")]

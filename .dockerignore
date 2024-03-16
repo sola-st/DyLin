@@ -6,6 +6,8 @@ run_kaggle.sh
 results/
 kaggle_results/
 kaggle_results_old/
-project_results/
+*project_results*/
 results_*/
 log*.txt
+project_*s/
+lint_reports/

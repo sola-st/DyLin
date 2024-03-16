@@ -36,4 +36,4 @@ if __name__ == "__main__":
 
     import pytest
 
-    pytest.main(['-n', 'auto', '--dist', 'worksteal', f'--cov={name}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])
+    pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=900', f'--cov={name}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])

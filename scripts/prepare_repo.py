@@ -35,8 +35,8 @@ def install_special(url):
     elif url == "https://github.com/miso-belica/sumy.git":
         subprocess.run(["pip", "install", "nltk"])
         command = "python -m nltk.downloader all"
-    elif url == "https://github.com/python-telegram-bot/python-telegram-bot.git":
-        subprocess.run(["pre-commit", "install"])
+    elif url == "https://github.com/dpkp/kafka-python.git":
+        subprocess.run(["pip", "install", "pytest-mock", "mock", "python-snappy", "zstandard", "lz4", "xxhash", "crc32c"])
     else:
         return
     subprocess.run(command.split(" "))
@@ -101,7 +101,6 @@ if __name__ == "__main__":
             for a in [
                 "ComparisonBehaviorAnalysis",
                 "InPlaceSortAnalysis",
-                #"InefficientTruthCheck",
                 "InvalidComparisonAnalysis",
                 "MutableDefaultArgsAnalysis",
                 "StringConcatAnalysis",
@@ -125,6 +124,15 @@ if __name__ == "__main__":
             ]
         ]
 
+    if name == "rich":
+        analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
+        analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
+    if name == "openleadr_python":
+        with open(str(Path(name)/"test"/"test_reports.py")) as f:
+            content = f.read()
+        content = content.replace("assert(", "assert (")
+        with open(str(Path(name)/"test"/"test_reports.py"), "w") as f:
+            f.write(content)
     start = time.time()
     instrument_dir(name, analyses, use_external_dir=False)
     inst_time_2 = time.time() - start

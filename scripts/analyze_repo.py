@@ -44,7 +44,6 @@ if __name__ == "__main__":
             for a in [
                 "ComparisonBehaviorAnalysis",
                 "InPlaceSortAnalysis",
-                "InefficientTruthCheck",
                 "InvalidComparisonAnalysis",
                 "MutableDefaultArgsAnalysis",
                 "StringConcatAnalysis",
@@ -77,10 +76,13 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=1200', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
+    if name == "rich":
+        analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
+        analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
 
     #with open(entry, "w") as f:
     #    f.write(run_all_tests)

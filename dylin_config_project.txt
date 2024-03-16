@@ -1,6 +1,5 @@
 dylin.analyses.ComparisonBehaviorAnalysis.ComparisonBehaviorAnalysis
 dylin.analyses.InPlaceSortAnalysis.InPlaceSortAnalysis
-dylin.analyses.InefficientTruthCheck.InefficientTruthCheck
 dylin.analyses.InvalidComparisonAnalysis.InvalidComparisonAnalysis
 dylin.analyses.MutableDefaultArgsAnalysis.MutableDefaultArgsAnalysis
 dylin.analyses.StringConcatAnalysis.StringConcatAnalysis
@@ -15,4 +14,3 @@ dylin.analyses.InconsistentPreprocessing.InconsistentPreprocessing
 dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=/Work/DyLin/src/dylin/markings/configs/forced_order.yml
 dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=/Work/DyLin/src/dylin/markings/configs/leak_preprocessing.yml
 dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=/Work/DyLin/src/dylin/markings/configs/leaked_data.yml
-dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=/Work/DyLin/src/dylin/markings/configs/weak_hash.yml
