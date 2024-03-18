@@ -86,6 +86,13 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                         "A-16",
                         f"Compared {left} with {right} {op} but is returns something different",
                     )
+                if self.compare_funct(left, right):
+                    self.add_finding(
+                        iid,
+                        dyn_ast,
+                        "A-15",
+                        f"compared with function {left} and {right}",
+                    )
             elif op == "In" or op == "NotIn":
                 if self.in_type_mismatch(left, right):
                     self.add_finding(
@@ -94,13 +101,6 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                         "A-17",
                         f"Type mismatch for in operator left {left} and {right}, where left contained in right",
                     )
-            if self.compare_funct(left, right):
-                self.add_finding(
-                    iid,
-                    dyn_ast,
-                    "A-15",
-                    f"compared with functon {left} and {right}",
-                )
             """
             elif op == 'Is' or op == 'IsNot':
                 if self.compare_types(left, right):
@@ -167,7 +167,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         left_is_slot_type = isinstance(left, type(int.__abs__))
         right_is_slot_type = isinstance(right, type(int.__abs__))
         # xor
-        if left_is_func != right_is_func and not (left_is_slot_type or right_is_slot_type):
+        if left_is_func != right_is_func and not (left_is_slot_type or right_is_slot_type) and left is not None and right is not None:
             return True
         return False
 

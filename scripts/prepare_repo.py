@@ -36,7 +36,11 @@ def install_special(url):
         subprocess.run(["pip", "install", "nltk"])
         command = "python -m nltk.downloader all"
     elif url == "https://github.com/dpkp/kafka-python.git":
-        subprocess.run(["pip", "install", "pytest-mock", "mock", "python-snappy", "zstandard", "lz4", "xxhash", "crc32c"])
+        command = "pip install pytest-mock mock python-snappy zstandard lz4 xxhash crc32c"
+    elif url == "https://github.com/sphinx-doc/sphinx.git":
+        command = "pip install html5lib"
+    elif url == "https://github.com/Trusted-AI/adversarial-robustness-toolbox.git":
+        command = "pip install Pillow"
     else:
         return
     subprocess.run(command.split(" "))

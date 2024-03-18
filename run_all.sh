@@ -1,3 +1,3 @@
-for ((i=2; i<=14; i++)); do
+for ((i=1; i<=40; i++)); do
     bash run_single_project.sh $i
 done

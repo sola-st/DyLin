@@ -76,7 +76,7 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=1200', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
@@ -92,7 +92,7 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=1200', '--import-mo
     #    sys.path.append(str((Path(name).resolve()) / tests))
     #print("Wrote test runner, starting analysis")
     start = time.time()
-    run_analysis(entry, analyses, coverage=True, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
+    run_analysis(entry, analyses, coverage=False, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
     analysis_time = time.time() - start
     # print("Finished analysis, copying coverage")
     # shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
