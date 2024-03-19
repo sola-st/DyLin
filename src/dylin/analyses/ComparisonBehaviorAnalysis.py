@@ -25,7 +25,7 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
     """
 
     def is_excluded(self, val: any) -> bool:
-        return isinstance(val, type(0.0)) or isinstance(val, type(None)) or isinstance(val, np.floating)
+        return isinstance(val, type(0.0)) or isinstance(val, type(None)) or isinstance(val, np.floating) or isinstance(val, np.ndarray)
 
     def equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
         self.check_all(dyn_ast, iid, left, "Equal", right, result)

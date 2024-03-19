@@ -9,5 +9,6 @@ kaggle_results_old/
 *project_results*/
 results_*/
 log*.txt
+logs_*/
 project_*s/
 lint_reports/

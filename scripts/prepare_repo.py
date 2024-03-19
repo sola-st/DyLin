@@ -35,6 +35,8 @@ def install_special(url):
     elif url == "https://github.com/miso-belica/sumy.git":
         subprocess.run(["pip", "install", "nltk"])
         command = "python -m nltk.downloader all"
+    elif url == "https://github.com/python-telegram-bot/python-telegram-bot.git":
+        command = "pre-commit install"
     elif url == "https://github.com/dpkp/kafka-python.git":
         command = "pip install pytest-mock mock python-snappy zstandard lz4 xxhash crc32c"
     elif url == "https://github.com/sphinx-doc/sphinx.git":

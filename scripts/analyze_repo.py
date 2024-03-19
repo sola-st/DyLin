@@ -92,7 +92,7 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mod
     #    sys.path.append(str((Path(name).resolve()) / tests))
     #print("Wrote test runner, starting analysis")
     start = time.time()
-    run_analysis(entry, analyses, coverage=False, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
+    run_analysis(entry, analyses, coverage=True, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
     analysis_time = time.time() - start
     # print("Finished analysis, copying coverage")
     # shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
