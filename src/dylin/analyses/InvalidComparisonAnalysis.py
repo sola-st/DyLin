@@ -160,14 +160,19 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
     """
 
     def compare_funct(self, left: Any, right: Any) -> bool:
-        left_is_func = callable(left) #isinstance(left, types.FunctionType)
-        right_is_func = callable(right) #isinstance(right, types.FunctionType)
+        left_is_func = isinstance(left, types.FunctionType)
+        right_is_func = isinstance(right, types.FunctionType)
 
         # ignore wrapper_descriptor types which are builtin functions implemented in C
         left_is_slot_type = isinstance(left, type(int.__abs__))
         right_is_slot_type = isinstance(right, type(int.__abs__))
         # xor
-        if left_is_func != right_is_func and not (left_is_slot_type or right_is_slot_type) and left is not None and right is not None:
+        if (
+            left_is_func != right_is_func
+            and not (left_is_slot_type or right_is_slot_type)
+            and left is not None
+            and right is not None
+        ):
             return True
         return False
 

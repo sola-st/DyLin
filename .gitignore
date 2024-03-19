@@ -175,3 +175,5 @@ project_lints*/
 lint_reports/
 coverage_comparison.csv
 same_location_warnings_ruff_dylin.txt
+microbench_same_location_ruff_dylin.txt
+ruff_result_microbench.txt
