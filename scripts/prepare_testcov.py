@@ -81,7 +81,10 @@ if __name__ == "__main__":
         print("Cloned repo and switched to commit")
         if requirements:
             subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
-        subprocess.run(["pip", "install", "-e", f"{name}/"])
+        if url == "https://github.com/tiangolo/typer.git":
+            subprocess.run(["pip", "install", f"{name}/[all]"])
+        else:
+            subprocess.run(["pip", "install", "-e", f"{name}/"])
         print("Installed requirements")
     else:
         if requirements:

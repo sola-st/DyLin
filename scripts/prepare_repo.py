@@ -81,7 +81,10 @@ if __name__ == "__main__":
         print("Cloned repo and switched to commit")
         if requirements:
             subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
-        subprocess.run(["pip", "install", "-e", f"{name}/"])
+        if url == "https://github.com/tiangolo/typer.git":
+            subprocess.run(["pip", "install", f"{name}/[all]"])
+        else:
+            subprocess.run(["pip", "install", "-e", f"{name}/"])
         print("Installed requirements")
     else:
         if requirements:
@@ -139,9 +142,15 @@ if __name__ == "__main__":
         content = content.replace("assert(", "assert (")
         with open(str(Path(name)/"test"/"test_reports.py"), "w") as f:
             f.write(content)
-    start = time.time()
-    instrument_dir(name, analyses, use_external_dir=False)
-    inst_time_2 = time.time() - start
+    if url == "https://github.com/tiangolo/typer.git":
+        installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/', name))}"
+        start = time.time()
+        instrument_dir(installation_dir, analyses, use_external_dir=False)
+        inst_time_2 = time.time() - start
+    else:
+        start = time.time()
+        instrument_dir(name, analyses, use_external_dir=False)
+        inst_time_2 = time.time() - start
     print("Instrumented repo")
     with open("/Work/reports/timing.txt", "w") as f:
         f.write(f"{name} {inst_time_2} ")
