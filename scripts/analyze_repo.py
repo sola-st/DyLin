@@ -80,7 +80,7 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mod
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
-    if name == "rich":
+    if name in ["rich", "python_future"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
 
