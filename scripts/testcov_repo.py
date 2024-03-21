@@ -33,7 +33,12 @@ if __name__ == "__main__":
 
     if not url.startswith("http"):
         name = str((here / url).resolve())
+    if url == "https://github.com/tiangolo/typer.git":
+        installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/', name))}"
 
     import pytest
 
-    pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', f'--cov={name}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])
+    if url == "https://github.com/tiangolo/typer.git":
+        pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', f'--cov={installation_dir}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])
+    else:
+        pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', f'--cov={name}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])

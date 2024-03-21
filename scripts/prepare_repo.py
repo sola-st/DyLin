@@ -7,52 +7,16 @@ from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
 import os
 import time
+from common import install_special
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
-
-
-def install_special(url):
-    if url == "https://github.com/lorien/grab.git":
-        command = "pip install cssselect pyquery pymongo fastrq"  # required for running tests
-    elif url == "https://github.com/psf/black.git":
-        command = "pip install aiohttp"  # required for running tests
-    elif url == "https://github.com/errbotio/errbot.git":
-        command = "pip install mock"  # required for running tests
-    elif url == "https://github.com/PyFilesystem/pyfilesystem2.git":
-        command = "pip install parameterized pyftpdlib psutil"  # required for running tests
-    elif url == "https://github.com/wtforms/wtforms.git":
-        command = "pip install babel email_validator"  # required for running tests
-    elif url == "https://github.com/geopy/geopy.git":
-        command = "pip install docutils"  # required for running tests
-    elif url == "https://github.com/gawel/pyquery.git":
-        command = "pip install webtest"  # required for running tests
-    elif url == "https://github.com/elastic/elasticsearch-dsl-py.git":
-        command = "pip install pytz"  # required for running tests
-    elif url == "https://github.com/marshmallow-code/marshmallow.git":
-        command = "pip install pytz simplejson"  # required for running tests
-    elif url == "https://github.com/pytest-dev/pytest.git":
-        command = "pip install hypothesis xmlschema"  # required for running tests
-    elif url == "https://github.com/miso-belica/sumy.git":
-        subprocess.run(["pip", "install", "nltk"])
-        command = "python -m nltk.downloader all"
-    elif url == "https://github.com/python-telegram-bot/python-telegram-bot.git":
-        command = "pre-commit install"
-    elif url == "https://github.com/dpkp/kafka-python.git":
-        command = "pip install pytest-mock mock python-snappy zstandard lz4 xxhash crc32c"
-    elif url == "https://github.com/sphinx-doc/sphinx.git":
-        command = "pip install html5lib"
-    elif url == "https://github.com/Trusted-AI/adversarial-robustness-toolbox.git":
-        command = "pip install Pillow"
-    elif url == "https://github.com/spotify/dh-virtualenv.git":
-        command = "pip install mock nose tf_keras"
-    else:
-        return
-    subprocess.run(command.split(" "))
 
 
 def post_process_special(url):
     if url == "https://github.com/pallets/click.git":
         (Path("click").resolve() / "tests" / "test_imports.py").unlink(missing_ok=True)
+    elif url == "https://github.com/dpkp/kafka-python.git":
+        subprocess.run(["pip", "install", "crc32c", "docker-py", "lz4", "mock", "pytest-mock", "python-snappy", "Sphinx", "sphinx-rtd-theme", "tox", "xxhash"])
 
 
 if __name__ == "__main__":
@@ -83,7 +47,10 @@ if __name__ == "__main__":
         print("Cloned repo and switched to commit")
         if requirements:
             subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
-        subprocess.run(["pip", "install", "-e", f"{name}/"])
+        if url == "https://github.com/tiangolo/typer.git":
+            subprocess.run(["pip", "install", f"{name}/[all]"])
+        else:
+            subprocess.run(["pip", "install", "-e", f"{name}/"])
         print("Installed requirements")
     else:
         if requirements:
@@ -132,7 +99,7 @@ if __name__ == "__main__":
             ]
         ]
 
-    if name == "rich":
+    if name in ["rich", "python_future"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
     if name == "openleadr_python":
@@ -141,9 +108,15 @@ if __name__ == "__main__":
         content = content.replace("assert(", "assert (")
         with open(str(Path(name)/"test"/"test_reports.py"), "w") as f:
             f.write(content)
-    start = time.time()
-    instrument_dir(name, analyses, use_external_dir=False)
-    inst_time_2 = time.time() - start
+    if url == "https://github.com/tiangolo/typer.git":
+        installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/', name))}"
+        start = time.time()
+        instrument_dir(installation_dir, analyses, use_external_dir=False)
+        inst_time_2 = time.time() - start
+    else:
+        start = time.time()
+        instrument_dir(name, analyses, use_external_dir=False)
+        inst_time_2 = time.time() - start
     print("Instrumented repo")
     with open("/Work/reports/timing.txt", "w") as f:
         f.write(f"{name} {inst_time_2} ")
