@@ -43,6 +43,8 @@ def install_special(url):
         command = "pip install html5lib"
     elif url == "https://github.com/Trusted-AI/adversarial-robustness-toolbox.git":
         command = "pip install Pillow"
+    elif url == "https://github.com/spotify/dh-virtualenv.git":
+        command = "pip install mock nose tf_keras"
     else:
         return
     subprocess.run(command.split(" "))

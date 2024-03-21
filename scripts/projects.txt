@@ -1,7 +1,7 @@
 https://github.com/miso-belica/sumy.git 7fd49700082b217ab254bbc6ae4ca72404985f24 t tests
 https://github.com/Textualize/rich.git aca9467ec6a482b3bed1ba7d2e3de72271c5f817 t tests
 https://github.com/OpenLEADR/openleadr-python.git d7385cf04ed83d8ac202d5ed5e0a5a7122fd2eac rt dev_requirements.txt test
-https://github.com/translate/translate.git f67d643e05565d6933833af2954c31de94937c1d rt requirements/test.txt tests
+https://github.com/translate/translate.git d7922d50628dfc2964e9ae69437bf0c95851e2ce rt requirements/test.txt tests/translate
 https://github.com/python-telegram-bot/python-telegram-bot.git cd59c1c075ff6eccf2afbcfad1752bc62ee10ac9 rt requirements-all.txt tests
 https://github.com/sphinx-doc/sphinx.git ca0fc7aa86cb8acfb4445aab17666a836abaee43 t tests
 https://github.com/Trusted-AI/adversarial-robustness-toolbox.git ee0c4b6c165157f5a65799a0b92a9de6634f62a9 rt requirements_test.txt tests
