@@ -5,12 +5,12 @@ https://github.com/translate/translate.git d7922d50628dfc2964e9ae69437bf0c95851e
 https://github.com/Alir3z4/html2text.git a3ed67b69160746b03a5861bf5c1b7a5ba76a4e1 t test
 https://github.com/sphinx-doc/sphinx.git ca0fc7aa86cb8acfb4445aab17666a836abaee43 t tests
 https://github.com/Trusted-AI/adversarial-robustness-toolbox.git ee0c4b6c165157f5a65799a0b92a9de6634f62a9 rt requirements_test.txt tests
-https://github.com/dpkp/kafka-python.git 4d598055dab7da99e41bfcceffa8462b32931cdd t test
+https://github.com/psf/requests.git 6e5b15d542a4e85945fd72066bb6cecbc3a82191 rt requirements-dev.txt tests
 https://github.com/higlass/clodius.git 49c916f8af3eba5d118183410688d36498f791ec rt requirements.txt test
 https://github.com/WebOfTrust/keripy.git 36b77179aac817a28097a6dacd2433512a4f832b rt requirements.txt tests
 https://github.com/Fatal1ty/mashumaro.git e391ea311d1a7c53a455ba58146cbbc448338a97 rt requirements-dev.txt tests
 https://github.com/tiangolo/typer.git 50caff27573e0d1381701d24122ca9fed20d6343 t tests
-https://github.com/Suor/funcy.git 13fac0037c109a9e4649fc8ee343be17647f7407 rt test_requirements.txt tests
+https://github.com/Suor/funcy.git 13fac0037c109a9e4649fc8ee343be17647f7407 t tests
 https://github.com/Supervisor/supervisor.git 2a93d6b21edca4e8b00987c70a350ca626aebec8 t supervisor/tests
 https://github.com/nvbn/thefuck.git ceeaeab94b5df5a4fe9d94d61e4f6b0bbea96378 rt requirements.txt tests
 https://github.com/akfamily/akshare.git 187954ee0b9937e882a1c740754946e6362d32ab rt requirements-dev.txt tests
@@ -18,31 +18,28 @@ https://github.com/mwaskom/seaborn.git 824c102525e6a29cde9bca1ce0096d50588fda6b 
 https://github.com/lorien/grab.git b6af38ca4bb4323c52a61346b781378273ee0f9d rt requirements_dev.txt tests
 https://github.com/AtsushiSakai/PythonRobotics.git 6bade5000dca75b91cc9de94f797e5d558082855 rt requirements/requirements.txt tests
 https://github.com/grantjenks/python-diskcache.git 4d3068625a3edcd2f5a1f6f104ef621f1f7ea395 rt requirements.txt tests
-https://github.com/errbotio/errbot.git ec4c0b46fa010b52a2d214cb7f33f167dd0b7df7 rt requirements.txt tests
-https://github.com/PythonCharmers/python-future.git 3dc7acc8e5a4266df6c823b9350a731dd7df6124 t tests
+https://github.com/arrow-py/arrow.git c28d39ef527d536d795a334844dc68279e1ab0ac rt requirements/requirements-tests.txt tests
+https://github.com/geopy/geopy.git ef48a8cbb85f842c0820333e53e7ebde7db382a3 t test
 https://github.com/pallets/click.git ac15816133ef12001ebf6d6aecb7a3cf14487761 rt requirements/tests.txt tests
 https://github.com/flask-api/flask-api.git a62fef6b602966512ebbe63611b30ecaf35079c2 t flask_api/tests
 https://github.com/dbader/schedule.git a3c2074dcd8f39168525f0fc2b009bc7119f0796 rt requirements-dev.txt test_schedule.py
-https://github.com/python-pillow/Pillow.git 6ab99aac0e9fef3a6045f9a4034e64a92cda2cb8 t Tests
-https://github.com/Parsely/streamparse.git aabd9d057f0fbf568d29199e3d25a6d30d62f132 rt test-requirements.txt test
+https://github.com/inducer/pudb.git 6739956d738c4929605d37c280b640a8200c3f24 rt requirements.dev.txt test
+https://github.com/Zulko/moviepy.git b5bb086439cfd0960011a065f229eb7a7b4ebad5 t tests
 https://github.com/spotify/dh-virtualenv.git 9bd6d3fac3ea9b53e12bfedeef53f0a73c57b2cd rt dev-requirements.txt test
-https://github.com/mitmproxy/pdoc.git 82bd69e3a24671de3f5506cbeaf8a39a7e481b34 rt requirements-dev.txt test
 https://github.com/amitt001/delegator.py.git 194aa92543fbdbfbae0bcc24ca217819a7805da2 t tests
 https://github.com/faif/python-patterns.git d4b7f97b3ac07cb545caca32826186e32ec1d88a rt requirements-dev.txt tests
 https://github.com/encode/uvicorn.git d62a537b04dbb47f2e53e2c0806a41be21111e53 rt requirements.txt tests
 https://github.com/jiaaro/pydub.git 996cec42e9621701edb83354232b2c0ca0121560 t test/test.py
 https://github.com/jpadilla/pyjwt.git d7c54dbebdab2ae17f7948fd4432b15e1bb82852 t tests
 https://github.com/pyeve/cerberus.git 8765b317442c002a84e556bd5d9677b868e6deb2 t cerberus/tests
+https://github.com/PyFilesystem/pyfilesystem2.git 59f6e4d51a1983ca28d0b667bd1d6b3284ab5c56 t tests
 https://github.com/psf/black.git 35722dff623f3cdf5018e3f1183cd4e02e91caa8 rt test_requirements.txt tests
 https://github.com/HBNetwork/python-decouple.git 7c9b250c53bdd0ae96f449d5d2be918ed90ba273 rt requirements.txt tests
-https://github.com/arrow-py/arrow.git c28d39ef527d536d795a334844dc68279e1ab0ac rt requirements/requirements-tests.txt tests
-https://github.com/inducer/pudb.git 6739956d738c4929605d37c280b640a8200c3f24 rt requirements.dev.txt test
-https://github.com/PyFilesystem/pyfilesystem2.git 59f6e4d51a1983ca28d0b667bd1d6b3284ab5c56 t tests
 https://github.com/wtforms/wtforms.git 96021e2574b82820a11a8ff6fa5367aebff88533 t tests
 https://github.com/graphql-python/graphene.git 03cf2e131e655402ccc0a9e2d9897c39d7f7f86a t graphene/tests
-https://github.com/geopy/geopy.git ef48a8cbb85f842c0820333e53e7ebde7db382a3 t test
+https://github.com/PythonCharmers/python-future.git 3dc7acc8e5a4266df6c823b9350a731dd7df6124 t tests
 https://github.com/gawel/pyquery.git ca860115ee15ad30367b6386ed6abc8f8801600e t tests
-https://github.com/psf/requests.git 6e5b15d542a4e85945fd72066bb6cecbc3a82191 rt requirements-dev.txt tests
+https://github.com/dpkp/kafka-python.git 4d598055dab7da99e41bfcceffa8462b32931cdd t test
 https://github.com/scikit-learn/scikit-learn.git e5df5fec4d81d85d5a0965e9fc46cae96bd0324d t sklearn/tests
 https://github.com/pallets-eco/blinker.git cff9a5ab34311737b4a4cdd3b677313ab442071c t tests
 https://github.com/0rpc/zerorpc-python.git 99ee6e47c8baf909b97eec94f184a19405f392a2 t tests
@@ -55,8 +52,11 @@ https://github.com/pallets/jinja.git 7b48764688dce68e99341bec59b1eedf0c5c3ba5 rt
 https://github.com/pytest-dev/pytest.git b7a142f4babddce76168e9cb00bf5de6b145c0e4 t testing
 https://github.com/rspeer/python-ftfy.git fbb4570df343757c36ac2a86142c3cc5aaea2746 t tests
 https://github.com/gruns/furl.git 774846234ff803606fdd289a7549f9b50b2b3677 t tests
-https://github.com/Zulko/moviepy.git b5bb086439cfd0960011a065f229eb7a7b4ebad5 t tests
 https://github.com/miracle2k/webassets.git 41ff9e57f5c872eeeb253ef6c6b1853742231a1c rt requirements-dev.pip tests
 https://github.com/aaugustin/websockets.git e3abb88ad6c8fc3e57f42aed4a00b9644c4e65df t tests
 https://github.com/benoitc/gunicorn.git add8a4c951f02a67ca1f81264e5c107fa68e6496 rt requirements_dev.txt tests
 https://github.com/python-telegram-bot/python-telegram-bot.git cd59c1c075ff6eccf2afbcfad1752bc62ee10ac9 rt requirements-all.txt tests
+https://github.com/Parsely/streamparse.git aabd9d057f0fbf568d29199e3d25a6d30d62f132 rt test-requirements.txt test
+https://github.com/errbotio/errbot.git ec4c0b46fa010b52a2d214cb7f33f167dd0b7df7 rt requirements.txt tests
+https://github.com/python-pillow/Pillow.git 6ab99aac0e9fef3a6045f9a4034e64a92cda2cb8 t Tests
+https://github.com/mitmproxy/pdoc.git 82bd69e3a24671de3f5506cbeaf8a39a7e481b34 rt requirements-dev.txt test

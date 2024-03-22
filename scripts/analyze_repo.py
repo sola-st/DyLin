@@ -80,9 +80,20 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mod
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
-    if name in ["rich", "python_future"]:
+    if name in ["rich", "python_future", "requests"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
+    
+    if url == "https://github.com/dpkp/kafka-python.git":
+        subprocess.run(["ls", "/opt/dylinVenv/lib/python3.10/site-packages/"])
+        run_all_tests = '''
+import pytest
+
+pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '/Work/kafka_python/test'])'''
+#         run_all_tests = '''
+# import subprocess
+# subprocess.run(["tox", "-c", "./kafka_python/tox.ini"])
+#         '''
 
     #with open(entry, "w") as f:
     #    f.write(run_all_tests)

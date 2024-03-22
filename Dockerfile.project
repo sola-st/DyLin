@@ -9,6 +9,20 @@ ENV PATH="/opt/dylinVenv/bin:$PATH"
 
 RUN pip install --upgrade pip setuptools wheel
 RUN apt-get install -q -y git
+RUN apt-get install -y wget
+RUN apt-get install -y libffi-dev libsodium23 libsodium-dev
+# RUN apt-get update && apt-get install -y --no-install-recommends \
+#     make \
+#     build-essential \
+#     g++
+# RUN wget https://download.libsodium.org/libsodium/releases/LATEST.tar.gz
+# RUN tar -xvf LATEST.tar.gz
+# WORKDIR /Work/libsodium-stable
+# RUN bash ./configure
+# RUN make
+# RUN make install
+# WORKDIR /Work
+# RUN ldconfig
 
 RUN mkdir ./reports
 RUN chmod -R 777 ./reports

@@ -49,6 +49,13 @@ if __name__ == "__main__":
             subprocess.run(["pip", "install", "-r", f"{name}/{requirements}"])
         if url == "https://github.com/tiangolo/typer.git":
             subprocess.run(["pip", "install", f"{name}/[all]"])
+        elif url == "https://github.com/dpkp/kafka-python.git":
+            with open(str(Path(name)/"setup.py")) as file:
+                content = file.read()
+            content = content.replace("exclude=[\'test\']", "")
+            with open(str(Path(name)/"setup.py"), "w") as file:
+                file.write(content)
+            subprocess.run(["pip", "install", f"{name}"])
         else:
             subprocess.run(["pip", "install", "-e", f"{name}/"])
         print("Installed requirements")
@@ -99,7 +106,7 @@ if __name__ == "__main__":
             ]
         ]
 
-    if name in ["rich", "python_future"]:
+    if name in ["rich", "python_future", "requests"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
     if name == "openleadr_python":
@@ -110,6 +117,12 @@ if __name__ == "__main__":
             f.write(content)
     if url == "https://github.com/tiangolo/typer.git":
         installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/', name))}"
+        start = time.time()
+        instrument_dir(installation_dir, analyses, use_external_dir=False)
+        inst_time_2 = time.time() - start
+    elif url == "https://github.com/dpkp/kafka-python.git":
+        shutil.copytree("/Work/kafka_python/test", "/opt/dylinVenv/lib/python3.10/site-packages/test")
+        installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/kafka'))}"
         start = time.time()
         instrument_dir(installation_dir, analyses, use_external_dir=False)
         inst_time_2 = time.time() - start

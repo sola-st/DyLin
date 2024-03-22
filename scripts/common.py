@@ -35,6 +35,10 @@ def install_special(url):
         command = "pip install Pillow"
     elif url == "https://github.com/spotify/dh-virtualenv.git":
         command = "pip install mock nose tf_keras"
+    elif url == "https://github.com/Suor/funcy.git":
+        command = "pip install more-itertools whatever"
+    elif url == "https://github.com/WebOfTrust/keripy.git":
+        command = "pip install lmdb pysodium blake3 msgpack simplejson cbor2"
     else:
         return
     subprocess.run(command.split(" "))
