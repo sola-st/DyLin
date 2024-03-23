@@ -190,7 +190,7 @@ if not args.only_prepare:
     """
 
     def run_dylin(path):
-        run_analysis(path, analyses, coverage=True)
+        run_analysis(path, analyses, coverage=False)
         # result = subprocess.run(f"python -m dynapyt.run_analysis --entry {path} --analysis AnalysisWrapper --module dylin",
         #                         shell=True)
         # if result.returncode != 0:

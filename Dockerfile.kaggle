@@ -26,7 +26,7 @@ RUN chmod 755 /kaggle
 USER dylinuser
 
 # Install dependencies
-RUN python -m pip install -r requirements.txt
+RUN python -m pip install --user -r requirements.txt
 RUN python -m pip install pebble
 RUN python -m pip install .
 
