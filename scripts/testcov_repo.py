@@ -44,5 +44,5 @@ if __name__ == "__main__":
     else:
         pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', f'--cov={name}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])
     end_time = time.time()
-    with open("/Work/reports/timing.txt", "w") as f:
+    with open("/Work/testcov/timing.txt", "w") as f:
         f.write(f"{name} {end_time - start_time}\n")
