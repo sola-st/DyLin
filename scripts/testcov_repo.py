@@ -38,7 +38,11 @@ if __name__ == "__main__":
 
     import pytest
 
+    start_time = time.time()
     if url == "https://github.com/tiangolo/typer.git":
         pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', f'--cov={installation_dir}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])
     else:
         pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', f'--cov={name}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])
+    end_time = time.time()
+    with open("/Work/testcov/timing.txt", "w") as f:
+        f.write(f"{name} {end_time - start_time}\n")

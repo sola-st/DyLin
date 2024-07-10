@@ -57,9 +57,12 @@ def coverage_comparison(analysis_dir: str, test_dir: str):
         if not analysis_coverage.exists() or not test_coverage.exists():
             print(f"One coverage does not exist {i}")
             continue
+        with open(analysis_coverage.parent.parent/"timing.txt") as f:
+            timing = f.read().strip()
+        project_name = timing.split(" ")[0]
         covered_by, total_covered_lines, test_coverage = coverage_report(analysis_coverage, test_coverage)
         with open("coverage_comparison.csv", "a") as f:
-            f.write(f"{i}, {total_covered_lines}, {test_coverage}\n")
+            f.write(f"{i}, {total_covered_lines}, {test_coverage}, {project_name}\n")
         # print(f"Project {i}:")
         # print(f"Analysis covered lines: {total_covered_lines}")
         # print(f"Test coverage: {test_coverage}")
