@@ -1,8 +1,4 @@
 dynapyt @ git+https://github.com/sola-st/DynaPyt@main
-pytest
-pytest-cov
-pytest-xdist
-pytest-timeout
 numpy
 torch
 tensorflow
@@ -11,3 +7,4 @@ libcst
 pandas
 PyYAML
 filelock
+fire

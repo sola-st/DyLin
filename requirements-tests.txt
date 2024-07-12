@@ -55,6 +55,10 @@ pyasn1
 pyasn1-modules
 pycodestyle
 pycparser
+pytest
+pytest-cov
+pytest-xdist
+pytest-timeout
 python-dateutil
 python-slugify
 pytz
