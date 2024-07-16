@@ -1,5 +1,6 @@
 dynapyt @ git+https://github.com/sola-st/DynaPyt@main
 numpy
+-i https://download.pytorch.org/whl/cpu
 torch
 tensorflow
 scikit-learn
