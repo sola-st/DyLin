@@ -87,28 +87,33 @@ issue_codes = {
 }
 
 
-def select_checkers(include: str = "all", exclude: str = "none") -> str:
+def select_checkers(include: str = "all", exclude: str = "none", output_dir: str | None = None) -> str:
     if include == "all" and exclude == "none":
-        return ",".join([issue["analysis"] for _, issue in issue_codes.items()])
-    if include == "all":
-        return ",".join(
+        res = "\n".join([issue["analysis"] for _, issue in issue_codes.items()])
+    elif include == "all":
+        res = "\n".join(
             [
                 issue["analysis"]
                 for code, issue in issue_codes.items()
                 if (code not in exclude and issue["name"] not in exclude)
             ]
         )
-    if exclude == "none":
-        return ",".join(
+    elif exclude == "none":
+        res = "\n".join(
             [issue["analysis"] for code, issue in issue_codes.items() if (code in include or issue["name"] in include)]
         )
-    return ",".join(
-        [
-            issue["analysis"]
-            for code, issue in issue_codes.items()
-            if (code in include or issue["name"] in include) and (code not in exclude and issue["name"] not in exclude)
-        ]
-    )
+    else:
+        res = "\n".join(
+            [
+                issue["analysis"]
+                for code, issue in issue_codes.items()
+                if (code in include or issue["name"] in include)
+                and (code not in exclude and issue["name"] not in exclude)
+            ]
+        )
+    if output_dir is not None:
+        return "\n".join([f"{ana};output_dir={output_dir}" for ana in res.split("\n")])
+    return res
 
 
 if __name__ == "__main__":
