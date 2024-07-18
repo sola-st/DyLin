@@ -87,7 +87,7 @@ issue_codes = {
 }
 
 
-def select_checkers(include: str = "all", exclude: str = "none", output_dir: str | None = None) -> str:
+def select_checkers(include: str = "all", exclude: str = "none", output_dir: str = None) -> str:
     if include == "all" and exclude == "none":
         res = "\n".join([issue["analysis"] for _, issue in issue_codes.items()])
     elif include == "all":
