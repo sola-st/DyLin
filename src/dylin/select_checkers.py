@@ -88,9 +88,15 @@ issue_codes = {
 
 
 def select_checkers(include: str = "all", exclude: str = "none", output_dir: str = None) -> str:
-    if include.lower() == "all" and exclude.lower() == "none":
+    if include is None:
+        include = "none"
+    if exclude is None:
+        exclude = "none"
+    include = include.lower()
+    exclude = exclude.lower()
+    if include == "all" and exclude == "none":
         res = "\n".join([issue["analysis"] for _, issue in issue_codes.items()])
-    elif include.lower() == "all":
+    elif include == "all":
         res = "\n".join(
             [
                 issue["analysis"]
@@ -98,7 +104,7 @@ def select_checkers(include: str = "all", exclude: str = "none", output_dir: str
                 if (code not in exclude and issue["name"] not in exclude)
             ]
         )
-    elif exclude.lower() == "none":
+    elif exclude == "none":
         res = "\n".join(
             [issue["analysis"] for code, issue in issue_codes.items() if (code in include or issue["name"] in include)]
         )
