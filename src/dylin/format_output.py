@@ -1,8 +1,11 @@
+import json
 import fire
 from .select_checkers import issue_codes
 
 
-def format_output(findings: list[dict]) -> str:
+def format_output(findings_path: str) -> str:
+    with open(findings_path, "r") as f:
+        findings = json.load(f)
     res = ""
     for finding in findings:
         if len(finding["results"]) > 0:
