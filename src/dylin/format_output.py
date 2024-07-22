@@ -10,15 +10,16 @@ def format_output(findings_path: str) -> str:
     for finding in findings:
         if len(finding["results"]) > 0:
             for result in finding["results"]:
-                if len(result["results"]) > 0:
-                    for issue_code, issues in result["results"].items():
-                        code = ""
-                        for c, i in issue_codes.items():
-                            if issue_code in i["aliases"] or issue_code == c:
-                                code = c
-                                break
-                        for issue in issues:
-                            res += f"{code}: {issue['location']['file']}: {issue['location']['start_line']}: {issue['msg']}\n"
+                for _, checker_finding in result.items():
+                    if len(checker_finding["results"]) > 0:
+                        for issue_code, issues in result["results"].items():
+                            code = ""
+                            for c, i in issue_codes.items():
+                                if issue_code in i["aliases"] or issue_code == c:
+                                    code = c
+                                    break
+                            for issue in issues:
+                                res += f"{code}: {issue['location']['file']}: {issue['location']['start_line']}: {issue['msg']}\n"
     return res
 
 
