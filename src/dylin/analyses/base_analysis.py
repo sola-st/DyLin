@@ -78,7 +78,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
     ) -> Any:
         return {
             "msg": msg,
-            "trace": stacktrace,
+            # "trace": stacktrace,
             "location": location._asdict(),
             "uid": str(location),
             "iid": iid,
