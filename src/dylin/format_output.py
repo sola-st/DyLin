@@ -12,7 +12,7 @@ def format_output(findings_path: str) -> str:
             for result in finding["results"]:
                 for _, checker_finding in result.items():
                     if len(checker_finding["results"]) > 0:
-                        for issue_code, issues in result["results"].items():
+                        for issue_code, issues in checker_finding["results"].items():
                             code = ""
                             for c, i in issue_codes.items():
                                 if issue_code in i["aliases"] or issue_code == c:
