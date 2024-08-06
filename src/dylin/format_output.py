@@ -6,7 +6,7 @@ from .select_checkers import issue_codes
 def format_output(findings_path: str) -> str:
     with open(findings_path, "r") as f:
         findings = json.load(f)
-    res = ""
+    res = set()
     for finding in findings:
         if len(finding["results"]) > 0:
             for result in finding["results"]:
@@ -19,8 +19,10 @@ def format_output(findings_path: str) -> str:
                                     code = c
                                     break
                             for issue in issue_list:
-                                res += f"{code}: {issue['finding']['location']['file']}: {issue['finding']['location']['start_line']}: {issue['finding']['msg']}\n"
-    return res
+                                res.add(
+                                    f"{code}: {issue['finding']['location']['file']}: {issue['finding']['location']['start_line']}: {issue['finding']['msg']}"
+                                )
+    return "\n".join(list(res))
 
 
 if __name__ == "__main__":
