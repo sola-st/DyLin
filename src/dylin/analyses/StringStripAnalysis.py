@@ -27,17 +27,16 @@ class StringStripAnalysis(BaseDyLinAnalysis):
             arg = pos_args[0]
             _self = function.__self__
             if len(set(arg)) != len(arg):
-                if not _self.startswith(arg) and not _self.endswith(arg) and len(_self) > len(val):
-                    self.add_finding(
-                        iid,
-                        dyn_ast,
-                        "A-19",
-                        f"Possible misuse of str.strip, might have removed something not expected before: {_self} arg: {arg} after: {val}",
-                    )
-                else:
-                    self.add_finding(
-                        iid,
-                        dyn_ast,
-                        "A-20",
-                        f"Possible misuse of str.strip, arg contains duplicates {arg}",
-                    )
+                self.add_finding(
+                    iid,
+                    dyn_ast,
+                    "A-20",
+                    f"Possible misuse of str.strip, arg contains duplicates {arg}",
+                )
+            if len(arg) > 1 and len(_self) > len(val):
+                self.add_finding(
+                    iid,
+                    dyn_ast,
+                    "A-19",
+                    f"Possible misuse of str.strip, might have removed something not expected before: {_self} arg: {arg} after: {val}",
+                )
