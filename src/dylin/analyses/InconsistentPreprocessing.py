@@ -47,13 +47,13 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
 
         in_args.append(_self)
 
-        if isinstance(_self, TransformerMixin) and (
-            function.__name__ == "fit_transform" or function.__name__ == "transform"
+        if (function.__name__ == "fit_transform" or function.__name__ == "transform") and isinstance(
+            _self, TransformerMixin
         ):
             # source
             self.markings_storage[uniqueid(result)].add("transformed")
 
-        elif isinstance(_self, BaseEstimator) and function.__name__ == "predict":
+        elif function.__name__ == "predict" and isinstance(_self, BaseEstimator):
             # sink
             in_args = list(pos_args if not pos_args is None else []) + [_self]
 
