@@ -6,3 +6,6 @@ a = "xyzz"
 "".strip("a")
 "".strip("abc")
 "".strip(''.join([str(s) for s in range(0, 9)]))
+"foo.bar.rar".strip(".rar")  # DyLin warn
+"foo.kab.bak".strip(".bak")  # DyLin warn
+"<|en|>".strip("<|>")
