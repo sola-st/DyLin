@@ -41,6 +41,10 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
     ) -> Any:
         if result is function:
             return
+        try:
+            func_name = function.__name__
+        except AttributeError:
+            return
         _self = getattr(function, "__self__", lambda: None)
         if _self is None:
             return
