@@ -33,7 +33,10 @@ class StringStripAnalysis(BaseDyLinAnalysis):
                     "A-20",
                     f"Possible misuse of str.strip, arg contains duplicates {arg}",
                 )
-            if len(arg) > 1 and len(_self) > len(val):
+            if len(arg) > 1 and (
+                (_self.startswith(arg) and _self[len(arg) : len(arg) + 1] in arg)
+                or (_self.endswith(arg) and _self[-len(arg) - 1 : -len(arg)] in arg)
+            ):
                 self.add_finding(
                     iid,
                     dyn_ast,
