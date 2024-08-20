@@ -39,6 +39,8 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        if result is function:
+            return
         _self = getattr(function, "__self__", lambda: None)
         if _self is None:
             return
