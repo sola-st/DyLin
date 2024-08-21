@@ -30,7 +30,7 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
         self.analysis_name = "InPlaceSortAnalysis"
         self.stored_lists = {}
 
-    threshold = 10000
+    threshold = 1000
 
     @only(patterns=["sorted"])
     def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args) -> Any:
