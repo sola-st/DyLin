@@ -10,6 +10,7 @@ from pathlib import Path
 from dynapyt.instrument.instrument import instrument_file
 from dynapyt.utils.hooks import get_hooks_from_analysis
 from dynapyt.run_analysis import run_analysis
+from dynapyt.utils.runtimeUtils import gather_output
 
 
 def test_runner(directory_pair: Tuple[str, str], capsys):
@@ -75,6 +76,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
 
     captured = capsys.readouterr()
     print(captured.out)
+    exception_thrown = None
     try:
         session_id = run_analysis(
             f"{rel_dir.replace(sep, '.')}.program",
@@ -90,6 +92,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
 
     # check output
     fail = []
+    gather_output(Path(abs_dir) / f"dynapyt_output-{session_id}")
     for analysis_name in analysis_names:
         with open(join(abs_dir, f"dynapyt_output-{session_id}", f"output.json"), "r") as file:
             analysis_output = json.load(file)[0]
@@ -125,7 +128,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
 
     if fail:
         pytest.fail("\n".join(fail))
-    if exception_thrown:
+    if exception_thrown is not None:
         pytest.fail(str(exception_thrown))
     # for failure in fail:
     #     pytest.fail(failure)

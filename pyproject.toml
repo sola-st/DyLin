@@ -25,6 +25,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
+  "dynapyt@git+https://github.com/sola-st/DynaPyt@main"
 ]
 
 [project.urls]
