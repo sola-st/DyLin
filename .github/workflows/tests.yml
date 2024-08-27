@@ -1,4 +1,4 @@
-name: Pytest
+name: Tests
 
 on:
     push:
@@ -25,6 +25,7 @@ jobs:
               run: |
                 pip install -r requirements.txt
                 pip install pytest
+                pip install -e .
 
             - name: Run pytest
               run: pytest tests
