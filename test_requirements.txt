@@ -2,3 +2,4 @@ pytest
 imbalanced-learn
 tqdm
 tensorflow-datasets
+keras
