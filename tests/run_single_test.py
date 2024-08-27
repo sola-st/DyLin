@@ -1,5 +1,4 @@
-from importlib import import_module
-from os import sep, remove
+from os import sep, remove, environ
 from os.path import join, exists
 from shutil import copyfile, move, rmtree
 from typing import Tuple
@@ -76,11 +75,15 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
 
     captured = capsys.readouterr()
     print(captured.out)
-    session_id = run_analysis(
-        f"{rel_dir.replace(sep, '.')}.program",
-        checkers,
-        output_dir=abs_dir,
-    )
+    try:
+        session_id = run_analysis(
+            f"{rel_dir.replace(sep, '.')}.program",
+            checkers,
+            output_dir=abs_dir,
+        )
+    except Exception as e:
+        exception_thrown = e
+        session_id = environ.get("DYNAPYT_SESSION_ID", None)
 
     captured = capsys.readouterr()
     print(captured.out)
@@ -122,5 +125,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
 
     if fail:
         pytest.fail("\n".join(fail))
+    if exception_thrown:
+        pytest.fail(str(exception_thrown))
     # for failure in fail:
     #     pytest.fail(failure)
