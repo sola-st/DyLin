@@ -2,7 +2,6 @@ from sklearn.impute import SimpleImputer
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import make_regression
 from sklearn.preprocessing import StandardScaler
-from sklearn.base import TransformerMixin
 from sklearn.linear_model import LinearRegression
 from sklearn.svm import SVR
 
