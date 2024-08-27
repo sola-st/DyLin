@@ -28,6 +28,9 @@ dependencies = [
   "dynapyt@git+https://github.com/sola-st/DynaPyt@main"
 ]
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [project.urls]
 Documentation = "https://github.com/unknown/dylin#readme"
 Issues = "https://github.com/unknown/dylin/issues"
