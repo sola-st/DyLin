@@ -1,6 +1,7 @@
 from os import sep, remove, environ
 from os.path import join, exists
 from shutil import copyfile, move, rmtree
+import traceback
 from typing import Tuple
 import pytest
 import json
@@ -85,6 +86,8 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
         )
     except Exception as e:
         exception_thrown = e
+        print(e)
+        print(traceback.format_exc())
         session_id = environ.get("DYNAPYT_SESSION_ID", None)
 
     captured = capsys.readouterr()

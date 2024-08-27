@@ -1,7 +1,6 @@
 import tensorflow as tf
 from tensorflow.keras import Model, layers
 import numpy as np
-import tensorflow_datasets as tfds
 import random
 
 from tensorflow.keras.datasets import mnist

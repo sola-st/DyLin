@@ -37,7 +37,7 @@ class GradientAnalysis(BaseDyLinAnalysis):
                 # we reassign pos_args with the extracted list in the end
                 # pos_args = (l,)
                 gradients = list(pos_args[0])
-                pos_args = (gradients,)
+                pos_args[0] = gradients
             else:
                 gradients = list(pos_args[0])
 
