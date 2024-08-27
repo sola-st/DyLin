@@ -2,9 +2,8 @@ from typing import Any, Callable, Dict, List, Optional, Set, Tuple
 
 from .base_analysis import BaseDyLinAnalysis
 from ..markings import models
-from ..markings.obj_identifier import uniqueid, cleanup, save_uid, has_obj
+from ..markings.obj_identifier import uniqueid, cleanup, save_uid
 import yaml
-import json
 
 
 class ObjectMarkingAnalysis(BaseDyLinAnalysis):

@@ -54,15 +54,16 @@ class StringConcatAnalysis(BaseDyLinAnalysis):
                 )
                 self.concats[key] = -1
 
-    def add(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> None:
-        if isinstance(right, type("")):
-            self.last_add_operation = {"iid": iid, "result": result}
-        else:
-            self.last_add_operation = None
+    # Removed below hooks for performance reasons
+    # def add(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> None:
+    #     if isinstance(right, type("")):
+    #         self.last_add_operation = {"iid": iid, "result": result}
+    #     else:
+    #         self.last_add_operation = None
 
-    # Only a += b or a = a + b is bad not a+b+c -> add check for a = a + b
-    def write(self, dyn_ast: str, iid: int, old_val: Any, new_val: Any) -> None:
-        if isinstance(new_val, type("")):
-            if self.last_add_operation is not None and self.last_add_operation["iid"] == iid - 1:
-                if new_val == self.last_add_operation["result"]:
-                    self._check(dyn_ast, iid, new_val)
+    # # Only a += b or a = a + b is bad not a+b+c -> add check for a = a + b
+    # def write(self, dyn_ast: str, iid: int, old_val: Any, new_val: Any) -> None:
+    #     if isinstance(new_val, type("")):
+    #         if self.last_add_operation is not None and self.last_add_operation["iid"] == iid - 1:
+    #             if new_val == self.last_add_operation["result"]:
+    #                 self._check(dyn_ast, iid, new_val)

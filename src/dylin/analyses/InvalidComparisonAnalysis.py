@@ -46,7 +46,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
     def comparison(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
         self.nmb_comparisons += 1
         try:
-            if op in self.float_comparisons_to_check:
+            if op in self.float_comparisons_to_check and (self._is_float(left) or self._is_float(right)):
                 if self.check_nan(left, right):
                     self.add_finding(
                         iid,
@@ -115,28 +115,22 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
 
     def check_nan(self, left: float, right: float) -> bool:
         # np.isnan handles python builtin floats and numpy floats
-        if self._is_float(left):
-            if np.isnan(left):
-                return True
-        if self._is_float(right):
-            if np.isnan(right):
-                return True
+        if np.isnan(left):
+            return True
+        if np.isnan(right):
+            return True
         return False
 
     def check_inf(self, left: float, right: float) -> bool:
         # np.isnan handles python builtin floats and numpy floats
-        if self._is_float(left):
-            if np.isinf(left):
-                return True
-        if self._is_float(right):
-            if np.isinf(right):
-                return True
+        if np.isinf(left):
+            return True
+        if np.isinf(right):
+            return True
         return False
 
     def compare_floats(self, left: float, right: float, op: Callable) -> bool:
-        if self._is_float(left) and self._is_float(right):
-            return left != right and math.isclose(left, right, rel_tol=1e-8)
-        return False
+        return left != right and math.isclose(left, right, rel_tol=1e-8)
 
     # Change this to analyse iff == returns false but is returns true -> flag issue
     # is compares ids, if they are the same == should return true as well
@@ -145,7 +139,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
             res = op(left, right)
             if op == operator.eq and (left is right) != res:
                 return True
-            elif op == operator.ne and (not left is right) != res:
+            elif op == operator.ne and (left is not right) != res:
                 return True
         return False
 

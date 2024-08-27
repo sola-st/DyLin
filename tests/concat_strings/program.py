@@ -12,11 +12,11 @@ def test():
 
         a += b  # DyLin warn
         a += ""  # DyLin warn
-        a = a + "x"  # DyLin warn
-        b = "x" + b  # DyLin warn
+        a = a + "x"  # No warning because of performance
+        b = "x" + b  # No warning because of performance
         b += a  # DyLin warn
-        b = a + b  # DyLin warn
-        a = b + a  # DyLin warn
+        b = a + b  # No warning because of performance
+        a = b + a  # No warning because of performance
 
     '''
     fixed cases
