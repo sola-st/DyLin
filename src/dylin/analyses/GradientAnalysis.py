@@ -64,6 +64,8 @@ class GradientAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        if val is function:
+            return
         # pytorch
 
         # nn.Module is the base class for all neural network modules
@@ -76,7 +78,7 @@ class GradientAnalysis(BaseDyLinAnalysis):
             # because Optimizer.step sometimes use annotations which hide actual method
             # we just hook every call to Optimizers
             _self = getattr(function, "__self__", lambda: None)
-            if not _self is None and isinstance(_self, torch.optim.Optimizer):
+            if _self is not None and isinstance(_self, torch.optim.Optimizer):
                 for model_uid in self.stored_torch_models:
                     ref = get_ref(model_uid)
                     if not ref is None:

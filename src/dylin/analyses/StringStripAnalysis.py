@@ -18,6 +18,8 @@ class StringStripAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        if val is function:
+            return
         _self = getattr(function, "__self__", lambda: None)
 
         if not isinstance(_self, str):

@@ -191,6 +191,8 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        if result is function:
+            return
         function_is_of_interest = False
         # TODO: use __module__ + '.' + __qualname__ to receive fully qualified name
         func_name = getattr(function, "__qualname__", lambda: None)

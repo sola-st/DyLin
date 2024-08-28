@@ -40,6 +40,8 @@ class TensorflowNonFinitesAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        if result is function:
+            return
         args = list(kw_args.values() if not kw_args is None else []) + list(pos_args if not pos_args is None else [])
         no_nan_in_input = True
 
