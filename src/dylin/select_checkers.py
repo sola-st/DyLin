@@ -24,6 +24,11 @@ issue_codes = {
         "analysis": "dylin.analyses.ChangeListWhileIterating.ChangeListWhileIterating",
         "aliases": ["A-22"],
     },
+    "PC-05": {
+        "name": "ItemInList",
+        "analysis": "dylin.analyses.ItemInListAnalysis.ItemInListAnalysis",
+        "aliases": [],
+    },
     "SL-01": {
         "name": "InPlaceSort",
         "analysis": "dylin.analyses.InPlaceSortAnalysis.InPlaceSortAnalysis",

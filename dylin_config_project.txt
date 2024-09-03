@@ -9,6 +9,7 @@ dylin.analyses.ChangeListWhileIterating.ChangeListWhileIterating
 dylin.analyses.StringStripAnalysis.StringStripAnalysis
 dylin.analyses.NonFinitesAnalysis.NonFinitesAnalysis
 dylin.analyses.GradientAnalysis.GradientAnalysis
+dylin.analyses.ItemInListAnalysis.ItemInListAnalysis
 dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis
 dylin.analyses.InconsistentPreprocessing.InconsistentPreprocessing
 dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=/Work/DyLin/src/dylin/markings/configs/forced_order.yml
