@@ -33,6 +33,7 @@ RUN mkdir ./DyLin
 
 COPY ./requirements.txt ./DyLin/requirements.txt
 RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
+RUN pip install pytest pytest-xdist pytest-timeout
 
 COPY ./scripts ./DyLin/scripts
 COPY ./src ./DyLin/src

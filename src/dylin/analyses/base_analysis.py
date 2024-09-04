@@ -3,6 +3,7 @@ from typing import Any, Dict, Optional
 import sys
 import json
 import csv
+import uuid
 from pathlib import Path
 from dynapyt.analyses.BaseAnalysis import BaseAnalysis
 from dynapyt.instrument.IIDs import Location
@@ -13,10 +14,11 @@ from filelock import FileLock
 class BaseDyLinAnalysis(BaseAnalysis):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
+        self.unique_id = str(uuid.uuid4())
         self.findings = {}
         self.number_findings = 0
         self.meta = {}
-        self.stack_levels = 100
+        self.stack_levels = 20
         if isinstance(self.output_dir, str):
             self.path = Path(self.output_dir)
         else:
@@ -40,13 +42,15 @@ class BaseDyLinAnalysis(BaseAnalysis):
         self.number_findings += 1
         stacktrace = "".join(traceback.format_stack()[-self.stack_levels :])
         location = self.iid_to_location(filename, iid)
-        if not name in self.findings:
+        if name not in self.findings:
             self.findings[name] = [self._create_error_msg(iid, location, stacktrace, msg)]
         else:
             self.findings[name].append(self._create_error_msg(iid, location, stacktrace, msg))
 
     def get_result(self) -> Any:
         findings = self._format_issues(self.findings)
+        if len(findings) == 0:
+            return None
         return {
             self.analysis_name: {
                 "nmb_findings": self.number_findings,
@@ -78,7 +82,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
     ) -> Any:
         return {
             "msg": msg,
-            # "trace": stacktrace,
+            "trace": stacktrace,
             "location": location._asdict(),
             "uid": str(location),
             "iid": iid,
@@ -101,13 +105,10 @@ class BaseDyLinAnalysis(BaseAnalysis):
 
     def _write_detailed_results(self):
         print("write detailed results")
-        collect_dicts = []
-        collect_dicts.append(self.get_result())
-        result = {"meta": self.meta, "results": collect_dicts}
-        filename = "output-" + str(self.analysis_name) + "report.json"
-        # filename = "report.json"
-        # collect_dicts.append({"log": self.log_msgs})
-        with FileLock(str(self.path / filename) + ".lock"):
+        temp_res = self.get_result()
+        if temp_res is not None:
+            result = {"meta": self.meta, "results": temp_res}
+            filename = f"output-{str(self.analysis_name)}-{self.unique_id}-report.json"
             if (self.path / filename).exists():
                 with open(self.path / filename, "r") as f:
                     rep = json.load(f)

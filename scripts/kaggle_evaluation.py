@@ -9,9 +9,11 @@ import subprocess
 import time
 from typing import List
 import json
+from tempfile import gettempdir
 
 from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
+from dynapyt.post_run import post_run
 
 from pebble import ProcessExpired, ProcessPool
 
@@ -190,7 +192,8 @@ if not args.only_prepare:
     """
 
     def run_dylin(path):
-        run_analysis(path, analyses, coverage=False)
+        session_id = run_analysis(path, analyses, coverage=False)
+        post_run(output_dir=str(pathlib.Path(gettempdir()) / str(session_id)))
         # result = subprocess.run(f"python -m dynapyt.run_analysis --entry {path} --analysis AnalysisWrapper --module dylin",
         #                         shell=True)
         # if result.returncode != 0:
@@ -209,7 +212,7 @@ if not args.only_prepare:
     nmb_errors = 0
 
     # We explicitly allow workers to only work on 1 task to prevent memory leaks and to limit memory fragmentation
-    with ProcessPool(max_workers=10, max_tasks=1) as pool:
+    with ProcessPool(max_workers=40, max_tasks=1) as pool:
         future = pool.map(run_dylin, onlypy, timeout=TIMEOUT_SECONDS)
 
         iterator = future.result()

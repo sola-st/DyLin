@@ -5,6 +5,7 @@ import subprocess
 import shutil
 from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
+from dynapyt.post_run import post_run
 import os
 import time
 
@@ -103,8 +104,9 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mod
     #    sys.path.append(str((Path(name).resolve()) / tests))
     #print("Wrote test runner, starting analysis")
     start = time.time()
-    run_analysis(entry, analyses, coverage=True, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
+    session_id = run_analysis(entry, analyses, coverage=True, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
     analysis_time = time.time() - start
+    post_run(coverage_dir=f"/Work/reports/dynapyt_coverage-{session_id}", output_dir=f"/Work/reports/dynapyt_output-{session_id}")
     # print("Finished analysis, copying coverage")
     # shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
     with open("/Work/reports/timing.txt", "a") as f:
