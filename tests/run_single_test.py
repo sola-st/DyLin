@@ -100,13 +100,13 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
         with open(join(abs_dir, f"dynapyt_output-{session_id}", f"output.json"), "r") as file:
             analysis_output = json.load(file)[0]
         # print(analysis_output)
-        for wcode, findings in analysis_output["results"][0][analysis_name]["results"].items():
+        for wcode, findings in analysis_output["results"][analysis_name]["results"].items():
             for finding in findings:
                 if finding["finding"]["location"]["start_line"] not in [ew[1] for ew in expected_warnings]:
                     fail.append(f"Found something weird: {finding}")
         for expected_warning in expected_warnings:
             found = False
-            for wcode, findings in analysis_output["results"][0][analysis_name]["results"].items():
+            for wcode, findings in analysis_output["results"][analysis_name]["results"].items():
                 for finding in findings:
                     if finding["finding"]["location"]["start_line"] == expected_warning[1]:
                         found = True
@@ -120,7 +120,6 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     remove(join(abs_dir, f"dynapyt_output-{session_id}", "findings.csv.lock"))
     for analysis_name in analysis_names:
         if not fail:
-            remove(join(abs_dir, f"dynapyt_output-{session_id}", f"output-{analysis_name}report.json.lock"))
             remove(join(abs_dir, f"dynapyt_output-{session_id}", f"output.json"))
     if exists(join(abs_dir, "__init__.py")) and exists(join(abs_dir, "__init__.py.orig")):
         move(join(abs_dir, "__init__.py.orig"), join(abs_dir, "__init__.py"))
