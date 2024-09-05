@@ -76,13 +76,15 @@ issue_codes = {
     },
     "ML-02": {
         "name": "DataLeakage",
-        "analysis": f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config={here/'markings/configs/leaked_data.yml'}",
-        "aliases": ["M-25"],
+        "analysis": f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config={here/'markings/configs/leaked_data.yml'}"
+        + f"\ndylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config={here/'markings/configs/leak_preprocessing.yml'}",
+        "aliases": ["M-24", "M-25"],
     },
     "ML-03": {
         "name": "NonFiniteValues",
-        "analysis": "dylin.analyses.NonFinitesAnalysis.NonFinitesAnalysis",
-        "aliases": ["M-32", "M-33"],
+        "analysis": "dylin.analyses.NonFinitesAnalysis.NonFinitesAnalysis"
+        + "\ndylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis",
+        "aliases": ["M-26", "M-27", "M-32", "M-33"],
     },
     "ML-04": {
         "name": "GradientExplosion",

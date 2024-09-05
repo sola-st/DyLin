@@ -15,3 +15,12 @@ class ItemInListAnalysis(BaseDyLinAnalysis):
                 "PC-05",
                 f"Searching for an item ({left}) in a long list is not efficient. Consider using a set.",
             )
+
+    def not_in(self, dyn_ast, iid, left, right, result):
+        if type(right) == list and len(right) > self.threshold:
+            self.add_finding(
+                iid,
+                dyn_ast,
+                "PC-05",
+                f"Searching for an item ({left}) in a long list is not efficient. Consider using a set.",
+            )
