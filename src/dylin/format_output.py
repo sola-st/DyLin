@@ -9,19 +9,18 @@ def format_output(findings_path: str) -> str:
     res = set()
     for finding in findings:
         if len(finding["results"]) > 0:
-            for result in finding["results"]:
-                for _, checker_finding in result.items():
-                    if len(checker_finding["results"]) > 0:
-                        for issue_code, issue_list in checker_finding["results"].items():
-                            code = ""
-                            for c, i in issue_codes.items():
-                                if issue_code in i["aliases"] or issue_code == c:
-                                    code = c
-                                    break
-                            for issue in issue_list:
-                                res.add(
-                                    f"{code}: {issue['finding']['location']['file']}: {issue['finding']['location']['start_line']}: {issue['finding']['msg']}"
-                                )
+            for _, checker_finding in finding["results"].items():
+                if len(checker_finding["results"]) > 0:
+                    for issue_code, issue_list in checker_finding["results"].items():
+                        code = ""
+                        for c, i in issue_codes.items():
+                            if issue_code in i["aliases"] or issue_code == c:
+                                code = c
+                                break
+                        for issue in issue_list:
+                            res.add(
+                                f"{code}: {issue['finding']['location']['file']}: {issue['finding']['location']['start_line']}: {issue['finding']['msg']}"
+                            )
     return "\n".join(list(res))
 
 
