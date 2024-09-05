@@ -199,7 +199,11 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
 
         if func_name is None:
             return None
-        if func_name in self.sources:
+        try:
+            is_source = func_name in self.sources
+        except TypeError:
+            return None
+        if is_source:
             source: models.Source = self.sources[func_name]
             _self = getattr(function, "__self__", lambda: None)
             out_markings = source.get_output_markings(self._get_in_markings(pos_args, kw_args, _self))
