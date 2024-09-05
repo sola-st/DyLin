@@ -47,14 +47,14 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         self.nmb_comparisons += 1
         try:
             if op in self.float_comparisons_to_check and (self._is_float(left) or self._is_float(right)):
-                if self.check_nan(left, right):
+                if self.check_nan(left) or self.check_nan(right):
                     self.add_finding(
                         iid,
                         dyn_ast,
                         "M-30",
                         f"NaN floats left {left} right {right} in comparison used",
                     )
-                if self.check_inf(left, right):
+                if self.check_inf(left) or self.check_inf(right):
                     self.add_finding(
                         iid,
                         dyn_ast,
@@ -113,21 +113,13 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
     def _is_float(self, f: any) -> bool:
         return isinstance(f, float) or isinstance(f, np.floating)
 
-    def check_nan(self, left: float, right: float) -> bool:
+    def check_nan(self, num: float) -> bool:
         # np.isnan handles python builtin floats and numpy floats
-        if np.isnan(left):
-            return True
-        if np.isnan(right):
-            return True
-        return False
+        return self._is_float(num) and np.isnan(num)
 
-    def check_inf(self, left: float, right: float) -> bool:
+    def check_inf(self, num: float) -> bool:
         # np.isnan handles python builtin floats and numpy floats
-        if np.isinf(left):
-            return True
-        if np.isinf(right):
-            return True
-        return False
+        return self._is_float(num) and np.isinf(num)
 
     def compare_floats(self, left: float, right: float, op: Callable) -> bool:
         return left != right and math.isclose(left, right, rel_tol=1e-8)
