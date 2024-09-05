@@ -60,3 +60,4 @@ https://github.com/Parsely/streamparse.git aabd9d057f0fbf568d29199e3d25a6d30d62f
 https://github.com/errbotio/errbot.git ec4c0b46fa010b52a2d214cb7f33f167dd0b7df7 rt requirements.txt tests
 https://github.com/python-pillow/Pillow.git 6ab99aac0e9fef3a6045f9a4034e64a92cda2cb8 t Tests
 https://github.com/mitmproxy/pdoc.git 82bd69e3a24671de3f5506cbeaf8a39a7e481b34 rt requirements-dev.txt test
+https://github.com/keras-team/keras.git 4fd825ddf93d3dc9ecc7b50178ce1d015393bed2 t keras/tests

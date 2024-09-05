@@ -1,7 +1,6 @@
 dylin.analyses.ComparisonBehaviorAnalysis.ComparisonBehaviorAnalysis
 dylin.analyses.InPlaceSortAnalysis.InPlaceSortAnalysis
 dylin.analyses.InvalidComparisonAnalysis.InvalidComparisonAnalysis
-dylin.analyses.MutableDefaultArgsAnalysis.MutableDefaultArgsAnalysis
 dylin.analyses.StringConcatAnalysis.StringConcatAnalysis
 dylin.analyses.WrongTypeAddedAnalysis.WrongTypeAddedAnalysis
 dylin.analyses.BuiltinAllAnalysis.BuiltinAllAnalysis

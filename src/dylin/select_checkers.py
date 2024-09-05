@@ -64,11 +64,11 @@ issue_codes = {
         "analysis": "dylin.analyses.ComparisonBehaviorAnalysis.ComparisonBehaviorAnalysis",
         "aliases": ["A-01", "A-03", "A-04"],
     },
-    "CF-02": {
-        "name": "MutableDefaultArgs",
-        "analysis": "dylin.analyses.MutableDefaultArgsAnalysis.MutableDefaultArgsAnalysis",
-        "aliases": ["A-10"],
-    },
+    # "CF-02": {
+    #     "name": "MutableDefaultArgs",
+    #     "analysis": "dylin.analyses.MutableDefaultArgsAnalysis.MutableDefaultArgsAnalysis",
+    #     "aliases": ["A-10"],
+    # },
     "ML-01": {
         "name": "InconsistentPreprocessing",
         "analysis": "dylin.analyses.InconsistentPreprocessing.InconsistentPreprocessing",

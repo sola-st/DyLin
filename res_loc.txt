@@ -1,0 +1,1776 @@
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Dockerfile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for sumy
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tasks.py to top_dir
+Creating filelist for tests
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+2065    sumy            python=2065
+1965    tests           python=1965
+128     top_dir         python=128
+0       docs            (none)
+
+
+Totals grouped by language (dominant language first):
+python:        4158 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 4,158
+Development Effort Estimate, Person-Years (Person-Months) = 0.89 (10.72)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.51 (6.16)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 1.74
+Total Estimated Cost to Develop                           = $ 120,634
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CODE_OF_CONDUCT.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTORS.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/FAQ.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.cn.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.de-ch.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.de.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.es.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.fa.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.fr.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.hi.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.id.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.it.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.ja.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.kr.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.pl.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.pt-br.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.ru.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.sv.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.tr.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.zh-tw.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/SECURITY.md to top_dir
+Creating filelist for assets
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/asv.conf.json to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/asvhashfile to top_dir
+Creating filelist for benchmarks
+Creating filelist for docs
+Creating filelist for examples
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/faq.yml to top_dir
+Creating filelist for imgs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/make.bat to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/poetry.lock to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Creating filelist for questions
+Creating filelist for rich
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Creating filelist for tools
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+19598   rich            python=19598
+7522    tests           python=7522
+1066    examples        python=1066
+270     benchmarks      python=270
+122     tools           python=122
+23      docs            python=23
+3       top_dir         python=3
+0       assets          (none)
+0       imgs            (none)
+0       questions       (none)
+
+
+Totals grouped by language (dominant language first):
+python:       28604 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 28,604
+Development Effort Estimate, Person-Years (Person-Months) = 6.77 (81.18)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 1.11 (13.29)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 6.11
+Total Estimated Cost to Develop                           = $ 913,881
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CODE_OF_CONDUCT.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/VERSION to top_dir
+Creating filelist for certificates
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/dev_requirements.txt to top_dir
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/logo.png to top_dir
+Creating filelist for openleadr
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pytest.ini to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for test
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+3722    openleadr       python=3059,xml=663
+3691    test            python=3691
+29      docs            python=29
+18      certificates    sh=18
+16      top_dir         python=16
+
+
+Totals grouped by language (dominant language first):
+python:        6795 (90.89%)
+xml:            663 (8.87%)
+sh:              18 (0.24%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 7,476
+Development Effort Estimate, Person-Years (Person-Months) = 1.65 (19.84)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.65 (7.78)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 2.55
+Total Estimated Cost to Develop                           = $ 223,354
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/COPYING to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CREDITS to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSES to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/codecov.yml to top_dir
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pytest.ini to top_dir
+Creating filelist for requirements
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Creating filelist for tools
+Creating filelist for translate
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+34239   translate       python=34089,sh=134,java=16
+29212   tests           python=28850,sh=314,xml=48
+929     tools           sh=929
+139     docs            python=98,pascal=41
+33      top_dir         python=33
+0       requirements    (none)
+
+
+Totals grouped by language (dominant language first):
+python:       63070 (97.70%)
+sh:            1377 (2.13%)
+xml:             48 (0.07%)
+pascal:          41 (0.06%)
+java:            16 (0.02%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 64,552
+Development Effort Estimate, Person-Years (Person-Months) = 15.90 (190.82)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 1.53 (18.39)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 10.38
+Total Estimated Cost to Develop                           = $ 2,148,062
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/COPYING to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/ChangeLog.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/ISSUE_TEMPLATE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for docs
+Creating filelist for html2text
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for test
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+1374    html2text       python=1374
+208     test            python=208
+2       top_dir         python=2
+0       docs            (none)
+
+
+Totals grouped by language (dominant language first):
+python:        1584 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 1,584
+Development Effort Estimate, Person-Years (Person-Months) = 0.32 (3.89)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.35 (4.19)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.93
+Total Estimated Cost to Develop                           = $ 43,791
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGES.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CODE_OF_CONDUCT.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/EXAMPLES.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/bindep.txt to top_dir
+Creating filelist for doc
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/karma.conf.js to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/package-lock.json to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/package.json to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Creating filelist for sphinx
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Creating filelist for utils
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+55255   sphinx          python=49328,javascript=5908,xml=19
+30688   tests           python=30537,javascript=149,ansic=2
+585     doc             python=585
+386     utils           python=386
+25      top_dir         javascript=25
+
+
+Totals grouped by language (dominant language first):
+python:       80836 (92.98%)
+javascript:      6082 (7.00%)
+xml:             19 (0.02%)
+ansic:            2 (0.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 86,939
+Development Effort Estimate, Person-Years (Person-Months) = 21.74 (260.85)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 1.73 (20.71)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 12.60
+Total Estimated Cost to Develop                           = $ 2,936,412
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CODE_OF_CONDUCT.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Dockerfile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MAINTAINERS.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/PULL_REQUEST_TEMPLATE.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README-cn.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/SECURITY.md to top_dir
+Creating filelist for art
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/codecov.yml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/conftest.py to top_dir
+Creating filelist for contrib
+Creating filelist for docs
+Creating filelist for examples
+Creating filelist for notebooks
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/readthedocs.yml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements_test.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/run_tests.sh to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Creating filelist for utils
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+47784   art             python=47784
+31517   tests           python=31517
+3600    examples        python=3600
+1018    top_dir         python=878,sh=140
+988     contrib         python=988
+559     utils           python=559
+54      docs            python=54
+0       notebooks       (none)
+
+
+Totals grouped by language (dominant language first):
+python:       85380 (99.84%)
+sh:             140 (0.16%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 85,520
+Development Effort Estimate, Person-Years (Person-Months) = 21.36 (256.38)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 1.71 (20.57)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 12.46
+Total Estimated Cost to Develop                           = $ 2,886,109
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/HISTORY.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/NOTICE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for docs
+Creating filelist for ext
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements-dev.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Creating filelist for src_requests
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+3825    tests           python=3825
+3046    src_requests    python=3046
+145     docs            python=145
+104     top_dir         python=104
+0       ext             (none)
+
+
+Totals grouped by language (dominant language first):
+python:        7120 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 7,120
+Development Effort Estimate, Person-Years (Person-Months) = 1.57 (18.85)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.64 (7.63)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 2.47
+Total Estimated Cost to Develop                           = $ 212,200
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/COMMANDS.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Dockerfile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for clodius
+Creating filelist for data
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/get_test_data.sh to top_dir
+Creating filelist for notebooks
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Creating filelist for scripts
+Creating filelist for test
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+5532    clodius         python=5532
+1687    scripts         python=1682,sh=5
+1260    test            python=1260
+17      top_dir         sh=17
+0       data            (none)
+0       docs            (none)
+0       notebooks       (none)
+
+
+Totals grouped by language (dominant language first):
+python:        8474 (99.74%)
+sh:              22 (0.26%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 8,496
+Development Effort Estimate, Person-Years (Person-Months) = 1.89 (22.69)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.68 (8.19)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 2.77
+Total Estimated Cost to Develop                           = $ 255,456
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Contributing.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for docs
+Creating filelist for images
+Creating filelist for interop
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/publish.sh to top_dir
+Creating filelist for ref
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements.txt to top_dir
+Creating filelist for scripts
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for static
+Creating filelist for tests
+Creating filelist for src_keri
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+30716   tests           python=30716
+24886   src_keri        python=24885,javascript=1
+862     scripts         sh=862
+79      top_dir         python=76,sh=3
+28      docs            python=28
+17      static          javascript=17
+0       images          (none)
+0       interop         (none)
+0       ref             (none)
+
+
+Totals grouped by language (dominant language first):
+python:       55705 (98.44%)
+sh:             865 (1.53%)
+javascript:        18 (0.03%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 56,588
+Development Effort Estimate, Person-Years (Person-Months) = 13.85 (166.18)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 1.45 (17.45)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 9.52
+Total Estimated Cost to Develop                           = $ 1,870,692
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for benchmark
+Creating filelist for docs
+Creating filelist for img
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/justfile to top_dir
+Creating filelist for mashumaro
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements-dev.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+10966   tests           python=10966
+6615    mashumaro       python=6615
+1251    benchmark       python=1235,sh=16
+40      top_dir         python=40
+0       docs            (none)
+0       img             (none)
+
+
+Totals grouped by language (dominant language first):
+python:       18856 (99.92%)
+sh:              16 (0.08%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 18,872
+Development Effort Estimate, Person-Years (Person-Months) = 4.37 (52.46)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.94 (11.26)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 4.66
+Total Estimated Cost to Develop                           = $ 590,542
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CITATION.cff to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/SECURITY.md to top_dir
+Creating filelist for docs
+Creating filelist for docs_src
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/mkdocs.insiders.yml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/mkdocs.yml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/mypy.ini to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Creating filelist for scripts
+Creating filelist for tests
+Creating filelist for typer
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+7887    tests           python=7887
+4020    typer           python=4020
+2643    docs_src        python=2643
+272     docs            javascript=272
+55      scripts         sh=55
+0       top_dir         (none)
+
+
+Totals grouped by language (dominant language first):
+python:       14550 (97.80%)
+javascript:       272 (1.83%)
+sh:              55 (0.37%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 14,877
+Development Effort Estimate, Person-Years (Person-Months) = 3.41 (40.87)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.85 (10.24)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 3.99
+Total Estimated Cost to Develop                           = $ 460,026
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/TODO.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/VERSION to top_dir
+Creating filelist for docs
+Creating filelist for funcy
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/publish.sh to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/test_requirements.txt to top_dir
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+1540    funcy           python=1540
+1377    tests           python=1377
+139     docs            javascript=96,python=43
+40      top_dir         python=34,sh=6
+
+
+Totals grouped by language (dominant language first):
+python:        2994 (96.71%)
+javascript:        96 (3.10%)
+sh:               6 (0.19%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 3,096
+Development Effort Estimate, Person-Years (Person-Months) = 0.66 (7.86)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.46 (5.47)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 1.44
+Total Estimated Cost to Develop                           = $ 88,508
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGES.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/COPYRIGHT.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSES.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for supervisor
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+29797   supervisor      python=29791,sh=6
+86      top_dir         python=86
+27      docs            python=27
+
+
+Totals grouped by language (dominant language first):
+python:       29904 (99.98%)
+sh:               6 (0.02%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 29,910
+Development Effort Estimate, Person-Years (Person-Months) = 7.09 (85.08)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 1.13 (13.53)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 6.29
+Total Estimated Cost to Develop                           = $ 957,743
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/example.gif to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/example_instant_mode.gif to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/fastentrypoints.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/install.sh to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/release.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements.txt to top_dir
+Creating filelist for scripts
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/snapcraft.yaml to top_dir
+Creating filelist for tests
+Creating filelist for thefuck
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+7491    tests           python=7491
+4542    thefuck         python=4542
+151     top_dir         python=149,sh=2
+0       scripts         (none)
+
+
+Totals grouped by language (dominant language first):
+python:       12182 (99.98%)
+sh:               2 (0.02%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 12,184
+Development Effort Estimate, Person-Years (Person-Months) = 2.76 (33.14)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.79 (9.45)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 3.50
+Total Estimated Cost to Develop                           = $ 373,010
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CODE_OF_CONDUCT.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Dockerfile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Dockerfile-Jupyter to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for akshare
+Creating filelist for assets
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements-dev.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+77628   akshare         python=66296,javascript=11332
+77      top_dir         python=77
+41      docs            python=41
+16      tests           python=16
+0       assets          (none)
+
+
+Totals grouped by language (dominant language first):
+python:       66430 (85.43%)
+javascript:     11332 (14.57%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 77,762
+Development Effort Estimate, Person-Years (Person-Months) = 19.33 (232.02)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 1.65 (19.81)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 11.71
+Total Estimated Cost to Develop                           = $ 2,611,845
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CITATION.cff to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/SECURITY.md to top_dir
+Creating filelist for ci
+Creating filelist for doc
+Creating filelist for examples
+Creating filelist for licences
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Creating filelist for seaborn
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Creating filelist for tests
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+18905   seaborn         python=18905
+16760   tests           python=16760
+1035    doc             python=990,javascript=45
+562     examples        python=562
+27      ci              python=25,sh=2
+0       licences        (none)
+0       top_dir         (none)
+
+
+Totals grouped by language (dominant language first):
+python:       37242 (99.87%)
+javascript:        45 (0.12%)
+sh:               2 (0.01%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 37,289
+Development Effort Estimate, Person-Years (Person-Months) = 8.94 (107.24)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 1.23 (14.77)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 7.26
+Total Estimated Cost to Develop                           = $ 1,207,262
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for docs
+Creating filelist for grab
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements_backend.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements_dev.txt to top_dir
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+2581    grab            python=2581
+2313    tests           python=2313
+37      docs            python=37
+0       top_dir         (none)
+
+
+Totals grouped by language (dominant language first):
+python:        4931 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 4,931
+Development Effort Estimate, Person-Years (Person-Months) = 1.07 (12.82)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.55 (6.59)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 1.94
+Total Estimated Cost to Develop                           = $ 144,286
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Creating filelist for AerialNavigation
+Creating filelist for ArmNavigation
+Creating filelist for Bipedal
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CODE_OF_CONDUCT.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Creating filelist for Control
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Creating filelist for Localization
+Creating filelist for Mapping
+Creating filelist for PathPlanning
+Creating filelist for PathTracking
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/SECURITY.md to top_dir
+Creating filelist for SLAM
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/__init__.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/_config.yml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/appveyor.yml to top_dir
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/icon.png to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/mypy.ini to top_dir
+Creating filelist for requirements
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/ruff.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/runtests.sh to top_dir
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/users_comments.md to top_dir
+Creating filelist for utils
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+10186   PathPlanning    python=10186
+1602    PathTracking    python=1602
+1482    SLAM            python=1482
+1210    Mapping         python=1210
+1175    tests           python=1175
+1134    ArmNavigation   python=1134
+1057    Localization    python=1057
+675     AerialNavigation python=675
+477     Control         python=477
+156     Bipedal         python=156
+127     utils           python=127
+60      docs            python=60
+2       top_dir         sh=2
+0       requirements    (none)
+
+
+Totals grouped by language (dominant language first):
+python:       19341 (99.99%)
+sh:               2 (0.01%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 19,343
+Development Effort Estimate, Person-Years (Person-Months) = 4.49 (53.83)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.95 (11.37)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 4.73
+Total Estimated Cost to Develop                           = $ 606,027
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Creating filelist for diskcache
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/mypy.ini to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements-dev.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+4615    tests           python=4615
+2327    diskcache       python=2327
+49      top_dir         python=49
+38      docs            python=38
+
+
+Totals grouped by language (dominant language first):
+python:        7029 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 7,029
+Development Effort Estimate, Person-Years (Person-Months) = 1.55 (18.60)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.63 (7.59)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 2.45
+Total Estimated Cost to Develop                           = $ 209,353
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Creating filelist for arrow
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Creating filelist for requirements
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+7680    arrow           python=7680
+6650    tests           python=6650
+41      docs            python=41
+0       requirements    (none)
+0       top_dir         (none)
+
+
+Totals grouped by language (dominant language first):
+python:       14371 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 14,371
+Development Effort Estimate, Person-Years (Person-Months) = 3.28 (39.41)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.84 (10.10)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 3.90
+Total Estimated Cost to Develop                           = $ 443,612
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/RELEASE.md to top_dir
+Creating filelist for docs
+Creating filelist for geopy
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pytest.ini to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for test
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+5314    geopy           python=5314
+4890    test            python=4890
+39      docs            python=39
+39      top_dir         python=39
+
+
+Totals grouped by language (dominant language first):
+python:       10282 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 10,282
+Development Effort Estimate, Person-Years (Person-Months) = 2.31 (27.73)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.74 (8.84)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 3.14
+Total Estimated Cost to Develop                           = $ 312,121
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGES.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CODE_OF_CONDUCT.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Creating filelist for artwork
+Creating filelist for docs
+Creating filelist for examples
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Creating filelist for requirements
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Creating filelist for src_click
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+5884    src_click       python=5884
+4625    tests           python=4625
+736     examples        python=736
+40      docs            python=40
+0       artwork         (none)
+0       requirements    (none)
+0       top_dir         (none)
+
+
+Totals grouped by language (dominant language first):
+python:       11285 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 11,285
+Development Effort Estimate, Person-Years (Person-Months) = 2.55 (30.57)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.76 (9.17)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 3.33
+Total Estimated Cost to Develop                           = $ 344,166
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/example.py to top_dir
+Creating filelist for flask_api
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/mkdocs.yml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements-dev.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/scent.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+1447    flask_api       python=1375,javascript=72
+160     top_dir         python=160
+12      docs            xml=12
+
+
+Totals grouped by language (dominant language first):
+python:        1535 (94.81%)
+javascript:        72 (4.45%)
+xml:             12 (0.74%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 1,619
+Development Effort Estimate, Person-Years (Person-Months) = 0.33 (3.98)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.35 (4.23)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.94
+Total Estimated Cost to Develop                           = $ 44,808
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/HISTORY.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements-dev.txt to top_dir
+Creating filelist for schedule
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/test_schedule.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+892     top_dir         python=892
+489     schedule        python=489
+70      docs            python=70
+
+
+Totals grouped by language (dominant language first):
+python:        1451 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 1,451
+Development Effort Estimate, Person-Years (Person-Months) = 0.30 (3.55)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.34 (4.05)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.88
+Total Estimated Cost to Develop                           = $ 39,939
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/debug_me.py to top_dir
+Creating filelist for doc
+Creating filelist for examples
+Creating filelist for manual-tests
+Creating filelist for pudb
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements.dev.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/try-the-debugger.sh to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+5673    pudb            python=5673
+89      top_dir         python=83,sh=6
+61      examples        python=61
+20      doc             python=19,sh=1
+15      manual-tests    python=15
+
+
+Totals grouped by language (dominant language first):
+python:        5851 (99.88%)
+sh:               7 (0.12%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 5,858
+Development Effort Estimate, Person-Years (Person-Months) = 1.28 (15.36)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.59 (7.06)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 2.18
+Total Estimated Cost to Develop                           = $ 172,893
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Dockerfile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENCE.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/appveyor.yml to top_dir
+Creating filelist for docs
+Creating filelist for examples
+Creating filelist for media
+Creating filelist for moviepy
+Creating filelist for scripts
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+5158    tests           python=5158
+4910    moviepy         python=4910
+413     examples        python=413
+127     top_dir         python=127
+54      docs            python=48,sh=6
+9       scripts         python=9
+0       media           (none)
+
+
+Totals grouped by language (dominant language first):
+python:       10665 (99.94%)
+sh:               6 (0.06%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 10,671
+Development Effort Estimate, Person-Years (Person-Months) = 2.40 (28.83)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.75 (8.97)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 3.21
+Total Estimated Cost to Develop                           = $ 324,532
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Dockerfile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for autoscripts
+Creating filelist for bin
+Creating filelist for debian
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/dev-requirements.txt to top_dir
+Creating filelist for dh_virtualenv
+Creating filelist for doc
+Creating filelist for lib
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tasks.py to top_dir
+Creating filelist for test
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/travis-requirements.txt to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+536     test            python=536
+534     dh_virtualenv   python=534
+156     lib             perl=156
+80      doc             python=58,sh=22
+67      bin             python=67
+52      top_dir         python=52
+0       autoscripts     (none)
+0       debian          (none)
+
+
+Totals grouped by language (dominant language first):
+python:        1247 (87.51%)
+perl:           156 (10.95%)
+sh:              22 (1.54%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 1,425
+Development Effort Estimate, Person-Years (Person-Months) = 0.29 (3.48)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.33 (4.02)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.87
+Total Estimated Cost to Develop                           = $ 39,187
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Creating filelist for temp-linecount-repo
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+695     temp-linecount-repo sh=308,python=288,perl=99
+
+
+Totals grouped by language (dominant language first):
+sh:             308 (44.32%)
+python:         288 (41.44%)
+perl:            99 (14.24%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 695
+Development Effort Estimate, Person-Years (Person-Months) = 0.14 (1.64)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.25 (3.02)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 0.54
+Total Estimated Cost to Develop                           = $ 18,439
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for patterns
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements-dev.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+1411    patterns        python=1411
+480     tests           python=480
+16      top_dir         python=16
+
+
+Totals grouped by language (dominant language first):
+python:        1907 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 1,907
+Development Effort Estimate, Person-Years (Person-Months) = 0.39 (4.73)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.38 (4.51)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 1.05
+Total Estimated Cost to Develop                           = $ 53,212
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/mkdocs.yml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements.txt to top_dir
+Creating filelist for scripts
+Creating filelist for tests
+Creating filelist for tools
+Creating filelist for uvicorn
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+4334    tests           python=4334
+4140    uvicorn         python=4140
+93      scripts         sh=93
+45      tools           python=45
+0       docs            (none)
+0       top_dir         (none)
+
+
+Totals grouped by language (dominant language first):
+python:        8519 (98.92%)
+sh:              93 (1.08%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 8,612
+Development Effort Estimate, Person-Years (Person-Months) = 1.92 (23.02)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.69 (8.23)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 2.80
+Total Estimated Cost to Develop                           = $ 259,120
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/API.markdown to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.markdown to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/appveyor.yml to top_dir
+Creating filelist for pydub
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for test
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+2132    pydub           python=2132
+1061    test            python=1061
+39      top_dir         python=39
+
+
+Totals grouped by language (dominant language first):
+python:        3232 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 3,232
+Development Effort Estimate, Person-Years (Person-Months) = 0.69 (8.23)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.46 (5.57)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 1.48
+Total Estimated Cost to Develop                           = $ 92,595
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CODE_OF_CONDUCT.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/codecov.yml to top_dir
+Creating filelist for docs
+Creating filelist for jwt
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+2604    tests           python=2604
+1630    jwt             python=1630
+54      docs            python=54
+2       top_dir         python=2
+
+
+Totals grouped by language (dominant language first):
+python:        4290 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 4,290
+Development Effort Estimate, Person-Years (Person-Months) = 0.92 (11.07)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.52 (6.23)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 1.78
+Total Estimated Cost to Develop                           = $ 124,658
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/AUTHORS to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGES.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.rst to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/UPGRADING.rst to top_dir
+Creating filelist for artwork
+Creating filelist for cerberus
+Creating filelist for docs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pyproject.toml to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/pytest.ini to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/tox.ini to top_dir
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+5086    cerberus        python=5086
+125     docs            python=125
+0       artwork         (none)
+0       top_dir         (none)
+
+
+Totals grouped by language (dominant language first):
+python:        5211 (100.00%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 5,211
+Development Effort Estimate, Person-Years (Person-Months) = 1.13 (13.58)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.56 (6.74)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 2.02
+Total Estimated Cost to Develop                           = $ 152,900
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
+Have a non-directory at the top, so creating directory top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CHANGELOG.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTING.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/CONTRIBUTORS.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/LICENSE to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/MANIFEST.in to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/Makefile to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/README.md to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/appveyor.yml to top_dir
+Creating filelist for docs
+Creating filelist for examples
+Creating filelist for fs
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/requirements-readthedocs.txt to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.cfg to top_dir
+Adding /home/eghbalaz/Documents/PhD/Projects/DyLin/temp-linecount-repo/setup.py to top_dir
+Creating filelist for tests
+Categorizing files.
+Finding a working MD5 command....
+Found a working MD5 command.
+Computing results.
+
+
+SLOC	Directory	SLOC-by-Language (Sorted)
+8637    fs              python=8637
+4849    tests           python=4849
+54      docs            python=51,sh=3
+39      examples        python=39
+5       top_dir         python=5
+
+
+Totals grouped by language (dominant language first):
+python:       13581 (99.98%)
+sh:               3 (0.02%)
+
+
+
+
+Total Physical Source Lines of Code (SLOC)                = 13,584
+Development Effort Estimate, Person-Years (Person-Months) = 3.10 (37.14)
+ (Basic COCOMO model, Person-Months = 2.4 * (KSLOC**1.05))
+Schedule Estimate, Years (Months)                         = 0.82 (9.87)
+ (Basic COCOMO model, Months = 2.5 * (person-months**0.38))
+Estimated Average Number of Developers (Effort/Schedule)  = 3.76
+Total Estimated Cost to Develop                           = $ 418,139
+ (average salary = $56,286/year, overhead = 2.40).
+SLOCCount, Copyright (C) 2001-2004 David A. Wheeler
+SLOCCount is Open Source Software/Free Software, licensed under the GNU GPL.
+SLOCCount comes with ABSOLUTELY NO WARRANTY, and you are welcome to
+redistribute it under certain conditions as specified by the GNU GPL license;
+see the documentation for details.
+Please credit this data as "generated using David A. Wheeler's 'SLOCCount'."
