@@ -24,6 +24,7 @@ How large is sufficiently large? N=1000?
 
 function_names = ["append", "extend", "insert", "add"]
 
+
 class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -57,7 +58,7 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
                 elif function.__name__ == "extend":
                     sample = pos_args[0]
                     if "__len__" in dir(sample) and len(sample) >= self.threshold:
-                        sample = random.sample(pos_args[0], self.threshold)
+                        sample = random.sample(list(pos_args[0]), self.threshold)
                     type_ok = all(isinstance(n, type_to_check) for n in sample)
                     if not type_ok:
                         odd_type = [type(n) for n in sample]
