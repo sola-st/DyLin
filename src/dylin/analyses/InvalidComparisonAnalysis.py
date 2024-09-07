@@ -122,7 +122,9 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         return self._is_float(num) and np.isinf(num)
 
     def compare_floats(self, left: float, right: float, op: Callable) -> bool:
-        return left != right and math.isclose(left, right, rel_tol=1e-8)
+        return (
+            self._is_float(left) and self._is_float(right) and left != right and math.isclose(left, right, rel_tol=1e-8)
+        )
 
     # Change this to analyse iff == returns false but is returns true -> flag issue
     # is compares ids, if they are the same == should return true as well
