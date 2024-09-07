@@ -25,7 +25,12 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
     """
 
     def is_excluded(self, val: any) -> bool:
-        return isinstance(val, type(0.0)) or isinstance(val, type(None)) or isinstance(val, np.floating) or isinstance(val, np.ndarray)
+        return (
+            isinstance(val, type(0.0))
+            or isinstance(val, type(None))
+            or isinstance(val, np.floating)
+            or isinstance(val, np.ndarray)
+        )
 
     def equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
         self.check_all(dyn_ast, iid, left, "Equal", right, result)
@@ -34,65 +39,73 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
         self.check_all(dyn_ast, iid, left, "NotEqual", right, result)
 
     def check_all(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
-        op_function = None
-        if op == "Equal":
-            op_function = operator.eq
-        elif op == "NotEqual":
-            op_function = operator.ne
-        else:
+        if op != "Equal" and op != "NotEqual":
             return None
 
         if self.is_excluded(left) or self.is_excluded(right):
             return None
 
         try:
-            if self.check_symmetry(left, right, op_function, result):
+            if self.check_symmetry(left, right, op, result):
                 self.add_finding(
                     iid,
                     dyn_ast,
                     "A-01",
-                    f"bad symmetry for {op_function} with {left} {right}",
+                    f"bad symmetry for {op} with {left} {right}",
                 )
-            if self.check_stability(left, right, op_function, result):
-                self.add_finding(iid, dyn_ast, "A-02", f"bad stability for {op_function}")
-            elif self.check_identity(left, op_function):
+            if self.check_stability(left, right, op, result):
+                self.add_finding(iid, dyn_ast, "A-02", f"bad stability for {op}")
+            elif self.check_identity(left):
                 self.add_finding(
                     iid,
                     dyn_ast,
                     "A-03",
-                    f"bad identity {op_function} of {left} returned true when compared with None",
+                    f"bad identity {op} of {left} returned true when compared with None",
                 )
-            elif self.check_reflexivity(left, op_function):
+            elif self.check_identity(right):
+                self.add_finding(
+                    iid,
+                    dyn_ast,
+                    "A-03",
+                    f"bad identity {op} of {right} returned true when compared with None",
+                )
+            elif self.check_reflexivity(left):
                 self.add_finding(
                     iid,
                     dyn_ast,
                     "A-04",
-                    f"bad reflexivity {left} {op_function} to itself",
+                    f"bad reflexivity {left} {op} to itself",
+                )
+            elif self.check_reflexivity(right):
+                self.add_finding(
+                    iid,
+                    dyn_ast,
+                    "A-04",
+                    f"bad reflexivity {right} {op} to itself",
                 )
         except ValueError:
             # some libraries e.g. pandas do not allow to do all kinds of comparisons e.g. pandas.series == None
             return
 
-    def check_reflexivity(self, left, op: Any) -> bool:
-        if op == operator.ne:
-            # 3 != 3
-            return op(left, left)
-        # not(3 == 3)
-        return not op(left, left)
+    def check_reflexivity(self, left) -> bool:
+        return left != left
 
-    def check_identity(self, left: Any, op: Any) -> bool:
-        if op == operator.ne:
-            # not(None == 3)
-            return not op(left, None)
-        # None == 3
-        return op(left, None)
+    def check_identity(self, left: Any) -> bool:
+        return left is not None and left == None
 
     def check_symmetry(self, left: Any, right: Any, op: Any, res: bool) -> bool:
         # (3 == 4) == (4 == 3)
-        return not (op(left, right) == op(right, left) == res)
+        if op == "Equal":
+            return not ((left == right) == (right == left) == res)
+        else:
+            return not ((left != right) == (right != left) == res)
 
     def check_stability(self, left: Any, right: Any, op: Any, normal: bool) -> bool:
-        for i in range(3):
-            if op(left, right) != normal:
-                return True
+        for _ in range(3):
+            if op == "Equal":
+                if (left == right) != normal:
+                    return True
+            else:
+                if (left != right) != normal:
+                    return True
         return False
