@@ -19,10 +19,9 @@ class BaseDyLinAnalysis(BaseAnalysis):
         self.number_findings = 0
         self.meta = {}
         self.stack_levels = 20
-        if isinstance(self.output_dir, str):
-            self.path = Path(self.output_dir)
-        else:
-            self.path = self.output_dir
+        self.path = Path(self.output_dir)
+        if not self.path.exists():
+            self.path.mkdir(parents=True)
         logging.basicConfig(stream=sys.stderr)
         self.log = logging.getLogger("TestsuiteWrapper")
         self.log.setLevel(logging.DEBUG)
