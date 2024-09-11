@@ -29,11 +29,11 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
         super().__init__(**kwargs)
         self.analysis_name = "InPlaceSortAnalysis"
         self.stored_lists = {}
-
-    threshold = 1000
+        self.threshold = 1000
 
     @only(patterns=["sorted"])
     def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args) -> Any:
+        # print(f"{self.analysis_name} pre_call {iid}")
         if function is sorted:
             # we have to keep the list in memory to keep id(pos_args[0]) stable ? nope!
             if hasattr(pos_args[0], "__len__") and len(pos_args[0]) > self.threshold:
@@ -44,7 +44,8 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
                 }
 
     def read_identifier(self, dyn_ast: str, iid: int, val: Any) -> Any:
-        if isinstance(val, type([])):
+        # print(f"{self.analysis_name} read id {iid} {dyn_ast}")
+        if len(self.stored_lists) > 0 and type(val) is list:
             self.stored_lists.pop(id(val), None)
         return None
 

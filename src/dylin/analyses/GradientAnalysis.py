@@ -30,6 +30,7 @@ class GradientAnalysis(BaseDyLinAnalysis):
 
     def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict):
         # tensorflow
+        print(f"{self.analysis_name} pre_call {iid}")
         if "__func__" in dir(function) and function.__func__ == tf.optimizers.Optimizer.apply_gradients:
             if isinstance(pos_args[0], collections.abc.Iterator):
                 # pos_args[0] can be a zip object, which is an Iterator. These objects
@@ -64,6 +65,7 @@ class GradientAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        # print(f"{self.analysis_name} post_call {iid}")
         if val is function:
             return
         # pytorch

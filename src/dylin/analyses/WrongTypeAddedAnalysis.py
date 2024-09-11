@@ -36,6 +36,7 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
 
     @only(patterns=function_names)
     def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args, kw_args):
+        # print(f"{self.analysis_name} pre_call {iid}")
         if isinstance(function, types.BuiltinFunctionType) and function.__name__ in function_names:
             list_or_set = function.__self__
 
@@ -77,9 +78,11 @@ class WrongTypeAddedAnalysis(BaseDyLinAnalysis):
 
     def add_assign(self, dyn_ast: str, iid: int, left: Any, right: Any) -> Any:
         # for some reason left is a lambda
+        # print(f"{self.analysis_name} += {iid}")
         self.add(dyn_ast, iid, left(), right)
 
     def add(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any = None) -> Any:
+        # print(f"{self.analysis_name} + {iid}")
         if isinstance(left, list):
             if len(left) <= self.threshold:
                 return

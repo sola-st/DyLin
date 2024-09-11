@@ -1,1 +1,1 @@
-docker build -f Dockerfile.project -t dylin_project .
+docker build --no-cache -f Dockerfile.project -t dylin_project .

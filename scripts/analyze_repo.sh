@@ -6,6 +6,7 @@ if [ $2 == "cov" ]; then
     mkdir /Work/reports/dynapyt_coverage
 fi
 python DyLin/scripts/prepare_repo.py --repo $1 --config /Work/DyLin/dylin_config_project.txt
+
 if [ $2 == "cov" ]; then
     python DyLin/scripts/analyze_repo.py --repo $1 --config /Work/DyLin/dylin_config_project.txt
 else

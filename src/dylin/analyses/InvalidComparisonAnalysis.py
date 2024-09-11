@@ -44,6 +44,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         ]
 
     def comparison(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
+        # print(f"{self.analysis_name} comparison {iid}")
         self.nmb_comparisons += 1
         try:
             if op in self.float_comparisons_to_check and (self._is_float(left) or self._is_float(right)):

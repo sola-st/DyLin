@@ -31,11 +31,11 @@ class StringConcatAnalysis(BaseDyLinAnalysis):
         self.adds = {}
         self.analysis_name = "StringConcatAnalysis"
         self.last_add_operation = None
-
-    threshold = 10000
+        self.threshold = 10000
 
     def add_assign(self, dyn_ast: str, iid: int, left: Any, right: Any) -> None:
         # for some reason left is a lambda
+        # print(f"{self.analysis_name} += {iid}")
         self._check(dyn_ast, iid, right)
 
     def _check(self, dyn_ast: str, iid: int, right: Any, result: Any = None) -> None:

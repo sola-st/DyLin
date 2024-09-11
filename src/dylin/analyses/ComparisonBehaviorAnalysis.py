@@ -40,9 +40,11 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
         )
 
     def equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
+        # print(f"{self.analysis_name} equal {iid}")
         self.check_all(dyn_ast, iid, left, "Equal", right, result)
 
     def not_equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
+        # print(f"{self.analysis_name} not equal {iid}")
         self.check_all(dyn_ast, iid, left, "NotEqual", right, result)
 
     def check_all(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:

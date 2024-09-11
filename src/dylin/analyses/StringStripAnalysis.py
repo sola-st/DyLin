@@ -18,6 +18,7 @@ class StringStripAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        # print(f"{self.analysis_name} post_call {iid}")
         if val is function:
             return
         _self = getattr(function, "__self__", lambda: None)

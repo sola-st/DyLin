@@ -85,7 +85,8 @@ pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}']
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
-    command_to_run = ["pytest", '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--session-timeout=360', '--import-mode=importlib', f'{name}/{tests}']
+    command_to_run = ["pytest", '-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', f'{name}/{tests}']
+    # command_to_run = ["pytest", '-s', '--import-mode=importlib', f'{name}/{tests}']
     if name in ["rich", "python_future", "requests"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")

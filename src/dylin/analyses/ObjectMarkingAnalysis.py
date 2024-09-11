@@ -191,6 +191,7 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        # print(f"{self.analysis_name} post_call {iid} {function.__name__}")
         if result is function:
             return
         function_is_of_interest = False
@@ -266,6 +267,7 @@ class ObjectMarkingAnalysis(BaseDyLinAnalysis):
         return None
 
     def function_exit(self, dyn_ast: str, iid: int, name: str, result: Any) -> Any:
+        # print(f"{self.analysis_name} function_exit {name} {iid} {dyn_ast}")
         # TODO ignore return value of function which calls cleanup
         cleanup()
 

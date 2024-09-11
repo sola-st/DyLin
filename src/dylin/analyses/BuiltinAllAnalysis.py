@@ -28,6 +28,7 @@ class BuiltinAllAnalysis(BaseDyLinAnalysis):
         pos_args: Tuple,
         kw_args: Dict,
     ) -> Any:
+        # print(f"{self.analysis_name} post_call {iid}")
         if function == builtins.all or function == builtins.any:
             arg = pos_args[0]
             if isinstance(arg, list):

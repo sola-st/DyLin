@@ -10,6 +10,7 @@ class ItemInListAnalysis(BaseDyLinAnalysis):
         self.size_map = {}
 
     def _in(self, dyn_ast, iid, left, right, result):
+        # print(f"{self.analysis_name} in {iid}")
         if type(right) == list and len(right) > self.threshold:
             uid = id(right)
             if uid not in self.size_map:

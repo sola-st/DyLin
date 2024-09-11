@@ -20,6 +20,7 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
         self.iterator_stack: List[self.ListMeta] = []
 
     def enter_for(self, dyn_ast: str, iid: int, next_value: Any, iterable: Iterable) -> Optional[Any]:
+        # print(f"{self.analysis_name} enter_for {iid}")
         if isinstance(iterable, collections.abc.Iterator) or isinstance(iterable, type({})):
             return
 
@@ -53,9 +54,11 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
             print(e)
 
     def exit_for(self, dyn_ast, iid):
+        # print(f"{self.analysis_name} exit_for {iid}")
         if len(self.iterator_stack) > 0:
             self.iterator_stack.pop()
 
     def _break(self, dyn_ast, iid):
+        # print(f"{self.analysis_name} break {iid}")
         if len(self.iterator_stack) > 0:
             self.iterator_stack.pop()
