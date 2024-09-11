@@ -1,10 +1,15 @@
 # DyLin
 Dynamic Linter for Python
 
+## Requirements
+You need `docker`, `git`, and `python>=3.9` installed for running the experiments.
+For Kaggle experiments, you need to have a Kaggle API key set in `kaggle.json` in the root directory.
+
 ## Checkers
 The checkers are implemented in `src/analyses`.
 
 ## Evaluation
+All experiments are self-contained, i.e. they download the required repositories, source code, and data.
 Run the micro-benchmark:
 ```bash
 pytest tests

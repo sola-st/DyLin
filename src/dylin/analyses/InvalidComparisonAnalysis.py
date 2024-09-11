@@ -47,13 +47,13 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         self.nmb_comparisons += 1
         try:
             if op in self.float_comparisons_to_check and (self._is_float(left) or self._is_float(right)):
-                if self.check_nan(left) or self.check_nan(right):
-                    self.add_finding(
-                        iid,
-                        dyn_ast,
-                        "M-30",
-                        f"NaN floats left {left} right {right} in comparison used",
-                    )
+                # if self.check_nan(left) or self.check_nan(right):
+                #     self.add_finding(
+                #         iid,
+                #         dyn_ast,
+                #         "M-30",
+                #         f"NaN floats left {left} right {right} in comparison used",
+                #     )
                 if self.check_inf(left) or self.check_inf(right):
                     self.add_finding(
                         iid,

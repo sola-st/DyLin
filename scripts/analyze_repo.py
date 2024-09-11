@@ -7,6 +7,7 @@ from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
 from dynapyt.post_run import post_run
 import os
+import signal
 import time
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
@@ -16,7 +17,10 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Analyze a git repo")
     parser.add_argument("--repo", help="the repo index", type=int)
     parser.add_argument("--config", help="DyLin config file path", type=str)
+    parser.add_argument("--cov", help="Whether to collect coverage", default=True, action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
+
+    session_id = "1234-abcd"
 
     here = Path(__file__).parent.resolve()
     with open(here / "projects.txt", "r") as f:
@@ -76,21 +80,21 @@ if __name__ == "__main__":
     code_args = {'name': name, 'tests': tests}
     run_all_tests = '''
 import pytest
-
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+# pytest.main(['-o', 'log_cli=true', '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
+    command_to_run = ["pytest", '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--session-timeout=360', '--import-mode=importlib', f'{name}/{tests}']
     if name in ["rich", "python_future", "requests"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
-    
-    if url == "https://github.com/dpkp/kafka-python.git":
-        subprocess.run(["ls", "/opt/dylinVenv/lib/python3.10/site-packages/"])
-        run_all_tests = '''
-import pytest
+#     if url == "https://github.com/dpkp/kafka-python.git":
+#         subprocess.run(["ls", "/opt/dylinVenv/lib/python3.10/site-packages/"])
+#         run_all_tests = '''
+# import pytest
 
-pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '/Work/kafka_python/test'])'''
+# pytest.main(['-o', 'log_cli=true', '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '/Work/kafka_python/test'])'''
 #         run_all_tests = '''
 # import subprocess
 # subprocess.run(["tox", "-c", "./kafka_python/tox.ini"])
@@ -103,11 +107,39 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mod
     #else:
     #    sys.path.append(str((Path(name).resolve()) / tests))
     #print("Wrote test runner, starting analysis")
-    start = time.time()
-    session_id = run_analysis(entry, analyses, coverage=True, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
-    analysis_time = time.time() - start
-    post_run(coverage_dir=f"/Work/reports/dynapyt_coverage-{session_id}", output_dir=f"/Work/reports/dynapyt_output-{session_id}")
+    with open(f"/tmp/dynapyt_analyses-{session_id}.txt", "w") as f:
+        f.write("\n".join([f"{ana};output_dir=/tmp/dynapyt_output-{session_id}" for ana in analyses]))
+    os.environ["DYNAPYT_SESSION_ID"] = session_id
+    timeout_threshold = 60*60
+    timed_out = False
+    if args.cov:
+        os.environ["DYNAPYT_COVERAGE"] = f"/tmp/dynapyt_coverage-{session_id}"
+        start = time.time()
+        try:
+            # subprocess.run(command_to_run)
+            proc = subprocess.Popen(command_to_run, start_new_session=True)
+            proc.wait(timeout_threshold)
+        except subprocess.TimeoutExpired:
+            timed_out = True
+            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+        # session_id = run_analysis(entry, analyses, coverage=True, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
+        analysis_time = time.time() - start
+        post_run(coverage_dir=f"/tmp/dynapyt_coverage-{session_id}", output_dir=f"/tmp/dynapyt_output-{session_id}")
+    else:
+        if "DYNAPYT_COVERAGE" in os.environ:
+            del os.environ["DYNAPYT_COVERAGE"]
+        start = time.time()
+        try:
+            # subprocess.run(command_to_run)
+            proc = subprocess.Popen(command_to_run, start_new_session=True)
+            proc.wait(timeout_threshold)
+        except subprocess.TimeoutExpired:
+            timed_out = True
+            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+        # session_id = run_analysis(entry, analyses, coverage=False, output_dir="/Work/reports", script=run_all_tests)
+        analysis_time = time.time() - start
+        post_run(output_dir=f"/tmp/dynapyt_output-{session_id}")
     # print("Finished analysis, copying coverage")
     # shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
     with open("/Work/reports/timing.txt", "a") as f:
-        f.write(f"{analysis_time}\n")
+        f.write(f"{analysis_time} {'timed out' if timed_out else ''}\n")

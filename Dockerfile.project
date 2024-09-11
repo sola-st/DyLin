@@ -34,6 +34,7 @@ RUN mkdir ./DyLin
 COPY ./requirements.txt ./DyLin/requirements.txt
 RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
 RUN pip install pytest pytest-xdist pytest-timeout
+RUN pip install setproctitle
 
 COPY ./scripts ./DyLin/scripts
 COPY ./src ./DyLin/src
@@ -41,6 +42,7 @@ COPY ./tests ./DyLin/tests
 COPY ./test_projects ./DyLin/test_projects
 COPY ./pyproject.toml ./DyLin/pyproject.toml
 COPY ./README.md ./DyLin/README.md
+COPY dylin_config_project.txt ./DyLin/dylin_config_project.txt
 
 RUN chmod -R 777 ./DyLin
 

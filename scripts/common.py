@@ -23,6 +23,7 @@ def install_special(url):
         command = "pip install hypothesis xmlschema"  # required for running tests
     elif url == "https://github.com/miso-belica/sumy.git":
         subprocess.run(["pip", "install", "nltk"])
+        subprocess.run(["pip", "install", "lxml[html_clean]"])
         command = "python -m nltk.downloader all"
     elif url == "https://github.com/python-telegram-bot/python-telegram-bot.git":
         command = "pre-commit install"

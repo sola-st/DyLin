@@ -26,7 +26,14 @@ class ComparisonBehaviorAnalysis(BaseDyLinAnalysis):
 
     def is_excluded(self, val: any) -> bool:
         return (
-            isinstance(val, type(0.0))
+            type(val) is int
+            or type(val) is float
+            or type(val) is str
+            or type(val) is list
+            or type(val) is set
+            or type(val) is dict
+            or type(val) is bool
+            or isinstance(val, type(0.0))
             or isinstance(val, type(None))
             or isinstance(val, np.floating)
             or isinstance(val, np.ndarray)

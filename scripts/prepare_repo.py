@@ -115,6 +115,7 @@ if __name__ == "__main__":
         content = content.replace("assert(", "assert (")
         with open(str(Path(name)/"test"/"test_reports.py"), "w") as f:
             f.write(content)
+    analyses = [f"{ana};output_dir=/tmp" for ana in analyses]
     if url == "https://github.com/tiangolo/typer.git":
         installation_dir = f"{str(Path('/opt/dylinVenv/lib/python3.10/site-packages/', name))}"
         start = time.time()

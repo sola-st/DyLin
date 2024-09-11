@@ -1,3 +1,4 @@
+from uuid import uuid4
 import argparse
 import datetime
 from genericpath import isfile
@@ -67,21 +68,34 @@ if not args.only_run:
     Assumes kaggle api is installed
     """
 
-    def dl_kernels(page, page_size):
-        print("searching")
-        return api.kernels_list(page=page, page_size=page_size, competition=competition, search=args.search)
+    def dl_kernels(page, page_size, search_kw=args.search):
+        print(f"searching {page_size} kernels on page {page} for competition {competition}")
+        return api.kernels_list(page=page, page_size=page_size, competition=competition, search=search_kw)
 
     to_download = nmb_submissions
     page = 1
 
+    white_list = {
+        "titanic": ["jocker3/titanic-machine-learning-from-disaste", "alejosalazar/proyecto-ds101-26678712"],
+        "spaceship-titanic": ["aidenwhite/spaceship-comp-random-forest-w-na-imputation",
+            "corneliusjustin/spaceship-titanic-with-ensemble-learning-voting",
+            "witoldnowogrski/spaceship-titanic-binary-classification-using-nn",
+            "combustingrats/eda-logistic-regression-and-nn"], 
+        "icr-identify-age-related-conditions": ["yan0022/icr-stacking-with-sklearn"]
+    }
+
     kernels: List[Kernel] = []
+
+    if competition in white_list:
+        for ref in white_list[competition]:
+            kernels.append(dl_kernels(1, 1, ref)[0])
+        to_download = to_download - len(white_list[competition])        
+
+    
     while to_download >= 1:
-        tmp_kernels = []
+        
         # max page size is 100
-        if to_download >= 100:
-            tmp_kernels = dl_kernels(page, 100)
-        else:
-            tmp_kernels = dl_kernels(page, to_download)
+        tmp_kernels = dl_kernels(page, min(50, to_download))
 
         if len(tmp_kernels) == 0:
             print("Can't find more kernels matching criteria")
@@ -92,8 +106,8 @@ if not args.only_run:
         #       out most empty and bad kernels (e.g. they crash right away or don't do anything related to the task)
         filtered = [kernel for kernel in tmp_kernels if kernel.totalVotes > 2 and kernel.isPrivate is False]
         kernels = kernels + filtered
-        page = page + 1
         to_download = to_download - len(filtered)
+        page = page + 1
 
     print(f"found {len(kernels)} competitions to download")
 
@@ -101,7 +115,6 @@ if not args.only_run:
     for kernel in kernels:
         try:
             api.kernels_pull(kernel.ref, path)
-            print("downloaded " + kernel.ref)
             kernel_infos[kernel.ref] = kernel.__dict__
         except Exception as e:
             print(e)
@@ -174,11 +187,21 @@ if not args.only_run:
     Assumes dynapyt and dylin are installed in currently used pip executable
     """
 
+
+    for filepath in pathlib.Path(path).glob("*.py"):
+        with open(str(filepath.resolve()), "r") as f:
+            code = f.read()
+        
+        if "../input/" in code:
+            code = code.replace("../input/", "/kaggle/input/")
+        
+        with open(str(filepath.resolve()), "w") as f:
+            f.write(code)
     # run instrumentation
     here = pathlib.Path(__file__).parent.resolve()
     with open(here / ".." / "dylin_config_kaggle.txt", "r") as f:
         config_content = f.read()
-    analyses = config_content.strip().split("\n")
+    analyses = [f"{ana};output_dir={str(pathlib.Path(gettempdir()) / 'dynapyt_output-1234')}" for ana in config_content.strip().split("\n")]
     instrument_dir(path, analyses)
     # subprocess.run(
     #     f"python -m dynapyt.run_instrumentation --directory {path} --module dylin --analysis AnalysisWrapper", shell=True)
@@ -191,9 +214,8 @@ if not args.only_prepare:
     We use pebbles Process Pool here because the default Python Pool does not properly kill processes
     """
 
-    def run_dylin(path):
-        session_id = run_analysis(path, analyses, coverage=False)
-        post_run(output_dir=str(pathlib.Path(gettempdir()) / str(session_id)))
+    # def run_dylin(file_path):
+    #     run_analysis(file_path, analyses, coverage=True)
         # result = subprocess.run(f"python -m dynapyt.run_analysis --entry {path} --analysis AnalysisWrapper --module dylin",
         #                         shell=True)
         # if result.returncode != 0:
@@ -201,40 +223,45 @@ if not args.only_prepare:
         # else:
         #     print(f"done with {result}")
 
-    onlypy = [join(path, f) for f in os.listdir(path) if isfile(join(path, f)) and f.endswith("py")]
+    # onlypy = [join(path, f) for f in os.listdir(path) if isfile(join(path, f)) and f.endswith("py")]
 
-    start_time = time.time()
-    print("#################### starting analyses...")
+    # start_time = time.time()
+    # print("#################### starting analyses...")
 
-    TIMEOUT_SECONDS = 5 * 60
+    # TIMEOUT_SECONDS = 5 * 60
 
-    nmb_timeouts = 0
-    nmb_errors = 0
+    # nmb_timeouts = 0
+    # nmb_errors = 0
 
-    # We explicitly allow workers to only work on 1 task to prevent memory leaks and to limit memory fragmentation
-    with ProcessPool(max_workers=40, max_tasks=1) as pool:
-        future = pool.map(run_dylin, onlypy, timeout=TIMEOUT_SECONDS)
+    # # We explicitly allow workers to only work on 1 task to prevent memory leaks and to limit memory fragmentation
+    # with ProcessPool(max_workers=1, max_tasks=1) as pool:
+    #     future = pool.map(run_dylin, onlypy, timeout=TIMEOUT_SECONDS)
 
-        iterator = future.result()
+    #     iterator = future.result()
 
-        while True:
-            try:
-                result = next(iterator)
-            except StopIteration:
-                break
-            except TimeoutError as error:
-                print(f"run took longer than {TIMEOUT_SECONDS} seconds")
-                nmb_timeouts = nmb_timeouts + 1
-            except ProcessExpired as error:
-                print(f"{error} Exit code: {error.exitcode}")
-                if error.exitcode != 0:
-                    nmb_errors = nmb_errors + 1
-            except Exception as error:
-                print("run raised %s" % error)
-                if "timeout" in str(error):
-                    nmb_timeouts = nmb_timeouts + 1
-                else:
-                    nmb_errors = nmb_errors + 1
-
-    print(f"#################### done - took {time.time() - start_time}")
-    print(f"#################### number errors: {nmb_errors} number timeouts: {nmb_timeouts}")
+    #     while True:
+    #         try:
+    #             next(iterator)
+    #         except StopIteration:
+    #             break
+    #         except TimeoutError as error:
+    #             print(f"run took longer than {TIMEOUT_SECONDS} seconds")
+    #             nmb_timeouts = nmb_timeouts + 1
+    #         except ProcessExpired as error:
+    #             print(f"{error} Exit code: {error.exitcode}")
+    #             if error.exitcode != 0:
+    #                 nmb_errors = nmb_errors + 1
+    #         except Exception as error:
+    #             print("run raised %s" % error)
+    #             if "timeout" in str(error):
+    #                 nmb_timeouts = nmb_timeouts + 1
+    #             else:
+    #                 nmb_errors = nmb_errors + 1
+    # print(list(pathlib.Path(gettempdir()).glob("dynapyt_output-*")))
+    # for output in pathlib.Path(gettempdir()).glob("dynapyt_output-*"):
+    #     post_run(output_dir=str(output.resolve()))
+    # print(list(pathlib.Path(gettempdir()).glob("dynapyt_coverage-*")))
+    # for cov in pathlib.Path(gettempdir()).glob("dynapyt_coverage-*"):
+    #     post_run(coverage_dir=str(cov.resolve()))
+    # print(f"#################### done - took {time.time() - start_time}")
+    # print(f"#################### number errors: {nmb_errors} number timeouts: {nmb_timeouts}")

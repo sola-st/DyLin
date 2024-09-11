@@ -1,1 +1,1 @@
-docker run -v ./kaggle_results:/Work/results dylin_kaggle
+docker run --cpus="45" --memory="60g" -v ./kaggle_results:/Work/results dylin_kaggle

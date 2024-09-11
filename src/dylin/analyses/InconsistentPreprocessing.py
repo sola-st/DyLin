@@ -63,15 +63,13 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
             # sink
             in_args = list(pos_args if not pos_args is None else []) + [_self]
 
-            transformed = None
             count = len(in_args)
             for arg in in_args:
                 if save_uid(arg) in self.markings_storage and len(self.markings_storage[save_uid(arg)]) > 0:
-                    transformed = str(arg)
                     count = count - 1
 
             if count != 0 and count != len(in_args):
-                self.add_finding(iid, dyn_ast, "M-23", f"only {transformed} has been transformed")
+                self.add_finding(iid, dyn_ast, "M-23", f"{count} args have not been transformed out of {len(in_args)}")
 
         else:
             # propagate marking
@@ -92,3 +90,6 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
                         is_result_stored = len(self.markings_storage[save_uid(r)]) > 0
                         if not r is None and is_arg_marked and not is_result_stored:
                             self.markings_storage[uniqueid(result)].add("transformed")
+                    else:
+                        if r is not None and is_arg_marked:
+                            self.markings_storage[uniqueid(r)] = set(["transformed"])

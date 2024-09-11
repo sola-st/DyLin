@@ -33,6 +33,8 @@ https://github.com/wtforms/wtforms.git 96021e2574b82820a11a8ff6fa5367aebff88533 
 https://github.com/jpadilla/pyjwt.git d7c54dbebdab2ae17f7948fd4432b15e1bb82852 t tests
 https://github.com/pyeve/cerberus.git 8765b317442c002a84e556bd5d9677b868e6deb2 t cerberus/tests
 https://github.com/PyFilesystem/pyfilesystem2.git 59f6e4d51a1983ca28d0b667bd1d6b3284ab5c56 t tests
+https://github.com/keras-team/keras.git 4fd825ddf93d3dc9ecc7b50178ce1d015393bed2 t keras/tests
+https://github.com/python-pillow/Pillow.git 6ab99aac0e9fef3a6045f9a4034e64a92cda2cb8 t Tests
 https://github.com/psf/black.git 35722dff623f3cdf5018e3f1183cd4e02e91caa8 rt test_requirements.txt tests
 https://github.com/HBNetwork/python-decouple.git 7c9b250c53bdd0ae96f449d5d2be918ed90ba273 rt requirements.txt tests
 https://github.com/jiaaro/pydub.git 996cec42e9621701edb83354232b2c0ca0121560 t test/test.py
@@ -58,6 +60,4 @@ https://github.com/benoitc/gunicorn.git add8a4c951f02a67ca1f81264e5c107fa68e6496
 https://github.com/python-telegram-bot/python-telegram-bot.git cd59c1c075ff6eccf2afbcfad1752bc62ee10ac9 rt requirements-all.txt tests
 https://github.com/Parsely/streamparse.git aabd9d057f0fbf568d29199e3d25a6d30d62f132 rt test-requirements.txt test
 https://github.com/errbotio/errbot.git ec4c0b46fa010b52a2d214cb7f33f167dd0b7df7 rt requirements.txt tests
-https://github.com/python-pillow/Pillow.git 6ab99aac0e9fef3a6045f9a4034e64a92cda2cb8 t Tests
 https://github.com/mitmproxy/pdoc.git 82bd69e3a24671de3f5506cbeaf8a39a7e481b34 rt requirements-dev.txt test
-https://github.com/keras-team/keras.git 4fd825ddf93d3dc9ecc7b50178ce1d015393bed2 t keras/tests
