@@ -58,6 +58,8 @@ if __name__ == "__main__":
             subprocess.run(["pip", "install", f"{name}"])
         elif url == "https://github.com/praetorian-inc/gato.git":
             subprocess.run(["pip", "install", "-e", f"{name}/[test]"])
+        elif url == "https://github.com/python-pillow/Pillow.git":
+            subprocess.run(["pip", "install", "-e", f"{name}/[tests]"])
         else:
             subprocess.run(["pip", "install", "-e", f"{name}/"])
         print("Installed requirements")

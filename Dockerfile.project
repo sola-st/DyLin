@@ -10,11 +10,11 @@ ENV PATH="/opt/dylinVenv/bin:$PATH"
 
 RUN pip install --upgrade pip setuptools wheel
 RUN apt-get install -q -y git
-RUN apt-get install -q -y wget
+RUN apt-get install -q -y wget libsnappy-dev
 RUN apt-get install -q -y libffi-dev libsodium23 libsodium-dev
-RUN apt-get install -q -y libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
-    libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python3-tk \
-    libharfbuzz-dev libfribidi-dev libxcb1-dev
+RUN apt-get install -q -y libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev
+RUN apt-get install -q -y libfreetype6-dev liblcms2-dev libwebp-dev
+RUN apt-get install -q -y libharfbuzz-dev libfribidi-dev libxcb1-dev
 # RUN apt-get update && apt-get install -y --no-install-recommends \
 #     make \
 #     build-essential \

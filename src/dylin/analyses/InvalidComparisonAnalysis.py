@@ -43,18 +43,14 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
             "NotEqual",
         ]
 
-    def comparison(self, dyn_ast: str, iid: int, left: Any, op: str, right: Any, result: Any) -> bool:
+    def not_equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
+        self.equal(dyn_ast, iid, left, right, not result)
+
+    def equal(self, dyn_ast: str, iid: int, left: Any, right: Any, result: Any) -> bool:
         # print(f"{self.analysis_name} comparison {iid}")
         self.nmb_comparisons += 1
         try:
-            if op in self.float_comparisons_to_check and (self._is_float(left) or self._is_float(right)):
-                # if self.check_nan(left) or self.check_nan(right):
-                #     self.add_finding(
-                #         iid,
-                #         dyn_ast,
-                #         "M-30",
-                #         f"NaN floats left {left} right {right} in comparison used",
-                #     )
+            if (self._is_float(left) or self._is_float(right)):
                 if self.check_inf(left) or self.check_inf(right):
                     self.add_finding(
                         iid,
@@ -71,43 +67,16 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                         f"compared floats nearly equal {left} and {right} via {op}",
                     )
 
-            if op == "Equal" or op == "NotEqual":
-                # self.compared_with_itself(dyn_ast, iid, left, right)
-                # self.compared_different_types(dyn_ast, iid, left, right, result)
-                # self.compared_with_none(dyn_ast, iid, left, right)
+            if self.compare_types(left, right):
+                self.add_finding(iid, dyn_ast, "A-13", f"compared with type {left} and {right}")
 
-                if self.compare_types(left, right):
-                    self.add_finding(iid, dyn_ast, "A-13", f"compared with type {left} and {right}")
-
-                op_function = operator.eq if op == "Equal" else operator.ne
-                if self.compare_diff_in_operator(left, right, op_function):
-                    self.add_finding(
-                        iid,
-                        dyn_ast,
-                        "A-16",
-                        f"Compared {left} with {right} {op} but is returns something different",
-                    )
-                if self.compare_funct(left, right):
-                    self.add_finding(
-                        iid,
-                        dyn_ast,
-                        "A-15",
-                        f"compared with function {left} and {right}",
-                    )
-            elif op == "In" or op == "NotIn":
-                if self.in_type_mismatch(left, right):
-                    self.add_finding(
-                        iid,
-                        dyn_ast,
-                        "A-17",
-                        f"Type mismatch for in operator left {left} and {right}, where left contained in right",
-                    )
-            """
-            elif op == 'Is' or op == 'IsNot':
-                if self.compare_types(left, right):
-                    self.add_finding(iid,
-                                     dyn_ast, "A-14", f"compared with type {left} and {right}")
-            """
+            if self.compare_funct(left, right):
+                self.add_finding(
+                    iid,
+                    dyn_ast,
+                    "A-15",
+                    f"compared with function {left} and {right}",
+                )
         except ValueError:
             return
 
