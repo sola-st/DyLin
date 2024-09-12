@@ -160,7 +160,7 @@ cython_debug/
 #.idea/
 
 .vscode/
-reports/
+reports*/
 log*.txt
 logs_*/
 *results*/
