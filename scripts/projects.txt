@@ -9,7 +9,7 @@ https://github.com/psf/requests.git 6e5b15d542a4e85945fd72066bb6cecbc3a82191 rt 
 https://github.com/higlass/clodius.git 49c916f8af3eba5d118183410688d36498f791ec rt requirements.txt test
 https://github.com/WebOfTrust/keripy.git 36b77179aac817a28097a6dacd2433512a4f832b rt requirements.txt tests
 https://github.com/Fatal1ty/mashumaro.git e391ea311d1a7c53a455ba58146cbbc448338a97 rt requirements-dev.txt tests
-https://github.com/tiangolo/typer.git 50caff27573e0d1381701d24122ca9fed20d6343 t tests
+https://github.com/fastapi/typer.git 50caff27573e0d1381701d24122ca9fed20d6343 t tests
 https://github.com/Suor/funcy.git 13fac0037c109a9e4649fc8ee343be17647f7407 t tests
 https://github.com/Supervisor/supervisor.git 2a93d6b21edca4e8b00987c70a350ca626aebec8 t supervisor/tests
 https://github.com/nvbn/thefuck.git ceeaeab94b5df5a4fe9d94d61e4f6b0bbea96378 rt requirements.txt tests
@@ -35,13 +35,15 @@ https://github.com/pyeve/cerberus.git 8765b317442c002a84e556bd5d9677b868e6deb2 t
 https://github.com/PyFilesystem/pyfilesystem2.git 59f6e4d51a1983ca28d0b667bd1d6b3284ab5c56 t tests
 https://github.com/keras-team/keras.git 4fd825ddf93d3dc9ecc7b50178ce1d015393bed2 t keras/tests
 https://github.com/python-pillow/Pillow.git 6ab99aac0e9fef3a6045f9a4034e64a92cda2cb8 t Tests
+https://github.com/dpkp/kafka-python.git 4d598055dab7da99e41bfcceffa8462b32931cdd t test
+https://github.com/woctezuma/steam-market.git 56567576ed47c90be5240904e3eda8750eaf6f52 rt requirements.txt tests.py
+https://github.com/praetorian-inc/gato.git fffb8b5862003ecbd18bcce33f0010309ce3a568 t unit_test
 https://github.com/psf/black.git 35722dff623f3cdf5018e3f1183cd4e02e91caa8 rt test_requirements.txt tests
 https://github.com/HBNetwork/python-decouple.git 7c9b250c53bdd0ae96f449d5d2be918ed90ba273 rt requirements.txt tests
 https://github.com/jiaaro/pydub.git 996cec42e9621701edb83354232b2c0ca0121560 t test/test.py
 https://github.com/graphql-python/graphene.git 03cf2e131e655402ccc0a9e2d9897c39d7f7f86a t graphene/tests
 https://github.com/PythonCharmers/python-future.git 3dc7acc8e5a4266df6c823b9350a731dd7df6124 t tests
 https://github.com/gawel/pyquery.git ca860115ee15ad30367b6386ed6abc8f8801600e t tests
-https://github.com/dpkp/kafka-python.git 4d598055dab7da99e41bfcceffa8462b32931cdd t test
 https://github.com/scikit-learn/scikit-learn.git e5df5fec4d81d85d5a0965e9fc46cae96bd0324d t sklearn/tests
 https://github.com/pallets-eco/blinker.git cff9a5ab34311737b4a4cdd3b677313ab442071c t tests
 https://github.com/0rpc/zerorpc-python.git 99ee6e47c8baf909b97eec94f184a19405f392a2 t tests
