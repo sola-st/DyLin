@@ -20,6 +20,8 @@ RUN mkdir ./DyLin
 COPY ./requirements.txt ./DyLin/requirements.txt
 RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
 RUN pip install --no-cache-dir ruff
+RUN pip install --no-cache-dir pylint
+RUN pip install --no-cache-dir mypy
 
 COPY ./scripts ./DyLin/scripts
 COPY ./src ./DyLin/src
