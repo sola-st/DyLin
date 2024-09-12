@@ -33,9 +33,9 @@ https://github.com/wtforms/wtforms.git 96021e2574b82820a11a8ff6fa5367aebff88533 
 https://github.com/jpadilla/pyjwt.git d7c54dbebdab2ae17f7948fd4432b15e1bb82852 t tests
 https://github.com/pyeve/cerberus.git 8765b317442c002a84e556bd5d9677b868e6deb2 t cerberus/tests
 https://github.com/PyFilesystem/pyfilesystem2.git 59f6e4d51a1983ca28d0b667bd1d6b3284ab5c56 t tests
-https://github.com/keras-team/keras.git 4fd825ddf93d3dc9ecc7b50178ce1d015393bed2 t keras/tests
+https://github.com/keras-team/keras.git cb6ece3e2ead7baec874cb71e579fbf310b1b05c t keras/tests
 https://github.com/python-pillow/Pillow.git 965cb518a218cc09f58f8dbb9c24f4c0c1839330 t Tests
-https://github.com/dpkp/kafka-python.git 4d598055dab7da99e41bfcceffa8462b32931cdd t test
+https://github.com/dpkp/kafka-python.git f98498411caabcf60894c536ce8fc9e83bd43241 t test
 https://github.com/woctezuma/steam-market.git 56567576ed47c90be5240904e3eda8750eaf6f52 rt requirements.txt tests.py
 https://github.com/praetorian-inc/gato.git fffb8b5862003ecbd18bcce33f0010309ce3a568 t unit_test
 https://github.com/psf/black.git 35722dff623f3cdf5018e3f1183cd4e02e91caa8 rt test_requirements.txt tests

@@ -1,9 +1,17 @@
 # DyLin
 Dynamic Linter for Python
 
+## Run on your GitHub workflow
+It is now possible to run DyLin directly on GitHub workflows. You just need to add 5 lines to your workflow file.
+For anonymity, the link to the GitHub actions will be added after the reviews.
+
 ## Requirements
 You need `docker`, `git`, and `python>=3.9` installed for running the experiments.
 For Kaggle experiments, you need to have a Kaggle API key set in `kaggle.json` in the root directory.
+To install requirements for a local (not in a container) run:
+```bash
+pip install -r requirements.txt
+```
 
 ## Checkers
 The checkers are implemented in `src/analyses`.
@@ -18,7 +26,8 @@ pytest tests
 Run DyLin on GitHub repositories:
 ```bash
 bash build_projects.sh
-bash run_all.sh
+bash run_all_with_cov.sh # to collect analysis coverage
+bash run_all_no_cov.sh # no analysis coverage
 ```
 Results will be in `project_results`.
 
