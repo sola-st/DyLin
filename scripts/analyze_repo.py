@@ -95,11 +95,12 @@ pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}']
         command_to_run = "pytest -n auto --dist worksteal keras --ignore keras/src/applications".split(" ")
     if url == "https://github.com/dpkp/kafka-python.git":
         os.environ["CRC32C_SW_MODE"] = "auto"
-        os.environ["PROJECT_ROOT"] = f"/Work/{name}"
-        os.environ["KAFKA_VERSION"] = "2"
-        command_to_run = ['pytest', '-n', 'auto', '--dist', 'worksteal', 'kafka_python/test']
+        os.environ["PROJECT_ROOT"] = f"/opt/dylinVenv/lib/python3.10/site-packages/{name}"
+        command_to_run = ['pytest', '-n', 'auto', '--dist', 'worksteal', '/opt/dylinVenv/lib/python3.10/site-packages/test']
     if name == "steam_market":
         command_to_run = f"pytest -n auto --dist worksteal {name}/tests.py".split(" ")
+    if name == "Pillow":
+        command_to_run = ["python", "-m", "pytest", '-n', 'auto', '--dist', 'worksteal', f'{name}/{tests}']
 #         subprocess.run(["ls", "/opt/dylinVenv/lib/python3.10/site-packages/"])
 #         run_all_tests = '''
 # import pytest
