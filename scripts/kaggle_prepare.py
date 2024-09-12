@@ -2,7 +2,6 @@ from uuid import uuid4
 import argparse
 import datetime
 from genericpath import isfile
-from multiprocessing import Pool
 import os
 import pathlib
 from posixpath import join
@@ -16,7 +15,7 @@ from dynapyt.run_instrumentation import instrument_dir
 from dynapyt.run_analysis import run_analysis
 from dynapyt.post_run import post_run
 
-from pebble import ProcessExpired, ProcessPool
+# from pebble import ProcessExpired, ProcessPool
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--number", help="Number of submissions to prepare")
@@ -194,6 +193,7 @@ if not args.only_run:
         
         if "../input/" in code:
             code = code.replace("../input/", "/kaggle/input/")
+        code = "\n".join([l for l in code.split("\n") if not l.startswith("print")])
         
         with open(str(filepath.resolve()), "w") as f:
             f.write(code)

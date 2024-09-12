@@ -1,15 +1,6 @@
-dylin.analyses.ComparisonBehaviorAnalysis.ComparisonBehaviorAnalysis
-dylin.analyses.InPlaceSortAnalysis.InPlaceSortAnalysis
-dylin.analyses.InvalidComparisonAnalysis.InvalidComparisonAnalysis
-dylin.analyses.StringConcatAnalysis.StringConcatAnalysis
-dylin.analyses.WrongTypeAddedAnalysis.WrongTypeAddedAnalysis
-dylin.analyses.BuiltinAllAnalysis.BuiltinAllAnalysis
-dylin.analyses.ChangeListWhileIterating.ChangeListWhileIterating
-dylin.analyses.StringStripAnalysis.StringStripAnalysis
 dylin.analyses.NonFinitesAnalysis.NonFinitesAnalysis
 dylin.analyses.GradientAnalysis.GradientAnalysis
 dylin.analyses.ItemInListAnalysis.ItemInListAnalysis
 dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis
-dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=/Work/src/dylin/markings/configs/forced_order.yml
 dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=/Work/src/dylin/markings/configs/leak_preprocessing.yml
 dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config=/Work/src/dylin/markings/configs/leaked_data.yml
