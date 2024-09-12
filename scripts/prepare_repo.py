@@ -56,6 +56,8 @@ if __name__ == "__main__":
             with open(str(Path(name)/"setup.py"), "w") as file:
                 file.write(content)
             subprocess.run(["pip", "install", f"{name}"])
+        elif url == "https://github.com/praetorian-inc/gato.git":
+            subprocess.run(["pip", "install", "-e", f"{name}/[test]"])
         else:
             subprocess.run(["pip", "install", "-e", f"{name}/"])
         print("Installed requirements")
