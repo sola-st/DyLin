@@ -90,7 +90,12 @@ pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}']
     if name in ["rich", "python_future", "requests"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
-#     if url == "https://github.com/dpkp/kafka-python.git":
+    if name == "keras": 
+        command_to_run = "pytest -n auto --dist worksteal keras --ignore keras/src/applications".split(" ")
+    if url == "https://github.com/dpkp/kafka-python.git":
+        command_to_run = ['pytest', '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '/Work/kafka_python/test']
+    if name == "steam-market":
+        command_to_run = f"pytest -n auto --dist worksteal {name}/tests.py".split(" ")
 #         subprocess.run(["ls", "/opt/dylinVenv/lib/python3.10/site-packages/"])
 #         run_all_tests = '''
 # import pytest
