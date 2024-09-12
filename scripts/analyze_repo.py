@@ -87,7 +87,7 @@ pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}']
     )
     command_to_run = ["pytest", '-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', f'{name}/{tests}']
     # command_to_run = ["pytest", '-s', '--import-mode=importlib', f'{name}/{tests}']
-    if name in ["rich", "python_future", "requests"]:
+    if name in ["rich", "python_future", "requests", "keras"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
     if name == "keras":
