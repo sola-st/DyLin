@@ -90,7 +90,8 @@ pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}']
     if name in ["rich", "python_future", "requests"]:
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
-    if name == "keras": 
+    if name == "keras":
+        os.environ["KERAS_HOME"] = "/Work/DyLin/scripts"
         command_to_run = "pytest -n auto --dist worksteal keras --ignore keras/src/applications".split(" ")
     if url == "https://github.com/dpkp/kafka-python.git":
         command_to_run = ['pytest', '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '/Work/kafka_python/test']
