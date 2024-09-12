@@ -1,12 +1,12 @@
 #!/bin/bash
-python scripts/kaggle_prepare.py --number 5 --competition $KAGGLE_COMPETITION --path /Work/kaggle_files --kaggleConf /Work/.kaggle
+python scripts/kaggle_prepare.py --number 20 --competition $KAGGLE_COMPETITION --path /Work/kaggle_files --kaggleConf /Work/.kaggle
 
 cd /Work/kaggle_files
 for f in *.py; do
     sessionID=$(python -c "from uuid import uuid4; print(str(uuid4()))")
     cp /Work/dylin_config_kaggle.txt /tmp/dynapyt_analyses-$sessionID.txt
     sed -i "s|\$|;output_dir=/tmp/dynapyt_output-${sessionID}|" /tmp/dynapyt_analyses-$sessionID.txt
-    (DYNAPYT_SESSION_ID=$sessionID timeout 10m python $f && echo "$f completed.") || echo "$f timed out!" &
+    (DYNAPYT_SESSION_ID=$sessionID timeout 10m python $f > log_kaggle && echo "$f completed.") || echo "$f timed out!" &
 done
 
 # Wait for all background processes to finish

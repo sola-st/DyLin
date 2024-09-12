@@ -27,7 +27,7 @@ USER dylinuser
 
 # Install dependencies
 RUN python -m pip install --user -r requirements.txt
-RUN python -m pip install pebble
+# RUN python -m pip install pebble
 RUN python -m pip install .
 
 # Add kaggle.json
