@@ -110,15 +110,17 @@ class BaseDyLinAnalysis(BaseAnalysis):
         if temp_res is not None:
             result = {"meta": self.meta, "results": temp_res}
             filename = f"output-{str(self.analysis_name)}-{self.unique_id}-report.json"
-            if (self.path / filename).exists():
-                print(f"$$$$$$$$$$$$$$$$$$$$ File {filename} exists. Reading ...", file=sys.stderr)
-                with open(self.path / filename, "r") as f:
-                    rep = json.load(f)
-                for k, v in rep.items():
-                    if k == "meta" and "total_comp" in result["meta"] and "total_comp" in v:
-                        result["meta"]["total_comp"] += v["total_comp"]
-                    elif k == "results":
-                        result["results"].extend(v)
+            while (self.path / filename).exists():
+                self.unique_id = str(uuid.uuid4())
+                filename = f"output-{str(self.analysis_name)}-{self.unique_id}-report.json"
+                # print(f"$$$$$$$$$$$$$$$$$$$$ File {filename} exists. Reading ...", file=sys.stderr)
+                # with open(self.path / filename, "r") as f:
+                #     rep = json.load(f)
+                # for k, v in rep.items():
+                #     if k == "meta" and "total_comp" in result["meta"] and "total_comp" in v:
+                #         result["meta"]["total_comp"] += v["total_comp"]
+                #     elif k == "results":
+                #         result["results"].extend(v)
             print(f"$$$$$$$$$$$$$$$$$$$$ Writing to file {filename} ...", file=sys.stderr)
             with open(self.path / filename, "w") as report:
                 report.write(json.dumps(result, indent=4))

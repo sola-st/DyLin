@@ -80,7 +80,8 @@ if not args.only_run:
             "corneliusjustin/spaceship-titanic-with-ensemble-learning-voting",
             "witoldnowogrski/spaceship-titanic-binary-classification-using-nn",
             "combustingrats/eda-logistic-regression-and-nn"], 
-        "icr-identify-age-related-conditions": ["yan0022/icr-stacking-with-sklearn"]
+        "icr-identify-age-related-conditions": ["yan0022/icr-stacking-with-sklearn"],
+        "playground-series-s4e8": ["snehalkhandewale/to-eat-or-not-to-eat"]
     }
 
     kernels: List[Kernel] = []
