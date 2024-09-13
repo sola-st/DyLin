@@ -41,6 +41,10 @@ if __name__ == "__main__":
     start_time = time.time()
     if url == "https://github.com/tiangolo/typer.git":
         pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', f'--cov={installation_dir}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])
+    elif name == "keras":
+        os.environ["KERAS_HOME"] = "/Work/DyLin/scripts"
+        command_to_run = "-n auto --dist worksteal --cov=keras --cov-report=json:/Work/testcov/cov.json keras --ignore keras/src/applications".split(" ")
+        pytest.main(command_to_run)
     else:
         pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=300', f'--cov={name}', '--cov-report', 'json:/Work/testcov/cov.json', '--import-mode=importlib', f'{name}/{tests}'])
     end_time = time.time()
