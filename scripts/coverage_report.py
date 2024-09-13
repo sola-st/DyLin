@@ -25,6 +25,7 @@ def coverage_report(analysis_coverage: str, test_coverage: str):
     
     covered_by = {}
     total_covered_lines = 0
+    print(len(coverage))
     for file, lines in coverage.items():
         if file.startswith("/opt/dylinVenv/lib/python3.10/site-packages/"):
             fl = file[40:-5]
@@ -46,9 +47,17 @@ def coverage_report(analysis_coverage: str, test_coverage: str):
                 covered_by[analysis] += 1
     return covered_by, total_covered_lines, test_coverage
 
+def compare_only_one(analysis_dir: str, test_dir: str):
+    test_cov = Path(test_dir)/"cov.json"
+    for ac in Path(analysis_dir).glob("dynapyt_coverage-*/coverage*.json"):
+        print(f"{ac} {test_cov}")
+        covered_by, total_covered_lines, test_coverage = coverage_report(str(ac), str(test_cov))
+        with open("coverage_comparison.csv", "a") as f:
+                f.write(f"{str(ac)} {total_covered_lines}, {test_coverage}\n")
+
 def coverage_comparison(analysis_dir: str, test_dir: str):
     for i in range(1, 50):
-        analysis_coverage = list((Path(analysis_dir).resolve()/f"reports_{i}").glob("dynapyt_coverage-*/coverage.json"))
+        analysis_coverage = list((Path(analysis_dir).resolve()/f"reports_{i}").glob("dynapyt_coverage-*/coverage*.json"))
         if len(analysis_coverage) != 1:
             print(f"There is not 1 file for DyLin coverage for {i} {analysis_coverage}")
             continue
@@ -68,5 +77,5 @@ def coverage_comparison(analysis_dir: str, test_dir: str):
         # print(f"Test coverage: {test_coverage}")
 
 if __name__ == '__main__':
-    Fire(coverage_comparison)
+    Fire()
                 
