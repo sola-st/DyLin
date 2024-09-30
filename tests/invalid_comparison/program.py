@@ -135,9 +135,9 @@ def test_list_in_type_mismatch():
     e = [["a"]]
     f = [["a"], ["b"], ["c"]]
 
-    a in b  # DyLin warn
-    c in d  # DyLin warn
-    e in f  # DyLin warn
+    a in b  # no DyLin warn
+    c in d  # no DyLin warn
+    e in f  # no DyLin warn
 
     b in c
     a in d
@@ -151,8 +151,8 @@ def test_set_in_type_mismatch():
     c = set([3])
     d = set(list(range(0, 100)))
 
-    a in b  # DyLin warn
-    c in d  # DyLin warn
+    a in b  # no DyLin warn
+    c in d  # no DyLin warn
 
     b in c
     a in d
@@ -167,11 +167,11 @@ def test_difference_is_eq_operators():
     et_1 = 1
     et_2 = 1.0
 
-    ef_1 == False  # DyLin warn
-    ef_2 != False  # DyLin warn
+    ef_1 == False  # no DyLin warn
+    ef_2 != False  # no DyLin warn
 
-    et_1 == True  # DyLin warn
-    et_2 != True  # DyLin warn
+    et_1 == True  # no DyLin warn
+    et_2 != True  # no DyLin warn
 
 
 def test_bad_floats():
@@ -195,14 +195,14 @@ def test_bad_floats():
 
 
 def test_numpy():
-    np.float16("NaN") == 2  # DyLin warn
-    2 == np.float16("NaN")  # DyLin warn
+    np.float16("NaN") == 2  # no DyLin warn
+    2 == np.float16("NaN")  # no DyLin warn
 
-    np.float32("NaN") == 2  # DyLin warn
-    2 == np.float32("NaN")  # DyLin warn
+    np.float32("NaN") == 2  # no DyLin warn
+    2 == np.float32("NaN")  # no DyLin warn
 
-    np.float128("NaN") == 2  # DyLin warn
-    2 == np.float128("NaN")  # DyLin warn
+    np.float128("NaN") == 2  # no DyLin warn
+    2 == np.float128("NaN")  # no DyLin warn
 
     np.float16("inf") == 2  # DyLin warn
     2 == np.float16("inf")  # DyLin warn

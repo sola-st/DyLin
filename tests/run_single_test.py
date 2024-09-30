@@ -29,6 +29,10 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     checkers_file = join(abs_dir, "checkers.txt")
     with open(checkers_file, "r") as file:
         checkers = file.read().splitlines()
+    
+    for i in range(len(checkers)):
+        if "output_dir=" not in checkers:
+            checkers[i] += f";output_dir={abs_dir}"
 
     analysis_names = []
     for i, checker in enumerate(checkers):

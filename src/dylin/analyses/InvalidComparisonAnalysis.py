@@ -59,12 +59,12 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
                         f"inf floats left {left} right {right} in comparison used",
                     )
 
-                if self.compare_floats(left, right, op):
+                if self.compare_floats(left, right):
                     self.add_finding(
                         iid,
                         dyn_ast,
                         "A-12",
-                        f"compared floats nearly equal {left} and {right} via {op}",
+                        f"compared floats nearly equal {left} and {right}",
                     )
 
             if self.compare_types(left, right):
@@ -91,7 +91,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         # np.isnan handles python builtin floats and numpy floats
         return self._is_float(num) and np.isinf(num)
 
-    def compare_floats(self, left: float, right: float, op: Callable) -> bool:
+    def compare_floats(self, left: float, right: float) -> bool:
         return (
             self._is_float(left) and self._is_float(right) and left != right and math.isclose(left, right, rel_tol=1e-8)
         )
