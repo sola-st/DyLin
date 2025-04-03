@@ -157,8 +157,14 @@ pytest.main(['-n', 'auto', '--dist', 'worksteal', '--timeout=900', '--import-mod
         sys.path.append(str((Path(name).resolve()) / tests))
     print("Wrote test runner, starting analysis")
     subprocess.run(["sloccount", str(Path(name).resolve())])
+    entry = ["pytest", '-n', 'auto', '--dist', 'worksteal', '--import-mode=importlib', f'{name}/{tests}']
+    session_id = "1234-abcd"
+    with open(f"/tmp/dynapyt_analyses-{session_id}.txt", "w") as f:
+        f.write("")
+    os.environ["DYNAPYT_SESSION_ID"] = session_id
     start = time.time()
-    run_analysis(entry, [], coverage=False)
+    subprocess.run(entry)
+    # run_analysis(entry, [], coverage=False)
     analysis_time = time.time() - start
     # print("Finished analysis, copying coverage")
     # shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")

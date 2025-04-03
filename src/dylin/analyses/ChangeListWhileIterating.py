@@ -57,8 +57,3 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
         # print(f"{self.analysis_name} exit_for {iid}")
         if len(self.iterator_stack) > 0:
             self.iterator_stack.pop()
-
-    def _break(self, dyn_ast, iid):
-        # print(f"{self.analysis_name} break {iid}")
-        if len(self.iterator_stack) > 0:
-            self.iterator_stack.pop()

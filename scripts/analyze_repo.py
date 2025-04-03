@@ -123,6 +123,7 @@ pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}']
     os.environ["DYNAPYT_SESSION_ID"] = session_id
     timeout_threshold = 60*60
     timed_out = False
+    analysis_time = ""
     if args.cov:
         os.environ["DYNAPYT_COVERAGE"] = f"/tmp/dynapyt_coverage-{session_id}"
         start = time.time()
@@ -134,23 +135,24 @@ pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}']
             timed_out = True
             os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
         # session_id = run_analysis(entry, analyses, coverage=True, coverage_dir="/Work/reports", output_dir="/Work/reports", script=run_all_tests)
-        analysis_time = time.time() - start
+        analysis_time += f" {time.time() - start}"
         post_run(coverage_dir=f"/tmp/dynapyt_coverage-{session_id}", output_dir=f"/tmp/dynapyt_output-{session_id}")
     else:
         if "DYNAPYT_COVERAGE" in os.environ:
             del os.environ["DYNAPYT_COVERAGE"]
-        start = time.time()
-        try:
-            # subprocess.run(command_to_run)
-            proc = subprocess.Popen(command_to_run, start_new_session=True)
-            proc.wait(timeout_threshold)
-        except subprocess.TimeoutExpired:
-            timed_out = True
-            os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
-        # session_id = run_analysis(entry, analyses, coverage=False, output_dir="/Work/reports", script=run_all_tests)
-        analysis_time = time.time() - start
+        for rep in range(10):
+            start = time.time()
+            try:
+                # subprocess.run(command_to_run)
+                proc = subprocess.Popen(command_to_run, start_new_session=True)
+                proc.wait(timeout_threshold)
+            except subprocess.TimeoutExpired:
+                timed_out = True
+                os.killpg(os.getpgid(proc.pid), signal.SIGTERM)
+            # session_id = run_analysis(entry, analyses, coverage=False, output_dir="/Work/reports", script=run_all_tests)
+            analysis_time += f" {time.time() - start}"
         post_run(output_dir=f"/tmp/dynapyt_output-{session_id}")
     # print("Finished analysis, copying coverage")
     # shutil.copy("/tmp/dynapyt_coverage/covered.jsonl", "/Work/reports/")
     with open("/Work/reports/timing.txt", "a") as f:
-        f.write(f"{analysis_time} {'timed out' if timed_out else ''}\n")
+        f.write(f"{analysis_time.strip()} {'timed out' if timed_out else ''}\n")
