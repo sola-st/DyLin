@@ -1,0 +1,24 @@
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
+tests/inconsistent_preprocessing/program.py:1: error: Skipping analyzing "sklearn.impute": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+tests/inconsistent_preprocessing/program.py:1: note: See https://mypy.readthedocs.io/en/stable/running_mypy.html#missing-imports
+tests/inconsistent_preprocessing/program.py:2: error: Skipping analyzing "sklearn.model_selection": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+tests/inconsistent_preprocessing/program.py:3: error: Skipping analyzing "sklearn.datasets": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+tests/inconsistent_preprocessing/program.py:4: error: Skipping analyzing "sklearn.preprocessing": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+tests/inconsistent_preprocessing/program.py:5: error: Skipping analyzing "sklearn.linear_model": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+tests/inconsistent_preprocessing/program.py:6: error: Skipping analyzing "sklearn.svm": module is installed, but missing library stubs or py.typed marker  [import-untyped]
+tests/inconsistent_preprocessing/program.py:8: error: Library stubs not installed for "pandas"  [import-untyped]
+tests/inconsistent_preprocessing/program.py:8: note: Hint: "python3 -m pip install pandas-stubs"
+tests/inconsistent_preprocessing/program.py:8: note: (or run "mypy --install-types" to install all missing stub packages)
+Found 7 errors in 1 file (checked 1 source file)
+tests/inplace_sort/program.py:16: error: Argument 1 to "append" of "list" has incompatible type "list[Never]"; expected "int"  [arg-type]
+Found 1 error in 1 file (checked 1 source file)
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
+Success: no issues found in 1 source file
