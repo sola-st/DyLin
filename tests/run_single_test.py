@@ -29,7 +29,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     checkers_file = join(abs_dir, "checkers.txt")
     with open(checkers_file, "r") as file:
         checkers = file.read().splitlines()
-    
+
     for i in range(len(checkers)):
         if "output_dir=" not in checkers:
             checkers[i] += f";output_dir={abs_dir}"
@@ -102,18 +102,24 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     gather_output(Path(abs_dir) / f"dynapyt_output-{session_id}")
     for analysis_name in analysis_names:
         with open(join(abs_dir, f"dynapyt_output-{session_id}", f"output.json"), "r") as file:
-            analysis_output = json.load(file)[0]
+            output_content = json.load(file)
+            if len(output_content) == 1:
+                analysis_output = output_content[0]
+            else:
+                analysis_output = {}
         # print(analysis_output)
-        for wcode, findings in analysis_output["results"][analysis_name]["results"].items():
-            for finding in findings:
-                if finding["finding"]["location"]["start_line"] not in [ew[1] for ew in expected_warnings]:
-                    fail.append(f"Found something weird: {finding}")
-        for expected_warning in expected_warnings:
-            found = False
+        if "results" in analysis_output:
             for wcode, findings in analysis_output["results"][analysis_name]["results"].items():
                 for finding in findings:
-                    if finding["finding"]["location"]["start_line"] == expected_warning[1]:
-                        found = True
+                    if finding["finding"]["location"]["start_line"] not in [ew[1] for ew in expected_warnings]:
+                        fail.append(f"Found something weird: {finding}")
+        for expected_warning in expected_warnings:
+            found = False
+            if "results" in analysis_output:
+                for wcode, findings in analysis_output["results"][analysis_name]["results"].items():
+                    for finding in findings:
+                        if finding["finding"]["location"]["start_line"] == expected_warning[1]:
+                            found = True
             if not found:
                 fail.append(f"Expected warning not found: {expected_warning}")
 

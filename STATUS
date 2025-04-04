@@ -1,0 +1,4 @@
+Functional, Reusable, and Available
+
+We are applying for the Available badge, as our tool is available in a public repository and also an archival public repository.
+We are also applying for the Functional and Reusable badges, as our tool can be run using the provided scripts to produce the results in the paper, and also can be used to run on new data by just providing the new source code. It can also be run via GitHub Workflows as an action.

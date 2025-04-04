@@ -52,7 +52,7 @@ def access_attr():
     )
     y = np.array([0, 0, 0])
 
-    imp = SimpleImputer(missing_values=np.NAN, strategy='mean')
+    imp = SimpleImputer(missing_values=np.nan, strategy='mean')
     imp = imp.fit(X_Test)
     X_Test = imp.transform(X_Test)
     X = imp.transform(X)
@@ -80,7 +80,7 @@ def access_attr_bad_transformation():
     )
     y = np.array([0, 0, 0])
 
-    imp = SimpleImputer(missing_values=np.NAN, strategy='mean')
+    imp = SimpleImputer(missing_values=np.nan, strategy='mean')
     imp = imp.fit(X_Test)
     X_Test = imp.transform(X_Test)
     X_Test = np.reshape(X_Test, (len(X_Test), len(X_Test[0])))
