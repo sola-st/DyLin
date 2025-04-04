@@ -9,7 +9,10 @@ Checkout [this repository](https://github.com/AryazE/auto-dylin/) for more detai
 
 ## Requirements
 You need `docker`, `git`, and `python>=3.9` installed for running the experiments.
-For Kaggle experiments, you need to have a Kaggle API key set in `kaggle.json` in the root directory.
+For Kaggle experiments, you need to have a Kaggle API key set in `kaggle.json` in the root directory with the following format:
+```json
+{"username": "your username", "key": "your API key"}
+```
 To install requirements for a local (not in a container) run:
 ```bash
 pip install -r requirements.txt

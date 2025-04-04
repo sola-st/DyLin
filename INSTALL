@@ -1,1 +1,17 @@
-Make sure you have `docker`, `git`, and `python` installed.
+To run DyLin on the microbenchmark you only need `python` installed.
+```
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+pip install -r requirements-tests.txt
+pytest tests
+```
+The output should show all tests passing (might have a few warnings about deprecation).
+
+To run DyLin on GitHub projects you need `docker` and `git`. The docker container installs all the required packages and downloads the repositories as well.
+
+To run DyLin on Kaggle submissions you need `docker` and a Kaggle API key placed in `kaggle.json` file in the root directory with the following format:
+```json
+{"username": "your username", "key": "your API key"}
+```
+The docker container installs all the required packages and also downloads the competition data, environments, and submissions.
