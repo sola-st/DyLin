@@ -1,0 +1,1 @@
+sys.stdin.close() # DyLin warn
