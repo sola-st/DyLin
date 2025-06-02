@@ -53,12 +53,16 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
 
         in_args.append(_self)
 
-        if (function.__name__ == "fit_transform" or function.__name__ == "transform") and isinstance(
-            _self, TransformerMixin
-        ):
+        if function.__name__ == "fit_transform" and isinstance(_self, TransformerMixin):
             # source
             self.markings_storage[uniqueid(result)].add("transformed")
-
+            self.markings_storage[uniqueid(_self)].add("transformed")
+        elif function.__name__ == "transform" and isinstance(_self, TransformerMixin):
+            # source
+            self.markings_storage[uniqueid(result)].add("transformed")
+        elif function.__name__ == "fit" and isinstance(_self, TransformerMixin):
+            # source
+            self.markings_storage[uniqueid(_self)].add("transformed")
         elif function.__name__ == "predict" and isinstance(_self, BaseEstimator):
             # sink
             in_args = list(pos_args if not pos_args is None else []) + [_self]
@@ -66,19 +70,34 @@ class InconsistentPreprocessing(BaseDyLinAnalysis):
             count = len(in_args)
             for arg in in_args:
                 if save_uid(arg) in self.markings_storage and len(self.markings_storage[save_uid(arg)]) > 0:
-                    count = count - 1
+                    count -= 1
 
             if count != 0 and count != len(in_args):
-                self.add_finding(iid, dyn_ast, "M-23", f"{count} args have not been transformed out of {len(in_args)}")
+                self.add_finding(
+                    iid,
+                    dyn_ast,
+                    "M-23",
+                    f"{count} args have not been transformed out of {len(in_args)} --> {[self.markings_storage.get(save_uid(arg), 'not') for arg in in_args]}",
+                )
 
         else:
             # propagate marking
             is_arg_marked = any(
                 [
-                    save_uid(arg) in self.markings_storage and len(self.markings_storage[save_uid(arg)]) > 0
+                    (save_uid(arg) in self.markings_storage and len(self.markings_storage[save_uid(arg)]) > 0)
+                    or (
+                        (isinstance(arg, list) or isinstance(arg, tuple))
+                        and any(
+                            save_uid(a) in self.markings_storage and len(self.markings_storage[save_uid(a)]) > 0
+                            for a in arg
+                        )
+                    )
                     for arg in in_args
                 ]
             )
+
+            if is_arg_marked and function.__name__ == "fit" and isinstance(_self, BaseEstimator):
+                self.markings_storage[uniqueid(_self)].add("transformed")
 
             if not type(result) is tuple and not type(result) is list:
                 if not result is None and is_arg_marked:

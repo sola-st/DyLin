@@ -21,7 +21,7 @@ def default_case():
     model.predict(X_test)  # DyLin warn
 
     # both are scaled
-    X_test_scaled = scaler.fit_transform(X_test)
+    X_test_scaled = scaler.transform(X_test)
     model = LinearRegression().fit(X_train_transformed, y_train)
     model.predict(X_test_scaled)
 
