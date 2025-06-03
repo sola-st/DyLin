@@ -12,11 +12,11 @@ my_thread2.start()
 
 
 # =============== OK ===============
-    my_thread = threading.Thread(target=run)
-    my_thread.start()
-    my_thread2 = threading.Thread(target=run)
-    my_thread2.start()
-    my_thread2.join()
+my_thread = threading.Thread(target=run)
+my_thread.start()
+my_thread2 = threading.Thread(target=run)
+my_thread2.start()
+my_thread2.join()
 
 
 # =============== OK ===============

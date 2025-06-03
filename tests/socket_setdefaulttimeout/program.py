@@ -4,5 +4,8 @@ socket.setdefaulttimeout(None) # OK
 socket.setdefaulttimeout(0) # OK
 socket.setdefaulttimeout(2.4) # OK
 
-socket.setdefaulttimeout(-3) # DyLin warn
-socket.setdefaulttimeout(-3.4) # DyLin warn
+try: socket.setdefaulttimeout(-3) # DyLin warn
+except ValueError as e: pass
+
+try: socket.setdefaulttimeout(-3.4) # DyLin warn
+except ValueError as e: pass
