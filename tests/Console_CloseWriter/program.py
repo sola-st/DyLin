@@ -1,9 +1,12 @@
-old_stdout = sys.stdout
-# flush sys.stdout
-sys.stdout.flush()
+# import io
+# import sys
 
-# close sys.stdout
-sys.stdout.close() # DyLin warn
+# old_stdout = sys.stdout
+# # flush sys.stdout
+# sys.stdout.flush()
 
-# reopen sys.stdout to prevent program from crashing
-sys.stdout = io.TextIOWrapper(io.FileIO(1, 'w'), write_through=True)
+# # close sys.stdout
+# sys.stdout.close() # DyLin warn
+
+# # reopen sys.stdout to prevent program from crashing
+# sys.stdout = io.TextIOWrapper(io.FileIO(1, 'w'), write_through=True)
