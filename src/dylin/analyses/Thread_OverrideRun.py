@@ -21,7 +21,13 @@ class Thread_OverrideRun(BaseDyLinAnalysis):
         self.analysis_name = "Thread_OverrideRun"
 
         # Get the hash of the original run method for inspection
-        self.original_run_method_hash = sha256(getsource(threading.Thread.run).encode()).hexdigest()
+        try:  
+            source_code = getsource(threading.Thread.run)  
+            self.original_run_method_hash = sha256(source_code.encode()).hexdigest()  
+        except Exception as e:  
+            # Fallback: Log a warning and set a default value  
+            print(f"Warning: Unable to retrieve source code for threading.Thread.run. Exception: {e}")  
+            self.original_run_method_hash = None  
 
     @only(patterns=["start"])
     def pre_call(

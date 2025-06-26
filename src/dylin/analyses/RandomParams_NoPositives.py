@@ -63,6 +63,6 @@ class RandomParams_NoPositives(BaseDyLinAnalysis):
                     iid,
                     dyn_ast,
                     "B-12",
-                    f"The call to method lognormvariate or vonmisesvariate in file at {dyn_ast} does not have the correct parameters."
+                    f"The call to method lognormvariate or vonmisesvariate in file at {dyn_ast} does not have the correct parameters. The sigma or kappa should always be positive."
                 )
 # =========================================================================

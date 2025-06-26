@@ -91,11 +91,6 @@ issue_codes = {
         "analysis": "dylin.analyses.GradientAnalysis.GradientAnalysis",
         "aliases": ["M-28"],
     },
-    "TE-02": {
-        "name": "Arrays_Comparable",
-        "analysis": "dylin.analyses.Arrays_Comparable.Arrays_Comparable",
-        "aliases": ["B-1"],
-    },
     "TE-03": {
         "name": "Console_CloseErrorWriter",
         "analysis": "dylin.analyses.Console_CloseErrorWriter.Console_CloseErrorWriter",
@@ -131,11 +126,6 @@ issue_codes = {
         "analysis": "dylin.analyses.NLTK_RegexpTokenizerCapturingParentheses.NLTK_RegexpTokenizerCapturingParentheses",
         "aliases": ["B-9"],
     },
-    "TE-10": {
-        "name": "PriorityQueue_NonComparable",
-        "analysis": "dylin.analyses.PriorityQueue_NonComparable.PriorityQueue_NonComparable",
-        "aliases": ["B-10"],
-    },
     "TE-11": {
         "name": "PyDocs_MustOnlyAddSynchronizableDataToSharedList",
         "analysis": "dylin.analyses.PyDocs_MustOnlyAddSynchronizableDataToSharedList.PyDocs_MustOnlyAddSynchronizableDataToSharedList",
@@ -160,26 +150,6 @@ issue_codes = {
         "name": "Session_DataMustOpenInBinary",
         "analysis": "dylin.analyses.Session_DataMustOpenInBinary.Session_DataMustOpenInBinary",
         "aliases": ["B-15"],
-    },
-    "TE-16": {
-        "name": "Sets_Comparable",
-        "analysis": "dylin.analyses.Sets_Comparable.Sets_Comparable",
-        "aliases": ["B-16"],
-    },
-    "TE-17": {
-        "name": "socket_create_connection",
-        "analysis": "dylin.analyses.socket_create_connection.socket_create_connection",
-        "aliases": ["B-17"],
-    },
-    "TE-18": {
-        "name": "socket_setdefaulttimeout",
-        "analysis": "dylin.analyses.socket_setdefaulttimeout.socket_setdefaulttimeout",
-        "aliases": ["B-18"],
-    },
-    "TE-19": {
-        "name": "socket_socket_settimeout",
-        "analysis": "dylin.analyses.socket_socket_settimeout.socket_socket_settimeout",
-        "aliases": ["B-19"],
     },
     "TE-20": {
         "name": "Thread_OverrideRun",

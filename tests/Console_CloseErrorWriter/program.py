@@ -1,3 +1,6 @@
+# import sys
+# import io
+
 # sys.stderr.flush()
 # sys.stderr.close() # DyLin warn
 # # reopen stderr to prevent program from crash

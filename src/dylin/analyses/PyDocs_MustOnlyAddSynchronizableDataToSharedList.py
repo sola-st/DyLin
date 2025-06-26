@@ -29,6 +29,9 @@ def is_synchronizable(data):
     if isinstance(data, socket.socket):
         return False
 
+    # synchronizable data
+    return True
+
 
 class PyDocs_MustOnlyAddSynchronizableDataToSharedList(BaseDyLinAnalysis):
 
