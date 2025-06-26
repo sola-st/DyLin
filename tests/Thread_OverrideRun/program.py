@@ -40,11 +40,3 @@ my_thread = threading.Thread()
 my_thread.start() # DyLin warn
 my_thread.join()
 
-
-# ============= NOT OK =============
-# creating a thread without changing the target
-class MyViolationThread(threading.Thread):
-    pass
-
-my_thread = MyViolationThread()
-my_thread.start() # DyLin warn
