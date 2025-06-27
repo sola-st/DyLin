@@ -59,37 +59,17 @@ issue_codes = {
         "analysis": f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config={here/'markings/configs/forced_order.yml'}",
         "aliases": ["A-18"],
     },
-    "SL-07": {
-        "name": "Console_CloseErrorWriter",
-        "analysis": "dylin.analyses.Console_CloseErrorWriter.Console_CloseErrorWriter",
-        "aliases": ["B-2"],
-    },
-    "SL-08": {
-        "name": "Console_CloseReader",
-        "analysis": "dylin.analyses.Console_CloseReader.Console_CloseReader",
-        "aliases": ["B-3"],
-    },
-    "SL-09": {
-        "name": "Console_CloseWriter",
-        "analysis": "dylin.analyses.Console_CloseWriter.Console_CloseWriter",
-        "aliases": ["B-4"],
-    },
-    "SL-10": {
-        "name": "PyDocs_MustOnlyAddSynchronizableDataToSharedList",
-        "analysis": "dylin.analyses.PyDocs_MustOnlyAddSynchronizableDataToSharedList.PyDocs_MustOnlyAddSynchronizableDataToSharedList",
-        "aliases": ["B-11"],
-    },
-    "SL-11": {
+    "SL-7": {
         "name": "RandomParams_NoPositives",
         "analysis": "dylin.analyses.RandomParams_NoPositives.RandomParams_NoPositives",
         "aliases": ["B-12"],
     },
-    "SL-12": {
+    "SL-8": {
         "name": "RandomRandrange_MustNotUseKwargs",
         "analysis": "dylin.analyses.RandomRandrange_MustNotUseKwargs.RandomRandrange_MustNotUseKwargs",
         "aliases": ["B-13"],
     },
-    "SL-13": {
+    "SL-9": {
         "name": "Thread_OverrideRun",
         "analysis": "dylin.analyses.Thread_OverrideRun.Thread_OverrideRun",
         "aliases": ["B-20"],
@@ -127,31 +107,21 @@ issue_codes = {
         "aliases": ["M-28"],
     },
     "TP-01": {
-        "name": "CreateWidgetOnSameFrameCanvas",
-        "analysis": "dylin.analyses.CreateWidgetOnSameFrameCanvas.CreateWidgetOnSameFrameCanvas",
-        "aliases": ["B-5"],
-    },
-    "TP-02": {
         "name": "HostnamesTerminatesWithSlash",
         "analysis": "dylin.analyses.HostnamesTerminatesWithSlash.HostnamesTerminatesWithSlash",
         "aliases": ["B-6"],
     },
-    "TP-03": {
+    "TP-02": {
         "name": "NLTK_regexp_span_tokenize",
         "analysis": "dylin.analyses.NLTK_regexp_span_tokenize.NLTK_regexp_span_tokenize",
         "aliases": ["B-8"],
     },
-    "TP-04": {
-        "name": "NLTK_RegexpTokenizerCapturingParentheses",
-        "analysis": "dylin.analyses.NLTK_RegexpTokenizerCapturingParentheses.NLTK_RegexpTokenizerCapturingParentheses",
-        "aliases": ["B-9"],
-    },
-    "TP-05": {
+    "TP-03": {
         "name": "Requests_DataMustOpenInBinary",
         "analysis": "dylin.analyses.Requests_DataMustOpenInBinary.Requests_DataMustOpenInBinary",
         "aliases": ["B-14"],
     },
-    "TP-06": {
+    "TP-04": {
         "name": "Session_DataMustOpenInBinary",
         "analysis": "dylin.analyses.Session_DataMustOpenInBinary.Session_DataMustOpenInBinary",
         "aliases": ["B-15"],
