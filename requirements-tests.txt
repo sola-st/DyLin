@@ -91,3 +91,4 @@ urllib3
 Werkzeug
 wrapt
 zipp
+nltk
