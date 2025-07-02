@@ -59,6 +59,21 @@ issue_codes = {
         "analysis": f"dylin.analyses.ObjectMarkingAnalysis.ObjectMarkingAnalysis;config={here/'markings/configs/forced_order.yml'}",
         "aliases": ["A-18"],
     },
+    "SL-7": {
+        "name": "RandomParams_NoPositives",
+        "analysis": "dylin.analyses.RandomParams_NoPositives.RandomParams_NoPositives",
+        "aliases": ["B-12"],
+    },
+    "SL-8": {
+        "name": "RandomRandrange_MustNotUseKwargs",
+        "analysis": "dylin.analyses.RandomRandrange_MustNotUseKwargs.RandomRandrange_MustNotUseKwargs",
+        "aliases": ["B-13"],
+    },
+    "SL-9": {
+        "name": "Thread_OverrideRun",
+        "analysis": "dylin.analyses.Thread_OverrideRun.Thread_OverrideRun",
+        "aliases": ["B-20"],
+    },
     "CF-01": {
         "name": "WrongOperatorOverriding",
         "analysis": "dylin.analyses.ComparisonBehaviorAnalysis.ComparisonBehaviorAnalysis",
@@ -90,6 +105,26 @@ issue_codes = {
         "name": "GradientExplosion",
         "analysis": "dylin.analyses.GradientAnalysis.GradientAnalysis",
         "aliases": ["M-28"],
+    },
+    "TP-01": {
+        "name": "HostnamesTerminatesWithSlash",
+        "analysis": "dylin.analyses.HostnamesTerminatesWithSlash.HostnamesTerminatesWithSlash",
+        "aliases": ["B-6"],
+    },
+    "TP-02": {
+        "name": "NLTK_regexp_span_tokenize",
+        "analysis": "dylin.analyses.NLTK_regexp_span_tokenize.NLTK_regexp_span_tokenize",
+        "aliases": ["B-8"],
+    },
+    "TP-03": {
+        "name": "Requests_DataMustOpenInBinary",
+        "analysis": "dylin.analyses.Requests_DataMustOpenInBinary.Requests_DataMustOpenInBinary",
+        "aliases": ["B-14"],
+    },
+    "TP-04": {
+        "name": "Session_DataMustOpenInBinary",
+        "analysis": "dylin.analyses.Session_DataMustOpenInBinary.Session_DataMustOpenInBinary",
+        "aliases": ["B-15"],
     },
 }
 
