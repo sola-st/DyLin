@@ -36,7 +36,7 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
         # print(f"{self.analysis_name} pre_call {iid}")
         if function is sorted:
             # we have to keep the list in memory to keep id(pos_args[0]) stable ? nope!
-            if hasattr(pos_args[0], "__len__") and len(pos_args[0]) > self.threshold:
+            if type(pos_args[0]) is list and len(pos_args[0]) > self.threshold:
                 self.stored_lists[id(pos_args[0])] = {
                     "iid": iid,
                     "file_name": dyn_ast,
