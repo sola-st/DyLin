@@ -21,3 +21,22 @@ h
 # TODO example which only works for dynamic analysis
 
 # a,b,c should be flagged
+
+# Examples to not warn about from PR #4
+a_set = set(range(0, 32131))
+sorted_set = sorted(a_set)
+a_string = "test string" * 1000
+sorted_string = sorted(a_string)
+a_tuple = tuple(range(0, 32131))
+sorted_tuple = sorted(a_tuple)
+a_dict = {i: i for i in range(0, 32131)}
+sorted_dict = sorted(a_dict)
+
+
+# Examples to still warn about from PR #4
+class MyList(list):
+    pass
+
+
+my_list = MyList(range(0, 32131))
+sorted_my_list = sorted(my_list)  # DyLin warn
