@@ -36,7 +36,7 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
         # print(f"{self.analysis_name} pre_call {iid}")
         if function is sorted:
             # we have to keep the list in memory to keep id(pos_args[0]) stable ? nope!
-            if self.is_listlike(pos_args[0]) and len(pos_args[0]) > self.threshold:
+            if self.is_sortable_inplace(pos_args[0]) and len(pos_args[0]) > self.threshold:
                 self.stored_lists[id(pos_args[0])] = {
                     "iid": iid,
                     "file_name": dyn_ast,
@@ -45,11 +45,11 @@ class InPlaceSortAnalysis(BaseDyLinAnalysis):
 
     def read_identifier(self, dyn_ast: str, iid: int, val: Any) -> Any:
         # print(f"{self.analysis_name} read id {iid} {dyn_ast}")
-        if len(self.stored_lists) > 0 and self.is_listlike(val):
+        if len(self.stored_lists) > 0 and self.is_sortable_inplace(val):
             self.stored_lists.pop(id(val), None)
         return None
-    
-    def is_listlike(self, obj):
+
+    def is_sortable_inplace(self, obj):
         return hasattr(obj, "sort") and hasattr(obj, "__len__")
 
     def end_execution(self) -> None:
