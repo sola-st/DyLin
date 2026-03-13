@@ -1,4 +1,5 @@
 import logging
+import os
 from typing import Any, Dict, Optional
 import sys
 import json
@@ -87,6 +88,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
             "location": location._asdict(),
             "uid": str(location),
             "iid": iid,
+            "test_id": os.environ.get("PYTEST_CURRENT_TEST"),
         }
 
     def _format_issues(self, findings: Dict) -> Dict:
