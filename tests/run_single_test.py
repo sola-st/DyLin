@@ -125,18 +125,36 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
 
     # restore uninstrumented program and remove temporary files
     move(orig_program_file, program_file)
-    remove(join(abs_dir, "program-dynapyt.json"))
-    remove(join(abs_dir, f"dynapyt_output-{session_id}", "findings.csv"))
-    remove(join(abs_dir, f"dynapyt_output-{session_id}", "findings.csv.lock"))
+    try:
+        remove(join(abs_dir, "program-dynapyt.json"))
+    except FileNotFoundError:
+        pass
+    try:
+        remove(join(abs_dir, f"dynapyt_output-{session_id}", "findings.csv"))
+    except FileNotFoundError:
+        pass
+    try:
+        remove(join(abs_dir, f"dynapyt_output-{session_id}", "findings.csv.lock"))
+    except FileNotFoundError:
+        pass
+    
     for analysis_name in analysis_names:
         if not fail:
-            remove(join(abs_dir, f"dynapyt_output-{session_id}", f"output.json"))
+            try:
+                remove(join(abs_dir, f"dynapyt_output-{session_id}", f"output.json"))
+            except FileNotFoundError:
+                pass
     if exists(join(abs_dir, "__init__.py")) and exists(join(abs_dir, "__init__.py.orig")):
         move(join(abs_dir, "__init__.py.orig"), join(abs_dir, "__init__.py"))
-        remove(join(abs_dir, "__init__-dynapyt.json"))
+        try:
+            remove(join(abs_dir, "__init__-dynapyt.json"))
+        except FileNotFoundError:
+            pass
     rmtree(join(abs_dir, "__pycache__"))
-    if not fail:
+    try:
         rmtree(join(abs_dir, f"dynapyt_output-{session_id}"))
+    except FileNotFoundError:
+        pass
 
     if fail:
         pytest.fail("\n".join(fail))
