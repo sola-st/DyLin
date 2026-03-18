@@ -24,6 +24,7 @@ FROM python:3.13-slim
 RUN apt-get update && apt-get install -y gcc git
 RUN pip install --upgrade pip
 RUN pip install git+https://github.com/sola-st/DynaPyt.git@main#egg=dynapyt
+RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
 """
         (temp_dir_path / "Dockerfile").write_text(dockerfile_content)
 
@@ -64,19 +65,17 @@ RUN pip install git+https://github.com/sola-st/DynaPyt.git@main#egg=dynapyt
     entrypoint_script = f"""\
 #!/bin/bash
 set -e
-pip install /dylin_src
 cp -r /project_root /tmp/project
 cd /tmp/project
 {setup_cmd}
 export PYTHONPATH="/analysis:$PYTHONPATH"
 python -m dynapyt.run_instrumentation --directory . --analysisFile /analysis/final_analysis.txt
-cat main.py
 export DYNAPYT_SESSION_ID="1234-abcd"
 cp /analysis/final_analysis.txt /tmp/dynapyt_analyses-1234-abcd.txt
 {run_command}
 python -m dynapyt.post_run --coverage_dir="" --output_dir={tmp_output_dir}
 if [ -f "{tmp_output_dir}/output.json" ]; then
-    python -m dylin.format_output --findings_path {tmp_output_dir}/output.json
+    python -m dylin.format_output --findings_path {tmp_output_dir}/output.json > {tmp_output_dir}/output.txt
 fi
 """
 
