@@ -25,7 +25,16 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "dynapyt@git+https://github.com/sola-st/DynaPyt@main"
+  "dynapyt@git+https://github.com/sola-st/DynaPyt@main",
+  "numpy",
+  "tensorflow",
+  "scikit-learn",
+  "libcst",
+  "pandas",
+  "PyYAML",
+  "filelock",
+  "fire",
+  "torch",
 ]
 
 [tool.hatch.metadata]
@@ -38,6 +47,9 @@ Source = "https://github.com/unknown/dylin"
 
 [tool.hatch.version]
 path = "src/dylin/__about__.py"
+
+[project.scripts]
+dylin = "dylin.cli:main"
 
 [tool.hatch.build.targets.wheel.force-include]
 "src/dylin/markings/configs" = "src/dylin/markings/configs"
