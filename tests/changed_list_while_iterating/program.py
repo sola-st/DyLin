@@ -48,3 +48,13 @@ for idx, item in enumerate(list_9):
 # uses generator, not supported (yet)
 
 a = ", ".join(str(choice) for choice in get_list())
+
+l = [1, 2, 3, 4, 5]
+def foo():
+    for item in l:
+        if item == 2:
+            return item
+
+foo() # should not warn
+l.pop()
+foo() # should not warn

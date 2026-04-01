@@ -7,8 +7,9 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
     # PyLint has a check for this, code W4701
     # PyLint also has checks for dictionaries and sets (E4702, E4703). These seem more severe than the list check
     class ListMeta:
-        def __init__(self, l: Iterable, length: int, dyn_ast: str, iid: int, warned: bool = False):
+        def __init__(self, l: Iterable, it: Iterator, length: int, dyn_ast: str, iid: int, warned: bool = False):
             self.l = l
+            self.it = it
             self.length = length
             self.warned = warned
             self.dyn_ast = dyn_ast
@@ -19,7 +20,7 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
         self.analysis_name = "ChangeListWhileIterating"
         self.iterator_stack: List[self.ListMeta] = []
 
-    def enter_for(self, dyn_ast: str, iid: int, next_value: Any, iterable: Iterable) -> Optional[Any]:
+    def enter_for(self, dyn_ast: str, iid: int, next_value: Any, iterable: Iterable, iterator: Iterator) -> Optional[Any]:
         # print(f"{self.analysis_name} enter_for {iid}")
         if isinstance(iterable, collections.abc.Iterator) or isinstance(iterable, type({})):
             return
@@ -30,9 +31,10 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
                 len(self.iterator_stack) == 0
                 or iid != self.iterator_stack[-1].iid
                 or dyn_ast != self.iterator_stack[-1].dyn_ast
+                or iterator != self.iterator_stack[-1].it
             ):
                 length = len(_list)
-                self.iterator_stack.append(self.ListMeta(_list, length, dyn_ast, iid))
+                self.iterator_stack.append(self.ListMeta(_list, iterator, length, dyn_ast, iid))
             elif len(self.iterator_stack) > 0:
                 list_meta: self.ListMeta = self.iterator_stack[-1]
                 if (
@@ -40,6 +42,7 @@ class ChangeListWhileIterating(BaseDyLinAnalysis):
                     and len(_list) < list_meta.length
                     and id(_list) == id(list_meta.l)
                     and iterable == list_meta.l
+                    and iterator == list_meta.it
                 ):
                     self.add_finding(
                         iid,
