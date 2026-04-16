@@ -1,3 +1,4 @@
+# Fixture for repeated string concatenation patterns that scale poorly in loops.
 def test():
     '''
     buggy cases

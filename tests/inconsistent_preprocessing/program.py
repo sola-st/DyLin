@@ -8,8 +8,10 @@ from sklearn.svm import SVR
 import pandas as pd
 import numpy as np
 
+# Fixture for training and prediction pipelines that apply inconsistent preprocessing.
 
 def default_case():
+    # Baseline bad case: the model is trained on scaled data but predicts on raw test features.
     random_state = 42
     X, y = make_regression(random_state=random_state, n_features=1, noise=1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.4, random_state=random_state)
@@ -27,6 +29,7 @@ def default_case():
 
 
 def split_afterwards():
+    # Safe case: preprocessing happens before the split, so both partitions carry the same transform.
     random_state = 42
     X, y = make_regression(random_state=random_state, n_features=1, noise=1)
 
@@ -42,6 +45,7 @@ def split_afterwards():
 
 
 def access_attr():
+    # Safe case: transformed data keeps its metadata even after DataFrame filtering via .loc.
     X = pd.DataFrame(
         [[1.0, 2.0], [float("NaN"), 5.0], [7.0, 8.0]],
         index=['cobra', 'viper', 'sidewinder'],
@@ -52,6 +56,7 @@ def access_attr():
     )
     y = np.array([0, 0, 0])
 
+    # Fit the imputer on the test-shaped frame and transform both inputs through the same pipeline.
     imp = SimpleImputer(missing_values=np.nan, strategy='mean')
     imp = imp.fit(X_Test)
     X_Test = imp.transform(X_Test)
@@ -70,6 +75,7 @@ def access_attr():
 
 
 def access_attr_bad_transformation():
+    # Bad case: only the test data is imputed, while the training data keeps its original representation.
     X = pd.DataFrame(
         [[1.0, 222.0], [1.0, 5.0], [7.0, 8.0]], index=['cobra', 'viper', 'sidewinder'], columns=['max_speed', 'shield']
     )
@@ -80,6 +86,7 @@ def access_attr_bad_transformation():
     )
     y = np.array([0, 0, 0])
 
+    # The transformed test frame no longer matches the preprocessing history of the training frame.
     imp = SimpleImputer(missing_values=np.nan, strategy='mean')
     imp = imp.fit(X_Test)
     X_Test = imp.transform(X_Test)
@@ -93,6 +100,7 @@ def access_attr_bad_transformation():
     LR.predict(X_Test)  # DyLin warn
 
 
+# Execute each scenario so the analysis sees both warning and non-warning flows.
 default_case()
 split_afterwards()
 access_attr()
