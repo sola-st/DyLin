@@ -1,44 +1,44 @@
-FROM ubuntu:22.04
+FROM ubuntu:22.04  # GitHub-project image: DyLin + DynaPyt analysis via analyze_repo.sh
 
-WORKDIR /Work
+WORKDIR /Work  # Container working directory; scripts expect /Work/reports
 
-RUN apt-get update
-RUN apt-get install -q -y python3 python3-pip python3-venv
-RUN apt-get install -q -y python3-dev python3-setuptools
-RUN python3 -m venv /opt/dylinVenv
-ENV PATH="/opt/dylinVenv/bin:$PATH"
+RUN apt-get update  # Refresh package index
+RUN apt-get install -q -y python3 python3-pip python3-venv  # Python toolchain
+RUN apt-get install -q -y python3-dev python3-setuptools  # Headers/setuptools for native deps
+RUN python3 -m venv /opt/dylinVenv  # Isolated env for reproducible pip installs
+ENV PATH="/opt/dylinVenv/bin:$PATH"  # Use venv python/pip by default
 
-RUN pip install --upgrade pip setuptools wheel
-RUN apt-get install -q -y git
-RUN apt-get install -q -y wget libsnappy-dev
-RUN apt-get install -q -y libffi-dev libsodium23 libsodium-dev
-RUN apt-get install -q -y libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev
-RUN apt-get install -q -y libfreetype6-dev liblcms2-dev libwebp-dev
-RUN apt-get install -q -y libharfbuzz-dev libfribidi-dev libxcb1-dev
+RUN pip install --upgrade pip setuptools wheel  # Newer pip for wheels
+RUN apt-get install -q -y git  # Clone benchmark repos
+RUN apt-get install -q -y wget libsnappy-dev  # Network + compression libs some deps need
+RUN apt-get install -q -y libffi-dev libsodium23 libsodium-dev  # Crypto-related native deps
+RUN apt-get install -q -y libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev  # Image stacks
+RUN apt-get install -q -y libfreetype6-dev liblcms2-dev libwebp-dev  # Fonts/color
+RUN apt-get install -q -y libharfbuzz-dev libfribidi-dev libxcb1-dev  # Text rendering
 
-RUN mkdir ./reports
-RUN chmod -R 777 ./reports
+RUN mkdir ./reports  # Host bind-mount target for run output (findings, coverage, timing)
+RUN chmod -R 777 ./reports  # Avoid permission errors when container user writes
 
-RUN chmod -R 777 /tmp
+RUN chmod -R 777 /tmp  # DynaPyt/temp files
 
-RUN mkdir ./DyLin
+RUN mkdir ./DyLin  # Copy of repo inside image (not the whole host repo path)
 
-COPY ./requirements.txt ./DyLin/requirements.txt
-RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
-RUN pip install pytest pytest-xdist pytest-timeout
-RUN pip install setproctitle
+COPY ./requirements.txt ./DyLin/requirements.txt  # Pinned deps for container
+RUN pip install --no-cache-dir -r ./DyLin/requirements.txt  # Install DyLin runtime deps
+RUN pip install pytest pytest-xdist pytest-timeout  # Tests inside container if needed
+RUN pip install setproctitle  # Used by tooling
 
-COPY ./scripts ./DyLin/scripts
-COPY ./src ./DyLin/src
-COPY ./tests ./DyLin/tests
-COPY ./test_projects ./DyLin/test_projects
-COPY ./pyproject.toml ./DyLin/pyproject.toml
-COPY ./README.md ./DyLin/README.md
-COPY dylin_config_project.txt ./DyLin/dylin_config_project.txt
+COPY ./scripts ./DyLin/scripts  # analyze_repo.sh and helpers
+COPY ./src ./DyLin/src  # DyLin package
+COPY ./tests ./DyLin/tests  # Bundled for in-container use
+COPY ./test_projects ./DyLin/test_projects  # Micro projects for checks
+COPY ./pyproject.toml ./DyLin/pyproject.toml  # Package metadata
+COPY ./README.md ./DyLin/README.md  # Reference copy
+COPY dylin_config_project.txt ./DyLin/dylin_config_project.txt  # Which analyses to run (class names)
 
-RUN chmod -R 777 ./DyLin
+RUN chmod -R 777 ./DyLin  # Permissive for generated files
 
-RUN pip install ./DyLin/
+RUN pip install ./DyLin/  # Install dylin package editable-style from copied tree
 
-ENTRYPOINT [ "bash", "./DyLin/scripts/analyze_repo.sh"]
-CMD [ "1" ]
+ENTRYPOINT [ "bash", "./DyLin/scripts/analyze_repo.sh"]  # Args: repo index, then nocov|cov
+CMD [ "1" ]  # Default repo index if none passed

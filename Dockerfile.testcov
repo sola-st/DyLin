@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:22.04  # Run each benchmark repo’s test suite with pytest-cov (no DyLin instrumentation)
 
 WORKDIR /Work
 
@@ -9,8 +9,8 @@ ENV PATH="/opt/dylinVenv/bin:$PATH"
 
 RUN pip install --upgrade pip setuptools wheel
 RUN apt-get install -q -y git
-RUN apt-get install -y wget
-RUN apt-get install -y libffi-dev libsodium23 libsodium-dev
+RUN apt-get install -y wget  # Some test suites fetch artifacts
+RUN apt-get install -y libffi-dev libsodium23 libsodium-dev  # Native deps
 
 RUN mkdir ./reports
 RUN chmod -R 777 ./reports
@@ -21,9 +21,9 @@ RUN mkdir ./DyLin
 
 COPY ./requirements.txt ./DyLin/requirements.txt
 RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
-RUN pip install --no-cache-dir pytest pytest-xdist pytest-cov pytest-timeout
+RUN pip install --no-cache-dir pytest pytest-xdist pytest-cov pytest-timeout  # Coverage collection
 
-COPY ./scripts ./DyLin/scripts
+COPY ./scripts ./DyLin/scripts  # testcov_repo.sh
 COPY ./src ./DyLin/src
 COPY ./tests ./DyLin/tests
 COPY ./test_projects ./DyLin/test_projects
@@ -34,5 +34,5 @@ RUN chmod -R 777 ./DyLin
 
 RUN pip install ./DyLin/
 
-ENTRYPOINT [ "bash", "./DyLin/scripts/testcov_repo.sh"]
+ENTRYPOINT [ "bash", "./DyLin/scripts/testcov_repo.sh"]  # Arg: project index; writes under /Work/testcov
 CMD [ "1" ]
