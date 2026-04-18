@@ -1,5 +1,6 @@
 import random
 
+# Fixture for distribution helpers that reject invalid parameter ranges.
 random.lognormvariate(0, 1) # OK
 random.vonmisesvariate(0, 0) # OK
 random.vonmisesvariate(0, 1) # OK
