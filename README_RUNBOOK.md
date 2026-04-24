@@ -77,6 +77,26 @@ bash run_single_project.sh <i> nocov
 bash run_single_project.sh <i> cov
 ```
 
+### Keeping RQ outputs separated (recommended)
+
+All `run_single_*` scripts support an optional `OUT_ROOT` environment variable to send outputs into a labeled folder, e.g.:
+
+```bash
+# RQ1 GitHub run outputs (DyLin findings)
+OUT_ROOT="outputs/RQ1_nocov" bash run_single_project.sh 1 nocov
+
+# RQ4 DyLin coverage run outputs
+OUT_ROOT="outputs/RQ4_cov" bash run_single_project.sh 1 cov
+
+# RQ4 test coverage (pytest-cov) outputs
+OUT_ROOT="outputs/RQ4_testcov" bash run_single_testcov.sh 1
+
+# RQ3 static linter outputs
+OUT_ROOT="outputs/RQ3_linters" bash run_single_linter.sh 1
+```
+
+Each `OUT_ROOT` contains its own `project_results/`, `project_testcovs/`, `project_lints/`, and `log_*.txt` files, so runs don’t overwrite or nest each other.
+
 **All 37 (example):**
 
 ```bash
