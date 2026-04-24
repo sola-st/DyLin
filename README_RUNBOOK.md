@@ -187,7 +187,9 @@ python scripts/coverage_report.py coverage_comparison \
 |--------|----------|
 | Per-project comparison rows | **`coverage_comparison.csv`** (repo root; often gitignored) |
 
-The script loops indices **`1..N`**, where **`N` defaults to the number of projects in `scripts/projects.txt`** (37). Override with `--max_project=3` for a smoke test. Missing DyLin or test `cov.json` is skipped with a clearer message.
+The script loops indices **`1..N`**, where **`N` defaults to the number of projects in `scripts/projects.txt`** (37). Override with `--max_project=3` for a smoke test. Missing DyLin or test `cov.json` is skipped with a clearer message. Use `--strict=true` to fail the command if any index is missing coverage inputs.
+
+For the exact on-disk layout the scripts expect/handle, see `docs/coverage_layouts.md`.
 
 **Optional:** `python scripts/summarize_coverage.py` looks for `cov_comp_*.json` files (not produced by default here) — only relevant if you generate those JSONs elsewhere.
 

@@ -103,7 +103,13 @@ def compare_only_one(analysis_dir: str, test_dir: str):
         with open("coverage_comparison.csv", "a") as f:
                 f.write(f"{str(ac)} {total_covered_lines}, {test_coverage}\n")
 
-def coverage_comparison(analysis_dir: str, test_dir: str, max_project: Optional[int] = None):
+def coverage_comparison(
+    analysis_dir: str,
+    test_dir: str,
+    max_project: Optional[int] = None,
+    out_csv: str = "coverage_comparison.csv",
+    strict: bool = False,
+):
     """
     Compare DyLin analysis coverage to pytest test coverage per GitHub project index.
 
@@ -113,11 +119,17 @@ def coverage_comparison(analysis_dir: str, test_dir: str, max_project: Optional[
     analysis_dir = Path(analysis_dir).resolve()
     test_dir = Path(test_dir).resolve()
     n = max_project if max_project is not None else _github_project_count()
+    rows_written = 0
+    missing_dylin = 0
+    missing_testcov = 0
+    missing_timing = 0
+
     for i in range(1, n + 1):
         reports_dir = analysis_dir / f"reports_{i}"
         analysis_coverage = _dylin_coverage_json_for_reports(reports_dir)
         if analysis_coverage is None:
             print(f"No DyLin coverage.json for project index {i} ({reports_dir})")
+            missing_dylin += 1
             continue
         test_coverage = _test_cov_json(test_dir, i)
         if test_coverage is None or not test_coverage.exists():
@@ -125,17 +137,35 @@ def coverage_comparison(analysis_dir: str, test_dir: str, max_project: Optional[
                 f"Missing test coverage cov.json for project index {i} "
                 f"(expected {test_dir}/testcov_{i}/cov.json or .../testcov_{i}/testcov/cov.json)"
             )
+            missing_testcov += 1
             continue
         if not analysis_coverage.exists():
             print(f"Missing DyLin coverage file for project index {i}: {analysis_coverage}")
+            missing_dylin += 1
             continue
         timing_path = _timing_txt_for_coverage_json(analysis_coverage)
+        if not timing_path.exists():
+            print(f"Missing timing.txt for project index {i} (expected {timing_path})")
+            missing_timing += 1
+            continue
         with open(timing_path) as f:
             timing = f.read().strip()
         project_name = timing.split(" ")[0]
         covered_by, total_covered_lines, test_coverage = coverage_report(analysis_coverage, test_coverage)
-        with open("coverage_comparison.csv", "a") as f:
+        with open(out_csv, "a") as f:
             f.write(f"{i}, {total_covered_lines}, {test_coverage}, {project_name}\n")
+        rows_written += 1
+
+    print(
+        "coverage_comparison summary: "
+        f"rows_written={rows_written} "
+        f"missing_dylin={missing_dylin} "
+        f"missing_testcov={missing_testcov} "
+        f"missing_timing={missing_timing}"
+    )
+
+    if strict and (missing_dylin + missing_testcov + missing_timing) > 0:
+        raise SystemExit(1)
         # print(f"Project {i}:")
         # print(f"Analysis covered lines: {total_covered_lines}")
         # print(f"Test coverage: {test_coverage}")
