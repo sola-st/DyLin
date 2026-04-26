@@ -1,4 +1,3 @@
-# Fixture for special methods that mutate object or global state as a side effect.
 global g
 g = 0
 

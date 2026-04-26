@@ -13,13 +13,11 @@ from dynapyt.utils.hooks import get_hooks_from_analysis
 from dynapyt.run_analysis import run_analysis
 from dynapyt.utils.runtimeUtils import gather_output
 
-# Shared runner that instruments a fixture program, executes the configured analyses,
-# and checks the emitted findings against the inline expectations in program.py.
 
 def test_runner(directory_pair: Tuple[str, str], capsys):
     abs_dir, rel_dir = directory_pair
 
-    # Read the inline "DyLin warn" markers that define the expected findings for this fixture.
+    # load warnings
     with open(join(abs_dir, "program.py"), "r") as file:
         lines = file.read().splitlines()
     expected_warnings = []
@@ -27,7 +25,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
         if "# DyLin warn" in line:
             expected_warnings.append((line.split("# DyLin warn")[0].strip(), ln + 1))
 
-    # Load the analyses that should run against this fixture.
+    # load checkers
     checkers_file = join(abs_dir, "checkers.txt")
     with open(checkers_file, "r") as file:
         checkers = file.read().splitlines()
@@ -59,12 +57,13 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
         else:
             analysis_names.append(checker.split(".")[-1])
 
-    # Instrument only the runtime hooks that the selected analyses require.
+    # gather hooks used by the analysis
     selected_hooks = get_hooks_from_analysis(checkers)
 
-    # Swap back to the pristine source if this fixture was already instrumented.
+    # instrument
     program_file = join(abs_dir, "program.py")
     orig_program_file = join(abs_dir, "program.py.orig")
+    # make sure to instrument the uninstrumented version
     run_as_file = False
     with open(program_file, "r") as file:
         src = file.read()
@@ -78,7 +77,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     if exists(join(abs_dir, "__init__.py")) and not exists(join(abs_dir, "__init__.py.orig")):
         instrument_file(join(abs_dir, "__init__.py"), selected_hooks)
 
-    # Execute the instrumented fixture as a module so analysis output lands in the temp folder.
+    # analyze
 
     captured = capsys.readouterr()
     print(captured.out)
@@ -98,7 +97,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
     captured = capsys.readouterr()
     print(captured.out)
 
-    # Compare the analysis output to the expected warning locations captured above.
+    # check output
     fail = []
     gather_output(Path(abs_dir) / f"dynapyt_output-{session_id}")
     for analysis_name in analysis_names:
@@ -124,7 +123,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
             if not found:
                 fail.append(f"Expected warning not found: {expected_warning}")
 
-    # Clean up the instrumented files so fixtures stay reusable across test runs.
+    # restore uninstrumented program and remove temporary files
     move(orig_program_file, program_file)
     try:
         remove(join(abs_dir, "program-dynapyt.json"))

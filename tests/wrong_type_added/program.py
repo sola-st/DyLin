@@ -1,4 +1,3 @@
-# Fixture for homogeneous collections that later receive a mismatched element type.
 def test(length=1001):
     l = [10] * length
     l.append("test")  # DyLin warn
