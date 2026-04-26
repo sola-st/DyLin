@@ -7,6 +7,8 @@ from sklearn.feature_extraction.text import TfidfTransformer
 import pandas
 from sklearn.feature_extraction.text import CountVectorizer
 
+# Fixture for data leakage caused by fitting preprocessing before train/test splitting.
+# First scenario: vocabulary and TF-IDF statistics are fit on the full corpus before splitting.
 text = [
     "the house had a tiny little mouse",
     "the cat saw the mouse",
@@ -27,8 +29,8 @@ X = pandas.DataFrame(invFreqOfWords.toarray())
 train, test, spamLabelTrain, spamLabelTest = train_test_split(X, y, test_size=0.5)  # DyLin warn
 
 
-# Second test case, Figure 1 in Yang et. al
-# generate random data
+# Second scenario from Yang et al.: feature selection is run on the full dataset first.
+# This leaks label information from the future test partition into training-time preprocessing.
 n_samples, n_features, n_classes = 200, 10000, 2
 rng = np.random.RandomState(42)
 X = rng.standard_normal((n_samples, n_features))
@@ -45,4 +47,4 @@ gbc.fit(X_train, y_train)
 y_pred = gbc.predict(X_test)
 
 accuracy_score(y_test, y_pred)
-# expected accuracy ~0.5; reported accuracy 0.76
+# The inflated score highlights the leakage: expected accuracy is ~0.5, reported is 0.76.
