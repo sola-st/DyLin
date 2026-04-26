@@ -1,3 +1,5 @@
+# Fixture for custom equality implementations that break comparison invariants.
+# This class uses <= inside __eq__, so a == b can differ from b == a.
 class NonSymmetric:
     def __init__(self, x):
         self.x = x
@@ -11,6 +13,7 @@ class NonSymmetric:
         return not self.__eq__(other)
 
 
+# This class mutates internal state while comparing, so repeated comparisons can change result.
 class NonStable:
     def __init__(self):
         self.toggle = 0
@@ -28,6 +31,7 @@ class NonStable:
         return self.__eq__(other)
 
 
+# This class treats None as equal and falls back to object identity for everything else.
 class BadIdentiy:
     def __eq__(self, other):
         if other == None:
@@ -39,6 +43,7 @@ class BadIdentiy:
         return not self.__eq__(other)
 
 
+# This class defines equality as "different payload", so even self-comparison can fail.
 class BadReflexivity:
     def __init__(self, x):
         self.x = x
@@ -52,18 +57,18 @@ class BadReflexivity:
         return not self.__eq__(other)
 
 
-# symmetry
+# Symmetry violations: swapping operands should not change equality semantics.
 NonSymmetric(1) == NonSymmetric(2)  # DyLin warn
 NonSymmetric(1) != NonSymmetric(2)  # DyLin warn
 
-# stability
+# Stability violations: the same comparison should not flip just because it ran before.
 NonStable() == NonStable()  # DyLin warn
 NonStable() != NonStable()  # DyLin warn
 
-# identity
+# Identity violations: distinct instances should not compare equal by a broken identity rule.
 BadIdentiy() == BadIdentiy()  # DyLin warn
 BadIdentiy() != BadIdentiy()  # DyLin warn
 
-# reflexivity
+# Reflexivity violations: any value should compare equal to itself.
 BadReflexivity(1) == BadReflexivity(1)  # DyLin warn
 BadReflexivity(1) != BadReflexivity(1)  # DyLin warn

@@ -1,3 +1,5 @@
+# Fixture for large collections where sorted(...) is used without preserving intent.
+# Large list inputs are the suspicious cases this analysis focuses on.
 a = list(range(0, 32131))
 b = list(range(0, 32132))
 c = list(range(231, 321033))
@@ -6,11 +8,13 @@ e = list(range(0, 32135))
 f = list(range(0, 32136))
 h = list(range(0, 32137))
 
+# These calls sort large lists out of place, so the analysis treats them as likely mistakes.
 sorted(a)  # DyLin warn
 x = sorted(b)  # DyLin warn
 y = sorted(c)  # DyLin warn
 h = sorted(h, reverse=True)  # DyLin warn
 
+# Control cases: in-place sort() is fine, and some sorted() results are intentionally consumed later.
 d.sort()
 z = sorted(e)
 e.append([])
@@ -22,7 +26,7 @@ h
 
 # a,b,c should be flagged
 
-# Examples to not warn about from PR #4
+# Non-list iterables are exempt because sorted(...) is the normal way to order them.
 a_set = set(range(0, 32131))
 sorted_set = sorted(a_set)
 a_string = "test string" * 1000
@@ -33,7 +37,7 @@ a_dict = {i: i for i in range(0, 32131)}
 sorted_dict = sorted(a_dict)
 
 
-# Examples to still warn about from PR #4
+# Subclasses of list should still be treated like lists by the analysis.
 class MyList(list):
     pass
 
