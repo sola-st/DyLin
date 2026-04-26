@@ -1,7 +1,6 @@
 from os import walk
 from os.path import realpath, dirname, sep
 
-# Pytest hooks that discover each micro-test directory under tests/.
 
 def pytest_addoption(parser):
     parser.addoption(
@@ -13,7 +12,7 @@ def pytest_addoption(parser):
 
 
 def pytest_generate_tests(metafunc):
-    # Find every fixture directory that contains both a program and its checker config.
+    # find all subdirectories that contain a micro-test
     directories = []
     selection = metafunc.config.getoption("only", default=None, skip=False)
     if selection is not None:
@@ -28,5 +27,5 @@ def pytest_generate_tests(metafunc):
             directories.append([root, relative_path])
             test_ids.append(relative_path)
 
-    # Parametrize the shared runner so each micro-test executes as an isolated case.
+    # invoke the test in each directory
     metafunc.parametrize("directory_pair", directories, ids=test_ids)
