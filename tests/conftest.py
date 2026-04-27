@@ -28,5 +28,6 @@ def pytest_generate_tests(metafunc):
             directories.append([root, relative_path])
             test_ids.append(relative_path)
 
-    # Parametrize the shared runner so each micro-test executes as an isolated case.
-    metafunc.parametrize("directory_pair", directories, ids=test_ids)
+    # Parametrize the shared runner only for tests that request the fixture.
+    if "directory_pair" in metafunc.fixturenames:
+        metafunc.parametrize("directory_pair", directories, ids=test_ids)
