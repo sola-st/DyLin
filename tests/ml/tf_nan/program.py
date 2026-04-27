@@ -1,5 +1,6 @@
 import tensorflow as tf
 
+# Fixture for TensorFlow tensors and ops that propagate NaN or infinite values.
 tf.get_logger().setLevel('INFO')
 
 

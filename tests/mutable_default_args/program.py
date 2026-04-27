@@ -1,5 +1,6 @@
 import uuid
 
+# Fixture for functions that accidentally share mutable default arguments between calls.
 
 def test():
     # TODO try python classes as mutable types
@@ -14,13 +15,12 @@ def test():
     class InerhitedType(SomeType):
         pass
 
-    '''
-    buggy cases
-    '''
+    # Buggy cases: the default container is created once and then reused across calls.
 
     def a(x=[]):
         x.append("test")
 
+    # The first call initializes shared state; the second call observes the unintended reuse.
     a()
     a()  # DyLin warn
 
@@ -36,9 +36,7 @@ def test():
     c()
     c()  # DyLin warn
 
-    '''
-    fixed cases
-    '''
+    # Safe pattern: use None as a sentinel and allocate a fresh container per invocation.
 
     def x(x=None):
         if x is None:
@@ -49,4 +47,5 @@ def test():
     x()
 
 
+# Execute the fixture so the analysis sees both the buggy and corrected patterns.
 test()

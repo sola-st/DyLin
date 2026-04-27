@@ -1,5 +1,6 @@
 import threading
 
+# Fixture for thread creation patterns that rely on a target or an overridden run().
 
 def run():
     pass
@@ -39,4 +40,3 @@ my_thread.start() # DyLin warn
 my_thread = threading.Thread()
 my_thread.start() # DyLin warn
 my_thread.join()
-

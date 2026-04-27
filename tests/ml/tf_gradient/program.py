@@ -5,6 +5,7 @@ import random
 
 from tensorflow.keras.datasets import mnist
 
+# Fixture for TensorFlow optimizers that consume gradients after manual corruption.
 tf.get_logger().setLevel('INFO')
 
 # Hyperparameters
