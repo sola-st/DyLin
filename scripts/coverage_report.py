@@ -1,3 +1,4 @@
+import os
 import json
 from pathlib import Path
 from typing import Optional
@@ -126,11 +127,17 @@ def coverage_comparison(
 
     for i in range(1, n + 1):
         reports_dir = analysis_dir / f"reports_{i}"
+        if not os.path.exists(reports_dir):
+            print(f"Missing reports directory for project index {i}: {reports_dir}")
+            missing_dylin += 1
+            continue
+
         analysis_coverage = _dylin_coverage_json_for_reports(reports_dir)
         if analysis_coverage is None:
             print(f"No DyLin coverage.json for project index {i} ({reports_dir})")
             missing_dylin += 1
             continue
+
         test_coverage = _test_cov_json(test_dir, i)
         if test_coverage is None or not test_coverage.exists():
             print(
