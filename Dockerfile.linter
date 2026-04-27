@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:22.04  # Static linters on same benchmark repos as DyLin
 
 WORKDIR /Work
 
@@ -10,7 +10,7 @@ ENV PATH="/opt/dylinVenv/bin:$PATH"
 RUN pip install --upgrade pip setuptools wheel
 RUN apt-get install -q -y git
 
-RUN mkdir ./reports
+RUN mkdir ./reports  # lint_repo.sh may use /Work/reports for scratch
 RUN chmod -R 777 ./reports
 
 RUN chmod -R 777 /tmp
@@ -19,11 +19,11 @@ RUN mkdir ./DyLin
 
 COPY ./requirements.txt ./DyLin/requirements.txt
 RUN pip install --no-cache-dir -r ./DyLin/requirements.txt
-RUN pip install --no-cache-dir ruff
-RUN pip install --no-cache-dir pylint
-RUN pip install --no-cache-dir mypy
+RUN pip install --no-cache-dir ruff  # Fast linter
+RUN pip install --no-cache-dir pylint  # AST linter
+RUN pip install --no-cache-dir mypy  # Type checker
 
-COPY ./scripts ./DyLin/scripts
+COPY ./scripts ./DyLin/scripts  # lint_repo.sh
 COPY ./src ./DyLin/src
 COPY ./tests ./DyLin/tests
 COPY ./test_projects ./DyLin/test_projects
@@ -34,5 +34,5 @@ RUN chmod -R 777 ./DyLin
 
 RUN pip install ./DyLin/
 
-ENTRYPOINT [ "bash", "./DyLin/scripts/lint_repo.sh"]
+ENTRYPOINT [ "bash", "./DyLin/scripts/lint_repo.sh"]  # Arg: 1-based project index → results under /Work/lint_reports
 CMD [ "1" ]

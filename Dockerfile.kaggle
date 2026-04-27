@@ -1,15 +1,13 @@
-FROM gcr.io/kaggle-images/python
+FROM gcr.io/kaggle-images/python  # Kaggle notebook Python + common scientific stack
 
-RUN useradd -r -u 9999 dylinuser
+RUN useradd -r -u 9999 dylinuser  # Non-root runs for safer notebook-style env
 
-# Add competition arg
-ARG kaggle_competition
-ENV KAGGLE_COMPETITION=$kaggle_competition
+ARG kaggle_competition  # Set at build: docker build --build-arg kaggle_competition=...
+ENV KAGGLE_COMPETITION=$kaggle_competition  # Exposed to analyze_kaggle.sh
 
-RUN echo $KAGGLE_COMPETITION
+RUN echo $KAGGLE_COMPETITION  # Log which competition this image targets
 
-# Add files
-COPY . /Work
+COPY . /Work  # Includes repo, requirements, kaggle.json (expected at build context root)
 WORKDIR /Work
 RUN chown -R dylinuser /tmp
 RUN chmod 755 /tmp
@@ -20,18 +18,16 @@ RUN chown -R dylinuser /home/dylinuser
 RUN chmod 755 /home/dylinuser
 RUN chown -R dylinuser /root
 RUN chmod 755 /root
-RUN mkdir -p /kaggle/input
+RUN mkdir -p /kaggle/input  # Standard Kaggle data mount path
 RUN chown -R dylinuser /kaggle
 RUN chmod 755 /kaggle
-USER dylinuser
+USER dylinuser  # Remaining RUNs as non-root
 
-# Install dependencies
-RUN python -m pip install --user -r requirements.txt
+RUN python -m pip install --user -r requirements.txt  # Project deps
 # RUN python -m pip install pebble
-RUN python -m pip install .
+RUN python -m pip install .  # Install dylin from repo
 
-# Add kaggle.json
-RUN mkdir /Work/.kaggle
-RUN mv kaggle.json /Work/.kaggle/
+RUN mkdir /Work/.kaggle  # Kaggle CLI config dir
+RUN mv kaggle.json /Work/.kaggle/  # API credentials (must exist in build context)
 
-ENTRYPOINT ["sh", "scripts/analyze_kaggle.sh"]
+ENTRYPOINT ["sh", "scripts/analyze_kaggle.sh"]  # Uses KAGGLE_COMPETITION; writes under /Work/results (mount at run)

@@ -1,23 +1,23 @@
-FROM ubuntu:22.04
+FROM ubuntu:22.04  # Baseline comparison: sloccount-style metrics without full DyLin pipeline
 
 WORKDIR /Work
 
 RUN apt-get update
 RUN apt-get install -q -y python3 python3-pip python3-venv
 RUN python3 -m venv /opt/dylinVenv
-RUN apt-get install -q -y sloccount
+RUN apt-get install -q -y sloccount  # LOC tooling for baseline_repo.py
 ENV PATH="/opt/dylinVenv/bin:$PATH"
 
 RUN pip install --upgrade pip setuptools wheel
 RUN apt-get install -q -y git
-RUN pip install pytest pytest-xdist dynapyt
+RUN pip install pytest pytest-xdist dynapyt  # Baseline script dependencies
 
 RUN mkdir ./reports
 RUN chmod -R 777 ./reports
 
 RUN mkdir ./DyLin
 
-COPY ./scripts ./DyLin/scripts
+COPY ./scripts ./DyLin/scripts  # baseline_repo.py
 COPY ./src ./DyLin/src
 COPY ./tests ./DyLin/tests
 COPY ./pyproject.toml ./DyLin/pyproject.toml
@@ -25,5 +25,5 @@ COPY ./README.md ./DyLin/README.md
 
 RUN chmod -R 777 ./DyLin
 
-ENTRYPOINT [ "python", "./DyLin/scripts/baseline_repo.py", "--repo" ]
+ENTRYPOINT [ "python", "./DyLin/scripts/baseline_repo.py", "--repo" ]  # Next arg: 1-based repo index
 CMD [ "1" ]
