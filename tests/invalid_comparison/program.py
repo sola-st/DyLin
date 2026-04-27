@@ -1,7 +1,9 @@
 import numpy as np
 
+# Fixture for obviously invalid comparisons across incompatible values and types.
 
 def test_cmp_func():
+    # Function objects can be compared, but comparing them to unrelated literals is suspicious.
     def a():
         pass
 
@@ -25,6 +27,7 @@ def test_cmp_func():
 
 
 def test_cmp_types():
+    # Type-vs-type equality is only meaningful when both sides describe the same runtime type.
     type(0) == type("")  # DyLin warn
     type(0) == type(0)
     type("") == type(0)  # DyLin warn
@@ -45,6 +48,7 @@ def test_cmp_types():
 
 
 def test_comparison():
+    # Mix builtin and custom instances to exercise incompatible type comparisons at scale.
     class SomeType:
         def __init__(self):
             pass
@@ -94,9 +98,7 @@ def test_comparison():
         type_memoryview,
     ]
 
-    '''
-    buggy cases
-    '''
+    # Buggy cases: unrelated runtime types should not compare as if they were interchangeable.
     for i in range(len(all_builtin_types)):
         # custom types
         type(type_some_type) == type(all_builtin_types[i])  # DyLin warn
@@ -120,14 +122,13 @@ def test_comparison():
     type(type_inerhited_some_type) == type(type_some_type)  # DyLin warn
     type(type_some_type) == type(type_inerhited_some_type)  # DyLin warn
 
-    '''
-    fixed cases
-    '''
+    # Control case: comparing a value's type to itself should remain valid.
     for i in range(len(all_builtin_types)):
         type(all_builtin_types[i]) == type(all_builtin_types[i])
 
 
 def test_list_in_type_mismatch():
+    # Membership tests are fine when the element shape matches the container element type.
     a = ["a"]
     b = ["a", "b", "c", "d"]
     c = [3]
@@ -146,6 +147,7 @@ def test_list_in_type_mismatch():
 
 
 def test_set_in_type_mismatch():
+    # The same element-vs-container mismatch idea applies to sets as well.
     a = set(["a"])
     b = set(["a", "b", "c", "d"])
     c = set([3])
@@ -159,6 +161,7 @@ def test_set_in_type_mismatch():
 
 
 def test_difference_is_eq_operators():
+    # 0/1 and 0.0/1.0 intentionally compare equal to False/True in Python.
     # equal to False
     ef_1 = 0
     ef_2 = 0.0
@@ -175,6 +178,7 @@ def test_difference_is_eq_operators():
 
 
 def test_bad_floats():
+    # Floating-point rounding makes decimal-looking equality checks brittle.
     bad_float = 0.2 + 0.1
     bad_float_2 = 0.2 + 0.01
 
@@ -195,6 +199,7 @@ def test_bad_floats():
 
 
 def test_numpy():
+    # NaN comparisons are special, but infinite values compared to finite literals are suspicious.
     np.float16("NaN") == 2  # no DyLin warn
     2 == np.float16("NaN")  # no DyLin warn
 
@@ -223,6 +228,7 @@ def test_numpy():
     2 == np.float128(2)
 
 
+# Run every scenario so the analysis sees both warning and non-warning patterns.
 test_cmp_func()
 test_cmp_types()
 test_bad_floats()
