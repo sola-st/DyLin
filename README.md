@@ -24,6 +24,7 @@ The checkers are implemented in `src/analyses`.
 ## Evaluation
 All experiments (except the micro-benchmark run) run inside Docker containers.
 The scripts provided are self-contained, i.e. they build the required Docker container, and download the required repositories, source code, and data.
+For a guide to the repository’s root-level scripts and files, see `docs/root-files.md`.
 
 ### RQ1: Effectiveness
 Run DyLin on the micro-benchmark:
@@ -36,7 +37,7 @@ pytest tests
 
 Run DyLin on the GitHub repositories:
 ```bash
-bash build_projects.sh
+bash build_project.sh
 bash run_all_no_cov.sh
 ```
 Results will be in `project_results`.
@@ -48,7 +49,7 @@ The text file contains the name of the project, the instrumentation duration in 
 
 You can pretty print the findings in a format similar to static linters by running:
 ```bash
-python scripts/sumarize_findings.py --results <path to the subdirectory in project_results>
+python scripts/summarize_findings.py --results <path to the subdirectory in project_results>
 ```
 This will generate a text file with the format
 ```
@@ -86,7 +87,7 @@ This will output all lines that both approaches have warned about.
 ### RQ4: Analysis Coverage
 Run DyLin with analysis coverage on:
 ```bash
-bash build_projects.sh
+bash build_project.sh
 bash run_all_with_cov.sh
 ```
 Run the GitHub project's test suites without DyLin to get test suite coverage:
