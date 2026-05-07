@@ -27,8 +27,6 @@ class BaseDyLinAnalysis(BaseAnalysis):
         logging.basicConfig(stream=sys.stderr)
         self.log = logging.getLogger("TestsuiteWrapper")
         self.log.setLevel(logging.DEBUG)
-        self.number_unique_findings_possible = 33
-        print(f"$$$$$$$$$$$$$$$$$$$$$$$$$$$$ Loaded analysis {self.analysis_name if hasattr(self, 'analysis_name') else 'no name'} writing to {self.output_dir}")
 
     def setup(self):
         # Hook for subclasses
@@ -45,7 +43,6 @@ class BaseDyLinAnalysis(BaseAnalysis):
         if finding_key in self.unique_findings:
             return
         self.unique_findings.add(finding_key)
-        print(f"########################### Found something")
         self.number_findings += 1
         stacktrace = "".join(traceback.format_stack()[-self.stack_levels :])
         location = self.iid_to_location(filename, iid)
@@ -112,7 +109,6 @@ class BaseDyLinAnalysis(BaseAnalysis):
         return self._format_issues(self.findings)
 
     def _write_detailed_results(self):
-        print(f"$$$$$$$$$$$$$$$$$$$$$ Writing results of {self.analysis_name if hasattr(self, 'analysis_name') else 'noe name'}")
         temp_res = self.get_result()
         if temp_res is not None:
             result = {"meta": self.meta, "results": temp_res}
@@ -120,17 +116,8 @@ class BaseDyLinAnalysis(BaseAnalysis):
             while (self.path / filename).exists():
                 self.unique_id = str(uuid.uuid4())
                 filename = f"output-{str(self.analysis_name)}-{self.unique_id}-report.json"
-                # print(f"$$$$$$$$$$$$$$$$$$$$ File {filename} exists. Reading ...", file=sys.stderr)
-                # with open(self.path / filename, "r") as f:
-                #     rep = json.load(f)
-                # for k, v in rep.items():
-                #     if k == "meta" and "total_comp" in result["meta"] and "total_comp" in v:
-                #         result["meta"]["total_comp"] += v["total_comp"]
-                #     elif k == "results":
-                #         result["results"].extend(v)
-            print(f"$$$$$$$$$$$$$$$$$$$$ Writing to file {filename} ...", file=sys.stderr)
             with open(self.path / filename, "w") as report:
-                report.write(json.dumps(result, indent=4))
+                json.dump(result, report, indent=4)
 
     def _write_overview(self):
         # prevent reporting findings multiple times to the same iid

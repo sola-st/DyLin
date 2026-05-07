@@ -102,8 +102,14 @@ fi
             stderr=True,
             stream=True,
         )
-        for line in container:
-            print(line.decode("utf-8"), end="")
+        for chunk in container:
+            try:
+                sys.stdout.buffer.write(chunk)
+                sys.stdout.buffer.flush()
+            except AttributeError:
+                # Fallback if sys.stdout is mocked (e.g., in pytest) and lacks .buffer
+                sys.stdout.write(chunk.decode("utf-8", errors="replace"))
+                sys.stdout.flush()
     except docker.errors.ContainerError as e:
         print(f"Container error: {e}")
         try:
