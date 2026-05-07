@@ -98,18 +98,41 @@ fi
                 ),
             ],
             remove=True,
-            stdout=True,
-            stderr=True,
-            stream=True,
+            detach=True,
+            tty=True       
         )
-        for chunk in container:
+
+        try:
+            # 2. Stream the logs. 
+            # 'follow=True' keeps the generator open until the container stops.
+            for chunk in container.logs(stream=True, follow=True):
+                try:
+                    if isinstance(chunk, bytes):
+                        sys.stdout.buffer.write(chunk)
+                    else:
+                        sys.stdout.write(chunk)
+                    # Remove .flush() if output is extremely high-volume to increase speed
+                    sys.stdout.flush()
+                except AttributeError:
+                    # Fallback for mocked stdout (like in pytest)
+                    sys.stdout.write(chunk.decode("utf-8", errors="replace"))
+                    sys.stdout.flush()
+
+            # 3. (Optional) Capture the exit code
             try:
-                sys.stdout.buffer.write(chunk)
-                sys.stdout.buffer.flush()
-            except AttributeError:
-                # Fallback if sys.stdout is mocked (e.g., in pytest) and lacks .buffer
-                sys.stdout.write(chunk.decode("utf-8", errors="replace"))
-                sys.stdout.flush()
+                result = container.wait()
+                exit_code = result.get("StatusCode", 0)
+                print(f"\nContainer finished with exit code: {exit_code}")
+            except docker.errors.NotFound:
+                pass
+
+        finally:
+            # 4. Manual Cleanup 
+            # Since we used detach=True, we manually remove it to ensure it's gone.
+            try:
+                container.remove(force=True)
+            except docker.errors.NotFound:
+                pass
     except docker.errors.ContainerError as e:
         print(f"Container error: {e}")
         try:
