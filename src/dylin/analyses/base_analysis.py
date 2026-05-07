@@ -16,6 +16,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         self.unique_id = str(uuid.uuid4())
+        self.unique_findings = set()
         self.findings = {}
         self.number_findings = 0
         self.meta = {}
@@ -40,6 +41,10 @@ class BaseDyLinAnalysis(BaseAnalysis):
         name: Optional[str] = "placeholder name",
         msg: Optional[str] = None,
     ) -> None:
+        finding_key = f"{iid}:{filename}:{name}"
+        if finding_key in self.unique_findings:
+            return
+        self.unique_findings.add(finding_key)
         print(f"########################### Found something")
         self.number_findings += 1
         stacktrace = "".join(traceback.format_stack()[-self.stack_levels :])
