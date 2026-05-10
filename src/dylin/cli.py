@@ -64,16 +64,17 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
 
     entrypoint_script = f"""\
 #!/bin/bash
+export PYTHONUNBUFFERED=1
 set -e
 cp -r /project_root /tmp/project
 cd /tmp/project
 {setup_cmd}
 export PYTHONPATH="/analysis:$PYTHONPATH"
-python -m dynapyt.run_instrumentation --directory . --analysisFile /analysis/final_analysis.txt
+python -m dynapyt.run_instrumentation --directory . --analysisFile /analysis/final_analysis.txt > {tmp_output_dir}/dynapyt_instrumentation.log 2>&1
 export DYNAPYT_SESSION_ID="1234-abcd"
 cp /analysis/final_analysis.txt /tmp/dynapyt_analyses-1234-abcd.txt
-{run_command}
-python -m dynapyt.post_run --coverage_dir="" --output_dir={tmp_output_dir}
+{run_command} > {tmp_output_dir}/run_output.log 2>&1
+python -m dynapyt.post_run --coverage_dir="" --output_dir={tmp_output_dir} > {tmp_output_dir}/dynapyt_post_run.log 2>&1
 if [ -f "{tmp_output_dir}/output.json" ]; then
     python -m dylin.format_output --findings_path {tmp_output_dir}/output.json > {tmp_output_dir}/output.txt
 fi
@@ -82,7 +83,7 @@ fi
     try:
         container = client.containers.run(
             "dynapyt_runner",
-            command=["/bin/bash", "-c", entrypoint_script],
+            command=["/bin/bash", "-c", f"{entrypoint_script}"],
             mounts=[
                 docker.types.Mount(
                     target="/project_root", source=str(project_root), type="bind", read_only=True
@@ -99,46 +100,28 @@ fi
             ],
             remove=True,
             detach=True,
-            tty=True       
+            tty=False
         )
-
-        try:
-            # 2. Stream the logs. 
-            # 'follow=True' keeps the generator open until the container stops.
-            for chunk in container.logs(stream=True, follow=True):
-                try:
-                    if isinstance(chunk, bytes):
-                        sys.stdout.buffer.write(chunk)
-                    else:
-                        sys.stdout.write(chunk)
-                    # Remove .flush() if output is extremely high-volume to increase speed
-                    sys.stdout.flush()
-                except AttributeError:
-                    # Fallback for mocked stdout (like in pytest)
-                    sys.stdout.write(chunk.decode("utf-8", errors="replace"))
-                    sys.stdout.flush()
-
-            # 3. (Optional) Capture the exit code
-            try:
-                result = container.wait()
-                exit_code = result.get("StatusCode", 0)
-                print(f"\nContainer finished with exit code: {exit_code}")
-            except docker.errors.NotFound:
-                pass
-
-        finally:
-            # 4. Manual Cleanup 
-            # Since we used detach=True, we manually remove it to ensure it's gone.
-            try:
-                container.remove(force=True)
-            except docker.errors.NotFound:
-                pass
     except docker.errors.ContainerError as e:
         print(f"Container error: {e}")
         try:
             print(e.container.logs().decode("utf-8"))
         except docker.errors.NotFound:
             pass
+
+    try:
+        # Capture the exit code
+        result = container.wait()
+        exit_code = result.get("StatusCode", 0)
+        print(f"\nContainer finished with exit code: {exit_code}")
+    except docker.errors.NotFound:
+        pass
+
+    try:
+        container.remove(force=True)
+    except docker.errors.NotFound:
+        pass
+    
 
 
 def main():

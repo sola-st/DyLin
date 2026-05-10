@@ -8,4 +8,5 @@ class CustomAnalysis(BaseDyLinAnalysis):
 
     def write(self, dyn_ast, iid, old_vals, new_val):
         if new_val == 42:
+            print("Testing here!")
             self.add_finding(iid, dyn_ast, "Custom", "New value is 42")

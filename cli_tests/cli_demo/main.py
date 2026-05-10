@@ -19,3 +19,6 @@ if my_func == 42:  # DyLin: PC-01 expected here  # noqa: E711
     print("my_func is 42")
   
 result = my_func() # DyLin: Custom analysis
+
+for i in range(0, 100000):
+    a = 42 # DyLin: Custom analysis
