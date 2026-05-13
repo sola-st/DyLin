@@ -121,6 +121,8 @@ fi
         container.remove(force=True)
     except docker.errors.NotFound:
         pass
+    except docker.errors.APIError as e:
+        print(f"Failed to remove container: {e}")
     
 
 
