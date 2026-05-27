@@ -11,7 +11,30 @@ from dylin.select_checkers import select_checkers
 _DYLIN_ROOT = Path(__file__).parent.parent.parent.resolve()
 
 
-def instrument_and_run_analysis(project_root, analysis_file, output_dir, setup_cmd, run_command):
+def _build_entrypoint_script(tmp_output_dir, setup_cmd, run_command, coverage):
+    coverage_env = f'export DYNAPYT_COVERAGE="{tmp_output_dir}"\n' if coverage else ""
+    coverage_arg = f'--coverage_dir={tmp_output_dir}' if coverage else '--coverage_dir=""'
+
+    return f"""\
+#!/bin/bash
+export PYTHONUNBUFFERED=1
+set -e
+cp -r /project_root /tmp/project
+cd /tmp/project
+{setup_cmd}
+export PYTHONPATH="/analysis:$PYTHONPATH"
+python -m dynapyt.run_instrumentation --directory . --analysisFile /analysis/final_analysis.txt > {tmp_output_dir}/dynapyt_instrumentation.log 2>&1
+export DYNAPYT_SESSION_ID="1234-abcd"
+{coverage_env}cp /analysis/final_analysis.txt /tmp/dynapyt_analyses-1234-abcd.txt
+{run_command} > {tmp_output_dir}/run_output.log 2>&1
+python -m dynapyt.post_run {coverage_arg} --output_dir={tmp_output_dir} > {tmp_output_dir}/dynapyt_post_run.log 2>&1
+if [ -f "{tmp_output_dir}/output.json" ]; then
+    python -m dylin.format_output --findings_path {tmp_output_dir}/output.json > {tmp_output_dir}/output.txt
+fi
+"""
+
+
+def instrument_and_run_analysis(project_root, analysis_file, output_dir, setup_cmd, run_command, coverage=False):
     """Docker-based DynaPyt instrumentation + run, with DyLin pre-installed in the container."""
     client = docker.from_env(timeout=240)
 
@@ -30,9 +53,7 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
 
         print("Building Docker image with DynaPyt installed...")
         try:
-            image, logs = client.images.build(
-                path=str(temp_dir_path), tag="dynapyt_runner", rm=True
-            )
+            image, logs = client.images.build(path=str(temp_dir_path), tag="dynapyt_runner", rm=True)
             for log in logs:
                 if "stream" in log:
                     print(log["stream"], end="")
@@ -62,45 +83,26 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
                 analysis, _ = line.split(";output_dir=")
                 f.write(analysis + f";output_dir={tmp_output_dir}\n")
 
-    entrypoint_script = f"""\
-#!/bin/bash
-export PYTHONUNBUFFERED=1
-set -e
-cp -r /project_root /tmp/project
-cd /tmp/project
-{setup_cmd}
-export PYTHONPATH="/analysis:$PYTHONPATH"
-python -m dynapyt.run_instrumentation --directory . --analysisFile /analysis/final_analysis.txt > {tmp_output_dir}/dynapyt_instrumentation.log 2>&1
-export DYNAPYT_SESSION_ID="1234-abcd"
-cp /analysis/final_analysis.txt /tmp/dynapyt_analyses-1234-abcd.txt
-{run_command} > {tmp_output_dir}/run_output.log 2>&1
-python -m dynapyt.post_run --coverage_dir="" --output_dir={tmp_output_dir} > {tmp_output_dir}/dynapyt_post_run.log 2>&1
-if [ -f "{tmp_output_dir}/output.json" ]; then
-    python -m dylin.format_output --findings_path {tmp_output_dir}/output.json > {tmp_output_dir}/output.txt
-fi
-"""
+    entrypoint_script = _build_entrypoint_script(
+        tmp_output_dir=tmp_output_dir,
+        setup_cmd=setup_cmd,
+        run_command=run_command,
+        coverage=coverage,
+    )
 
     try:
         container = client.containers.run(
             "dynapyt_runner",
             command=["/bin/bash", "-c", f"{entrypoint_script}"],
             mounts=[
-                docker.types.Mount(
-                    target="/project_root", source=str(project_root), type="bind", read_only=True
-                ),
-                docker.types.Mount(
-                    target="/analysis", source=str(analysis_file.parent), type="bind", read_only=False
-                ),
-                docker.types.Mount(
-                    target="/tmp/dynapyt_output", source=str(output_dir), type="bind", read_only=False
-                ),
-                docker.types.Mount(
-                    target="/dylin_src", source=str(_DYLIN_ROOT), type="bind", read_only=True
-                ),
+                docker.types.Mount(target="/project_root", source=str(project_root), type="bind", read_only=True),
+                docker.types.Mount(target="/analysis", source=str(analysis_file.parent), type="bind", read_only=False),
+                docker.types.Mount(target="/tmp/dynapyt_output", source=str(output_dir), type="bind", read_only=False),
+                docker.types.Mount(target="/dylin_src", source=str(_DYLIN_ROOT), type="bind", read_only=True),
             ],
             remove=True,
             detach=True,
-            tty=False
+            tty=False,
         )
     except docker.errors.ContainerError as e:
         print(f"Container error: {e}")
@@ -123,7 +125,6 @@ fi
         pass
     except docker.errors.APIError as e:
         print(f"Failed to remove container: {e}")
-    
 
 
 def main():
@@ -158,6 +159,11 @@ def main():
         "--output-dir",
         required=True,
         help="Path to save the raw output from DyLin/DynaPyt.",
+    )
+    parser.add_argument(
+        "--coverage",
+        action="store_true",
+        help="Store coverage data in the same directory as the analysis output.",
     )
     parser.add_argument(
         "run_command",
@@ -199,9 +205,7 @@ def main():
             )
             sys.exit(1)
 
-        tmp = tempfile.NamedTemporaryFile(
-            mode="w", suffix=".txt", prefix="dylin_analysis_", delete=False
-        )
+        tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", prefix="dylin_analysis_", delete=False)
         tmp.write(checkers_str)
         tmp.close()
         analysis_file = Path(tmp.name)
@@ -212,6 +216,7 @@ def main():
         output_dir=output_dir,
         setup_cmd=args.setup,
         run_command=run_command,
+        coverage=args.coverage,
     )
 
 

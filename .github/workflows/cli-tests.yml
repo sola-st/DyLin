@@ -1,0 +1,53 @@
+name: CLI Tests
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  cli-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt docker
+          pip install -e . --no-deps
+
+      - name: Run CLI smoke test
+        run: |
+          mkdir -p /tmp/dylin_cli_output
+          dylin \
+            --project-root cli_tests/cli_demo \
+            --include SL-01,PC-01 \
+            --output-dir /tmp/dylin_cli_output \
+            --coverage \
+            -- python main.py
+
+      - name: Validate CLI findings
+        run: |
+          test -f /tmp/dylin_cli_output/output.txt
+          grep -q 'SL-01' /tmp/dylin_cli_output/output.txt
+          grep -q 'PC-01' /tmp/dylin_cli_output/output.txt
+
+      - name: Validate CLI coverage
+        run: |
+          test -f /tmp/dylin_cli_output/coverage.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          coverage_path = Path('/tmp/dylin_cli_output/coverage.json')
+          data = json.loads(coverage_path.read_text())
+          if not data:
+              raise SystemExit('coverage.json is empty')
+          PY

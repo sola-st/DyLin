@@ -24,6 +24,7 @@ dylin \
   --project-root test_projects/cli_demo \
   --analysis     test_projects/cli_demo/analysis.txt \
   --output-dir   /tmp/dylin_cli_demo_output \
+  --coverage \
   -- python main.py
 ```
 
@@ -32,5 +33,6 @@ The CLI will:
 2. Copy the project inside the container.
 3. Instrument `main.py` with the selected checkers.
 4. Run `python main.py` and stream output to your terminal.
+5. Store the merged coverage files in the same output directory.
 
 Findings from both checkers should appear in the streamed output.
