@@ -18,12 +18,11 @@ def _build_entrypoint_script(tmp_output_dir, setup_cmd, run_command, coverage):
     return f"""\
 #!/bin/bash
 export PYTHONUNBUFFERED=1
-set -e
 cp -r /project_root /tmp/project
 cd /tmp/project
 {setup_cmd}
 export PYTHONPATH="/analysis:$PYTHONPATH"
-python -m dynapyt.run_instrumentation --directory . --analysisFile /analysis/final_analysis.txt > {tmp_output_dir}/dynapyt_instrumentation.log 2>&1
+python -m dynapyt.run_instrumentation --directory . --analysisFile /analysis/final_analysis.txt > {tmp_output_dir}/dynapyt_instrumentation.log 2>&1 || exit 1
 export DYNAPYT_SESSION_ID="1234-abcd"
 {coverage_env}cp /analysis/final_analysis.txt /tmp/dynapyt_analyses-1234-abcd.txt
 {run_command} > {tmp_output_dir}/run_output.log 2>&1
