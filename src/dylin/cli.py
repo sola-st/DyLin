@@ -11,9 +11,10 @@ from dylin.select_checkers import select_checkers
 _DYLIN_ROOT = Path(__file__).parent.parent.parent.resolve()
 
 
-def _build_entrypoint_script(tmp_output_dir, setup_cmd, run_command, coverage):
+def _build_entrypoint_script(tmp_output_dir, setup_cmd, run_command, coverage, quiet):
     coverage_env = f'export DYNAPYT_COVERAGE="{tmp_output_dir}"\n' if coverage else ""
     coverage_arg = f'--coverage_dir={tmp_output_dir}' if coverage else '--coverage_dir=""'
+    run_output_redirect = "" if quiet else f" > {tmp_output_dir}/run_output.log 2>&1"
 
     return f"""\
 #!/bin/bash
@@ -25,7 +26,7 @@ export PYTHONPATH="/analysis:$PYTHONPATH"
 python -m dynapyt.run_instrumentation --directory . --analysisFile /analysis/final_analysis.txt > {tmp_output_dir}/dynapyt_instrumentation.log 2>&1 || exit 1
 export DYNAPYT_SESSION_ID="1234-abcd"
 {coverage_env}cp /analysis/final_analysis.txt /tmp/dynapyt_analyses-1234-abcd.txt
-{run_command} > {tmp_output_dir}/run_output.log 2>&1
+{run_command}{run_output_redirect}
 python -m dynapyt.post_run {coverage_arg} --output_dir={tmp_output_dir} > {tmp_output_dir}/dynapyt_post_run.log 2>&1
 if [ -f "{tmp_output_dir}/output.json" ]; then
     python -m dylin.format_output --findings_path {tmp_output_dir}/output.json > {tmp_output_dir}/output.txt
@@ -33,7 +34,9 @@ fi
 """
 
 
-def instrument_and_run_analysis(project_root, analysis_file, output_dir, setup_cmd, run_command, coverage=False):
+def instrument_and_run_analysis(
+    project_root, analysis_file, output_dir, setup_cmd, run_command, coverage=False, quiet=False
+):
     """Docker-based DynaPyt instrumentation + run, with DyLin pre-installed in the container."""
     client = docker.from_env(timeout=240)
 
@@ -87,6 +90,7 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
         setup_cmd=setup_cmd,
         run_command=run_command,
         coverage=coverage,
+        quiet=quiet,
     )
 
     try:
@@ -165,6 +169,11 @@ def main():
         help="Store coverage data in the same directory as the analysis output.",
     )
     parser.add_argument(
+        "--quiet",
+        action="store_true",
+        help="Run the target command without writing run_output.log.",
+    )
+    parser.add_argument(
         "run_command",
         nargs=argparse.REMAINDER,
         help="Command to run after instrumentation (e.g. `pytest tests` or `python main.py`).",
@@ -216,6 +225,7 @@ def main():
         setup_cmd=args.setup,
         run_command=run_command,
         coverage=args.coverage,
+        quiet=args.quiet,
     )
 
 
