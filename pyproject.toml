@@ -7,7 +7,7 @@ name = "dylin"
 dynamic = ["version"]
 description = 'Dynamic Linter for Python'
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
 keywords = []
 authors = [
@@ -16,11 +16,11 @@ authors = [
 classifiers = [
   "Development Status :: 4 - Beta",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
@@ -51,11 +51,8 @@ path = "src/dylin/__about__.py"
 [project.scripts]
 dylin = "dylin.cli:main"
 
-[tool.hatch.build.targets.wheel.force-include]
-"src/dylin/markings/configs" = "src/dylin/markings/configs"
-
 [tool.hatch.envs.default]
-python="3.12"
+python="3.13"
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
@@ -73,7 +70,7 @@ cov = [
 ]
 
 [[tool.hatch.envs.all.matrix]]
-python = ["3.9", "3.10", "3.11", "3.12", "3.13"]
+python = ["3.10", "3.11", "3.12", "3.13"]
 
 [tool.hatch.envs.lint]
 detached = true
