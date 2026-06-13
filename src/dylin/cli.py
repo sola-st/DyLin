@@ -35,7 +35,8 @@ fi
 
 
 def instrument_and_run_analysis(
-    project_root, analysis_file, output_dir, setup_cmd, run_command, coverage=False, quiet=False, timeout=-1
+    project_root, analysis_file, output_dir, setup_cmd, run_command, coverage=False, quiet=False, timeout=-1,
+    memory_limit=None
 ):
     """Docker-based DynaPyt instrumentation + run, with DyLin pre-installed in the container."""
     client = docker.from_env()
@@ -106,6 +107,8 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
             remove=True,
             detach=True,
             tty=False,
+            mem_limit=memory_limit,
+            memswap_limit=memory_limit,
         )
     except docker.errors.ContainerError as e:
         print(f"Container error: {e}")
@@ -197,6 +200,13 @@ def main():
         help="Timeout for the whole analysis in seconds. Default: -1 (no timeout).",
     )
     parser.add_argument(
+        "--memory-limit",
+        required=False,
+        type=str,
+        default=None,
+        help="Memory limit for the whole analysis in bytes (e.g. '512m', '2g'). Default: None (no limit).",
+    )
+    parser.add_argument(
         "run_command",
         nargs=argparse.REMAINDER,
         help="Command to run after instrumentation (e.g. `pytest tests` or `python main.py`).",
@@ -250,6 +260,7 @@ def main():
         coverage=args.coverage,
         quiet=args.quiet,
         timeout=args.timeout,
+        memory_limit=args.memory_limit,
     )
 
 
