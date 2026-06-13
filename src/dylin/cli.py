@@ -35,10 +35,10 @@ fi
 
 
 def instrument_and_run_analysis(
-    project_root, analysis_file, output_dir, setup_cmd, run_command, coverage=False, quiet=False
+    project_root, analysis_file, output_dir, setup_cmd, run_command, coverage=False, quiet=False, timeout=-1
 ):
     """Docker-based DynaPyt instrumentation + run, with DyLin pre-installed in the container."""
-    client = docker.from_env(timeout=240)
+    client = docker.from_env()
 
     # Build a Docker image with DynaPyt (DyLin is installed at runtime from mounted source)
     with tempfile.TemporaryDirectory() as temp_dir:
@@ -114,13 +114,29 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
         except docker.errors.NotFound:
             pass
 
+    if timeout > 0:
+        import threading
+        def stop_container(c):
+            try:
+                c.stop()
+            except:
+                pass
+        timer = threading.Timer(timeout, stop_container, args=[container])
+        timer.start()
+        
     try:
         # Capture the exit code
         result = container.wait()
+        if timeout > 0:
+            timer.cancel()
         exit_code = result.get("StatusCode", 0)
-        print(f"\nContainer finished with exit code: {exit_code}")
+        if exit_code == 124:
+            print("Container timed out!")
+        else:
+            print(f"\nContainer finished with exit code: {exit_code}")
     except docker.errors.NotFound:
-        pass
+        if timeout > 0:
+            timer.cancel()
 
     try:
         container.remove(force=True)
@@ -172,6 +188,13 @@ def main():
         "--quiet",
         action="store_true",
         help="Run the target command without writing run_output.log.",
+    )
+    parser.add_argument(
+        "--timeout",
+        required=False,
+        type=int,
+        default=-1,
+        help="Timeout for the whole analysis in seconds. Default: -1 (no timeout).",
     )
     parser.add_argument(
         "run_command",
@@ -226,6 +249,7 @@ def main():
         run_command=run_command,
         coverage=args.coverage,
         quiet=args.quiet,
+        timeout=args.timeout,
     )
 
 
