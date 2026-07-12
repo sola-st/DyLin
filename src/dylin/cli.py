@@ -1,4 +1,5 @@
 import argparse
+import ast
 import sys
 import tempfile
 from pathlib import Path
@@ -145,8 +146,8 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
         container.remove(force=True)
     except docker.errors.NotFound:
         pass
-    except docker.errors.APIError as e:
-        print(f"Failed to remove container: {e}")
+    except docker.errors.APIError:
+        pass
 
 
 def main():
@@ -237,6 +238,30 @@ def main():
     # Build the checkers/analysis list
     if args.analysis is not None:
         analysis_file = Path(args.analysis).resolve()
+        if analysis_file.exists() and str(analysis_file).endswith(".py"):
+            # Read code and find the subclass of BaseDyLinAnalysis
+            code = analysis_file.read_text()
+            tree = ast.parse(code)
+            class_name = None
+            for node in ast.walk(tree):
+                if isinstance(node, ast.ClassDef):
+                    for base in node.bases:
+                        if (isinstance(base, ast.Name) and base.id == "BaseDyLinAnalysis") or (
+                            isinstance(base, ast.Attribute) and base.attr == "BaseDyLinAnalysis"
+                        ):
+                            class_name = node.name
+                            break
+                    if class_name:
+                        break
+            if not class_name:
+                print(
+                    f"Error: Could not find any subclass of BaseDyLinAnalysis in {analysis_file}",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
+            txt_file = analysis_file.parent / f"{analysis_file.stem}.txt"
+            txt_file.write_text(f"{analysis_file.stem}.{class_name}\n")
+            analysis_file = txt_file
     else:
         checkers_str = select_checkers(include=args.include, exclude=args.exclude)
         if not checkers_str.strip():
