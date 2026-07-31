@@ -1,5 +1,6 @@
 import argparse
 import ast
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -150,6 +151,78 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
         pass
 
 
+def _build_direct_entrypoint_script(output_dir, analysis_dir, setup_cmd, run_command, coverage, quiet):
+    coverage_env = f'export DYNAPYT_COVERAGE="{output_dir}"\n' if coverage else ""
+    coverage_arg = f'--coverage_dir={output_dir}' if coverage else '--coverage_dir=""'
+    run_output_redirect = "" if quiet else f" > {output_dir}/run_output.log 2>&1"
+    setup_line = f"{setup_cmd}\n" if setup_cmd else ""
+
+    return f"""\
+#!/bin/bash
+export PYTHONUNBUFFERED=1
+{setup_line}\
+export PYTHONPATH="{analysis_dir}:$PYTHONPATH"
+"{sys.executable}" -m dynapyt.run_instrumentation --directory . --analysisFile "{analysis_dir}/final_analysis.txt" > "{output_dir}/dynapyt_instrumentation.log" 2>&1 || exit 1
+export DYNAPYT_SESSION_ID="1234-abcd"
+{coverage_env}cp "{analysis_dir}/final_analysis.txt" /tmp/dynapyt_analyses-1234-abcd.txt
+{run_command}{run_output_redirect}
+"{sys.executable}" -m dynapyt.post_run {coverage_arg} --output_dir="{output_dir}" > "{output_dir}/dynapyt_post_run.log" 2>&1
+if [ -f "{output_dir}/output.json" ]; then
+    "{sys.executable}" -m dylin.format_output --findings_path "{output_dir}/output.json" > "{output_dir}/output.txt"
+fi
+"""
+
+
+def instrument_and_run_analysis_direct(
+    project_root, analysis_file, output_dir, setup_cmd, run_command, coverage=False, quiet=False, timeout=-1,
+    memory_limit=None
+):
+    """Direct (non-Docker) DynaPyt instrumentation + run on the project directly."""
+    project_root = Path(project_root).resolve()
+    analysis_file = Path(analysis_file).resolve()
+    output_dir = Path(output_dir).resolve()
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    print(f"\nRunning direct analysis for project {project_root}...")
+    print(f"Analysis file: {analysis_file}")
+    print(f"Setup command: {setup_cmd}")
+    print(f"Output directory: {output_dir}")
+    print(f"Run command: {run_command}")
+
+    # Rewrite analysis file so output_dir points to output_dir
+    final_analysis_file = analysis_file.parent / "final_analysis.txt"
+    content = analysis_file.read_text()
+    with open(final_analysis_file, "w") as f:
+        for line in content.splitlines():
+            if ";output_dir=" not in line:
+                f.write(line + f";output_dir={output_dir}\n")
+            else:
+                analysis, _ = line.split(";output_dir=")
+                f.write(analysis + f";output_dir={output_dir}\n")
+
+    entrypoint_script = _build_direct_entrypoint_script(
+        output_dir=output_dir,
+        analysis_dir=analysis_file.parent,
+        setup_cmd=setup_cmd,
+        run_command=run_command,
+        coverage=coverage,
+        quiet=quiet,
+    )
+
+    try:
+        kwargs = {}
+        if timeout > 0:
+            kwargs["timeout"] = timeout
+        proc = subprocess.run(
+            ["/bin/bash", "-c", entrypoint_script],
+            cwd=str(project_root),
+            **kwargs,
+        )
+        print(f"\nAnalysis finished with exit code: {proc.returncode}")
+    except subprocess.TimeoutExpired:
+        print("\nAnalysis timed out!")
+
+
 def main():
     parser = argparse.ArgumentParser(description="DyLin: Dynamic Linter for Python")
     parser.add_argument(
@@ -206,6 +279,13 @@ def main():
         type=str,
         default=None,
         help="Memory limit for the whole analysis in bytes (e.g. '512m', '2g'). Default: None (no limit).",
+    )
+    parser.add_argument(
+        "--no-docker",
+        "--direct",
+        action="store_true",
+        dest="no_docker",
+        help="Run instrumentation and analysis directly without Docker.",
     )
     parser.add_argument(
         "run_command",
@@ -276,7 +356,8 @@ def main():
         tmp.close()
         analysis_file = Path(tmp.name)
 
-    instrument_and_run_analysis(
+    runner_fn = instrument_and_run_analysis_direct if args.no_docker else instrument_and_run_analysis
+    runner_fn(
         project_root=project_root,
         analysis_file=analysis_file,
         output_dir=output_dir,
@@ -291,3 +372,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
