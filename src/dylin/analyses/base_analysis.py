@@ -39,12 +39,12 @@ class BaseDyLinAnalysis(BaseAnalysis):
         name: Optional[str] = "placeholder name",
         msg: Optional[str] = None,
     ) -> None:
-        finding_key = f"{iid}:{filename}:{name}"
+        finding_key = (iid, filename, name)
         if finding_key in self.unique_findings:
             return
         self.unique_findings.add(finding_key)
         self.number_findings += 1
-        stacktrace = "".join(traceback.format_stack()[-self.stack_levels :])
+        stacktrace = "".join(traceback.format_stack(limit=self.stack_levels))
         location = self.iid_to_location(filename, iid)
         if name not in self.findings:
             self.findings[name] = [self._create_error_msg(iid, location, stacktrace, msg)]
@@ -99,14 +99,11 @@ class BaseDyLinAnalysis(BaseAnalysis):
             found_iids = {}
             for finding in findings[name]:
                 if not finding["uid"] in found_iids:
-                    found_iids[finding["iid"]] = {"finding": finding, "n": 1}
+                    found_iids[finding["uid"]] = {"finding": finding, "n": 1}
                 else:
-                    found_iids[finding["iid"]]["n"] += 1
+                    found_iids[finding["uid"]]["n"] += 1
             res[name] = list(found_iids.values())
         return res
-
-    def get_unique_findings(self):
-        return self._format_issues(self.findings)
 
     def _write_detailed_results(self):
         temp_res = self.get_result()
@@ -121,7 +118,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
 
     def _write_overview(self):
         # prevent reporting findings multiple times to the same iid
-        results = self.get_unique_findings()
+        results = self._format_issues(self.findings)
         row_findings = 0
         for f_name in results:
             row_findings += len(results[f_name])
