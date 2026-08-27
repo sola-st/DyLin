@@ -22,8 +22,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
         self.meta = {}
         self.stack_levels = 20
         self.path = Path(self.output_dir)
-        if not self.path.exists():
-            self.path.mkdir(parents=True)
+        self.path.mkdir(parents=True, exist_ok=True)
         logging.basicConfig(stream=sys.stderr)
         self.log = logging.getLogger("TestsuiteWrapper")
         self.log.setLevel(logging.DEBUG)
@@ -69,10 +68,7 @@ class BaseDyLinAnalysis(BaseAnalysis):
     """
 
     def is_sane(self) -> bool:
-        res = 0
-        for name, value in self.findings.items():
-            res += len(value)
-        return self.number_findings == res
+        return self.number_findings == sum(len(v) for v in self.findings.values())
 
     def add_meta(self, meta: any):
         self.meta = meta
@@ -110,39 +106,25 @@ class BaseDyLinAnalysis(BaseAnalysis):
         if temp_res is not None:
             result = {"meta": self.meta, "results": temp_res}
             filename = f"output-{str(self.analysis_name)}-{self.unique_id}-report.json"
-            while (self.path / filename).exists():
-                self.unique_id = str(uuid.uuid4())
-                filename = f"output-{str(self.analysis_name)}-{self.unique_id}-report.json"
             with open(self.path / filename, "w") as report:
-                json.dump(result, report, indent=4)
+                json.dump(result, report, indent=2)
 
     def _write_overview(self):
         # prevent reporting findings multiple times to the same iid
         results = self._format_issues(self.findings)
-        row_findings = 0
-        for f_name in results:
-            row_findings += len(results[f_name])
-        csv_row = [self.analysis_name, row_findings]
-        with FileLock(str(self.path / "findings.csv") + ".lock"):
-            csv_rows = []
-            if (self.path / "findings.csv").exists():
-                with open(self.path / "findings.csv", "r") as f:
-                    reader = csv.reader(f)
-                    existed = False
-                    for row in reader:
-                        if self.analysis_name == row[0]:
-                            csv_row = [self.analysis_name, row_findings + int(row[1])]
-                            existed = True
-                            csv_rows.append(csv_row)
-                        else:
-                            csv_rows.append(row)
-                    if not existed:
-                        csv_rows.append(csv_row)
-            else:
-                csv_rows = [csv_row]
-            with open(self.path / "findings.csv", "w") as f:
+        row_findings = sum(len(results[f_name]) for f_name in results)
+        csv_file = self.path / "findings.csv"
+        with FileLock(str(csv_file) + ".lock"):
+            rows_dict = {}
+            if csv_file.exists():
+                with open(csv_file, "r") as f:
+                    for row in csv.reader(f):
+                        if row:
+                            rows_dict[row[0]] = int(row[1])
+            rows_dict[self.analysis_name] = rows_dict.get(self.analysis_name, 0) + row_findings
+            with open(csv_file, "w") as f:
                 writer = csv.writer(f)
-                writer.writerows(csv_rows)
+                writer.writerows([[k, v] for k, v in rows_dict.items()])
 
     def end_execution(self) -> None:
         self._write_detailed_results()
