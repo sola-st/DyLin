@@ -1,5 +1,6 @@
 import subprocess
 
+
 def install_special(url):
     if url == "https://github.com/lorien/grab.git":
         command = "pip install cssselect pyquery pymongo fastrq"  # required for running tests
@@ -43,4 +44,3 @@ def install_special(url):
     else:
         return
     subprocess.run(command.split(" "))
-

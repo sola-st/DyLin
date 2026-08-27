@@ -50,7 +50,7 @@ class InvalidComparisonAnalysis(BaseDyLinAnalysis):
         # print(f"{self.analysis_name} comparison {iid}")
         self.nmb_comparisons += 1
         try:
-            if (self._is_float(left) or self._is_float(right)):
+            if self._is_float(left) or self._is_float(right):
                 if self.check_inf(left) or self.check_inf(right):
                     self.add_finding(
                         iid,

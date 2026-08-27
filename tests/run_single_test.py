@@ -137,7 +137,7 @@ def test_runner(directory_pair: Tuple[str, str], capsys):
         remove(join(abs_dir, f"dynapyt_output-{session_id}", "findings.csv.lock"))
     except FileNotFoundError:
         pass
-    
+
     for analysis_name in analysis_names:
         if not fail:
             try:

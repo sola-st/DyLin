@@ -5,6 +5,7 @@ def foo():
             l.pop(l.index(i))
     return "foo"
 
+
 def bar():
     res = foo() + " bar"
     return res

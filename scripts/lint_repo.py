@@ -3,7 +3,6 @@ import json
 from pathlib import Path
 import subprocess
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Analyze a git repo")
     parser.add_argument("--repo", help="the repo index", type=int)
@@ -38,17 +37,13 @@ if __name__ == "__main__":
 
     with open("/Work/lint_reports/results_ruff.txt", "w") as f:
         f.write(result.stdout.decode("utf-8"))
-    
-    result = subprocess.run(
-        ["pylint", "-j", "0", name], stdout=subprocess.PIPE
-    )
+
+    result = subprocess.run(["pylint", "-j", "0", name], stdout=subprocess.PIPE)
 
     with open("/Work/lint_reports/results_pylint.txt", "w") as f:
         f.write(result.stdout.decode("utf-8"))
-    
-    result = subprocess.run(
-        ["mypy", name], stdout=subprocess.PIPE
-    )
+
+    result = subprocess.run(["mypy", name], stdout=subprocess.PIPE)
 
     with open("/Work/lint_reports/results_mypy.txt", "w") as f:
         f.write(result.stdout.decode("utf-8"))

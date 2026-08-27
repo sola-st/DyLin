@@ -17,7 +17,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Analyze a git repo")
     parser.add_argument("--repo", help="the repo index", type=int)
     parser.add_argument("--config", help="DyLin config file path", type=str)
-    parser.add_argument("--cov", help="Whether to collect coverage", default=True, action=argparse.BooleanOptionalAction)
+    parser.add_argument(
+        "--cov", help="Whether to collect coverage", default=True, action=argparse.BooleanOptionalAction
+    )
     args = parser.parse_args()
 
     session_id = "1234-abcd"
@@ -81,7 +83,7 @@ if __name__ == "__main__":
     run_all_tests = '''
 import pytest
 pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}'])'''.format(
-# pytest.main(['-o', 'log_cli=true', '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '{name}/{tests}'])'''.format(
+        # pytest.main(['-o', 'log_cli=true', '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         # pytest.main(['--cov={name}', '--import-mode=importlib', '{name}/{tests}'])'''.format(
         **code_args
     )
@@ -96,32 +98,39 @@ pytest.main(['-s', '--timeout=300', '--import-mode=importlib', '{name}/{tests}']
     if url == "https://github.com/dpkp/kafka-python.git":
         os.environ["CRC32C_SW_MODE"] = "auto"
         os.environ["PROJECT_ROOT"] = f"/opt/dylinVenv/lib/python3.10/site-packages/{name}"
-        command_to_run = ['pytest', '-n', 'auto', '--dist', 'worksteal', '/opt/dylinVenv/lib/python3.10/site-packages/test']
+        command_to_run = [
+            'pytest',
+            '-n',
+            'auto',
+            '--dist',
+            'worksteal',
+            '/opt/dylinVenv/lib/python3.10/site-packages/test',
+        ]
     if name == "steam_market":
         command_to_run = f"pytest -n auto --dist worksteal {name}/tests.py".split(" ")
     if name == "Pillow":
         command_to_run = ["python", "-m", "pytest", '-n', 'auto', '--dist', 'worksteal', f'{name}/{tests}']
-#         subprocess.run(["ls", "/opt/dylinVenv/lib/python3.10/site-packages/"])
-#         run_all_tests = '''
-# import pytest
+    #         subprocess.run(["ls", "/opt/dylinVenv/lib/python3.10/site-packages/"])
+    #         run_all_tests = '''
+    # import pytest
 
-# pytest.main(['-o', 'log_cli=true', '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '/Work/kafka_python/test'])'''
-#         run_all_tests = '''
-# import subprocess
-# subprocess.run(["tox", "-c", "./kafka_python/tox.ini"])
-#         '''
+    # pytest.main(['-o', 'log_cli=true', '-n', 'auto', '--dist', 'worksteal', '--timeout=300', '--import-mode=importlib', '/Work/kafka_python/test'])'''
+    #         run_all_tests = '''
+    # import subprocess
+    # subprocess.run(["tox", "-c", "./kafka_python/tox.ini"])
+    #         '''
 
-    #with open(entry, "w") as f:
+    # with open(entry, "w") as f:
     #    f.write(run_all_tests)
-    #if tests.endswith(".py"):
+    # if tests.endswith(".py"):
     #    sys.path.append(str(Path(name).resolve()))
-    #else:
+    # else:
     #    sys.path.append(str((Path(name).resolve()) / tests))
-    #print("Wrote test runner, starting analysis")
+    # print("Wrote test runner, starting analysis")
     with open(f"/tmp/dynapyt_analyses-{session_id}.txt", "w") as f:
         f.write("\n".join([f"{ana};output_dir=/tmp/dynapyt_output-{session_id}" for ana in analyses]))
     os.environ["DYNAPYT_SESSION_ID"] = session_id
-    timeout_threshold = 60*60
+    timeout_threshold = 60 * 60
     timed_out = False
     analysis_time = ""
     if args.cov:

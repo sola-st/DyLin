@@ -4,7 +4,6 @@ from dynapyt.instrument.filters import only
 
 from typing import Callable, Tuple, Dict
 
-
 """
     random.lognormvariate(mu, sigma) -> mu can have any value, and sigma must be greater than zero.
     random.vonmisesvariate(mu, kappa) ->  kappa must be greater than or equal to zero.
@@ -18,9 +17,7 @@ class RandomParams_NoPositives(BaseDyLinAnalysis):
         self.analysis_name = "RandomParams_NoPositives"
 
     @only(patterns=["lognormvariate", "vonmisesvariate"])
-    def pre_call(
-        self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict
-    ) -> None:
+    def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict) -> None:
         # The target class names for monitoring
         targets = ["random"]
 
@@ -63,6 +60,8 @@ class RandomParams_NoPositives(BaseDyLinAnalysis):
                     iid,
                     dyn_ast,
                     "B-12",
-                    f"The call to method lognormvariate or vonmisesvariate in file at {dyn_ast} does not have the correct parameters. The sigma or kappa should always be positive."
+                    f"The call to method lognormvariate or vonmisesvariate in file at {dyn_ast} does not have the correct parameters. The sigma or kappa should always be positive.",
                 )
+
+
 # =========================================================================

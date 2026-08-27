@@ -52,9 +52,9 @@ if __name__ == "__main__":
         print("Installed requirements")
     else:
         if requirements:
-            print((here/url/requirements).exists())
+            print((here / url / requirements).exists())
             subprocess.run(["pip", "install", "-r", f"{str((here/url/requirements).resolve())}"])
-        print((here/url).exists())
+        print((here / url).exists())
         subprocess.run(["ls", f"{str(here)}/.."])
         subprocess.run(["pip", "install", "-e", f"{str((here/url).resolve())}/"])
 

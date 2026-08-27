@@ -4,7 +4,6 @@ from dynapyt.instrument.filters import only
 
 from typing import Callable, Tuple, Dict
 
-
 """
     It is recommended to terminate full hostnames with a /.
 """
@@ -17,9 +16,7 @@ class HostnamesTerminatesWithSlash(BaseDyLinAnalysis):
         self.analysis_name = "HostnamesTerminatesWithSlash"
 
     @only(patterns=["mount"])
-    def pre_call(
-        self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict
-    ) -> None:
+    def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict) -> None:
         # The target class names for monitoring
         targets = ["requests.sessions.Session"]
 
@@ -42,6 +39,8 @@ class HostnamesTerminatesWithSlash(BaseDyLinAnalysis):
                     iid,
                     dyn_ast,
                     "B-6",
-                    f"The call to method mount in file at {dyn_ast} does not terminate the hostname with a /."
+                    f"The call to method mount in file at {dyn_ast} does not terminate the hostname with a /.",
                 )
+
+
 # =========================================================================

@@ -51,3 +51,27 @@ jobs:
           if not data:
               raise SystemExit('coverage.json is empty')
           PY
+
+      - name: Validate cleanup of temporary files and directories
+        run: |
+          python - <<'PY'
+          import glob
+          import subprocess
+          import sys
+
+          leftover_temp = (
+              glob.glob("/tmp/dylin_analysis_*")
+              + glob.glob("/tmp/dylin_tmp_*")
+              + glob.glob("/tmp/final_analysis.txt")
+              + glob.glob("/tmp/dynapyt_analyses-*")
+          )
+          if leftover_temp:
+              raise SystemExit(f"Found leftover temporary files/directories: {leftover_temp}")
+
+          git_status = subprocess.check_output(
+              ["git", "status", "--porcelain", "cli_tests/cli_demo"], text=True
+          ).strip()
+          if git_status:
+              raise SystemExit(f"Project directory has leftover files/modifications:\n{git_status}")
+          PY
+

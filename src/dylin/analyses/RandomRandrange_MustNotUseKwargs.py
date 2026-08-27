@@ -4,7 +4,6 @@ from dynapyt.instrument.filters import only
 
 from typing import Callable, Tuple, Dict
 
-
 """
     Keyword arguments should not be used because they can be interpreted in unexpected ways
     source: https://docs.python.org/3/library/random.html#random.randrange
@@ -18,9 +17,7 @@ class RandomRandrange_MustNotUseKwargs(BaseDyLinAnalysis):
         self.analysis_name = "RandomRandrange_MustNotUseKwargs"
 
     @only(patterns=["randrange"])
-    def pre_call(
-        self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict
-    ) -> None:
+    def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict) -> None:
         # The target class names for monitoring
         targets = ["random"]
 
@@ -40,6 +37,8 @@ class RandomRandrange_MustNotUseKwargs(BaseDyLinAnalysis):
                     iid,
                     dyn_ast,
                     "B-13",
-                    f"Keyword arguments should not be used in random.randrange because they can be interpreted in unexpected ways at {dyn_ast}."
+                    f"Keyword arguments should not be used in random.randrange because they can be interpreted in unexpected ways at {dyn_ast}.",
                 )
+
+
 # =========================================================================

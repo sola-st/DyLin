@@ -3,7 +3,8 @@ import weakref
 from collections import defaultdict
 from uuid import UUID, uuid4
 
-class HeapMirror():
+
+class HeapMirror:
     def __init__(self):
         self.activate_weak = True
         self.mirrored_objects = {}
@@ -121,6 +122,7 @@ def wrap(any):
 
         class ExtraSlots(base):
             __slots__ = slots
+
         ExtraSlots.__name__ = base.__name__
 
         return ExtraSlots(any)

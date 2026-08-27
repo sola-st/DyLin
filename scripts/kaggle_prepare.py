@@ -76,12 +76,14 @@ if not args.only_run:
 
     white_list = {
         "titanic": ["jocker3/titanic-machine-learning-from-disaste", "alejosalazar/proyecto-ds101-26678712"],
-        "spaceship-titanic": ["aidenwhite/spaceship-comp-random-forest-w-na-imputation",
+        "spaceship-titanic": [
+            "aidenwhite/spaceship-comp-random-forest-w-na-imputation",
             "corneliusjustin/spaceship-titanic-with-ensemble-learning-voting",
             "witoldnowogrski/spaceship-titanic-binary-classification-using-nn",
-            "combustingrats/eda-logistic-regression-and-nn"], 
+            "combustingrats/eda-logistic-regression-and-nn",
+        ],
         "icr-identify-age-related-conditions": ["yan0022/icr-stacking-with-sklearn"],
-        "playground-series-s4e8": ["snehalkhandewale/to-eat-or-not-to-eat"]
+        "playground-series-s4e8": ["snehalkhandewale/to-eat-or-not-to-eat"],
     }
 
     kernels: List[Kernel] = []
@@ -89,11 +91,10 @@ if not args.only_run:
     if competition in white_list:
         for ref in white_list[competition]:
             kernels.append(dl_kernels(1, 1, ref)[0])
-        to_download = to_download - len(white_list[competition])        
+        to_download = to_download - len(white_list[competition])
 
-    
     while to_download >= 1:
-        
+
         # max page size is 100
         tmp_kernels = dl_kernels(page, min(50, to_download))
 
@@ -187,22 +188,24 @@ if not args.only_run:
     Assumes dynapyt and dylin are installed in currently used pip executable
     """
 
-
     for filepath in pathlib.Path(path).glob("*.py"):
         with open(str(filepath.resolve()), "r") as f:
             code = f.read()
-        
+
         if "../input/" in code:
             code = code.replace("../input/", "/kaggle/input/")
         code = "\n".join([l for l in code.split("\n") if not l.startswith("print")])
-        
+
         with open(str(filepath.resolve()), "w") as f:
             f.write(code)
     # run instrumentation
     here = pathlib.Path(__file__).parent.resolve()
     with open(here / ".." / "dylin_config_kaggle.txt", "r") as f:
         config_content = f.read()
-    analyses = [f"{ana};output_dir={str(pathlib.Path(gettempdir()) / 'dynapyt_output-1234')}" for ana in config_content.strip().split("\n")]
+    analyses = [
+        f"{ana};output_dir={str(pathlib.Path(gettempdir()) / 'dynapyt_output-1234')}"
+        for ana in config_content.strip().split("\n")
+    ]
     instrument_dir(path, analyses)
     # subprocess.run(
     #     f"python -m dynapyt.run_instrumentation --directory {path} --module dylin --analysis AnalysisWrapper", shell=True)
@@ -217,12 +220,12 @@ if not args.only_prepare:
 
     # def run_dylin(file_path):
     #     run_analysis(file_path, analyses, coverage=True)
-        # result = subprocess.run(f"python -m dynapyt.run_analysis --entry {path} --analysis AnalysisWrapper --module dylin",
-        #                         shell=True)
-        # if result.returncode != 0:
-        #     print(f"Error at {result}")
-        # else:
-        #     print(f"done with {result}")
+    # result = subprocess.run(f"python -m dynapyt.run_analysis --entry {path} --analysis AnalysisWrapper --module dylin",
+    #                         shell=True)
+    # if result.returncode != 0:
+    #     print(f"Error at {result}")
+    # else:
+    #     print(f"done with {result}")
 
     # onlypy = [join(path, f) for f in os.listdir(path) if isfile(join(path, f)) and f.endswith("py")]
 

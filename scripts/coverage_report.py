@@ -2,8 +2,9 @@ import json
 from pathlib import Path
 from fire import Fire
 
+
 def sanity_check(analysis_coverage, test_coverage):
-    X = 0 #len("/opt/dylinVenv/lib/python3.10/site-packages/")
+    X = 0  # len("/opt/dylinVenv/lib/python3.10/site-packages/")
     for file, lines in analysis_coverage.items():
         if file[X:-5] not in test_coverage["files"]:
             print(f"File {file} not in test coverage")
@@ -12,7 +13,7 @@ def sanity_check(analysis_coverage, test_coverage):
             if int(line) not in test_coverage["files"][file[X:-5]]["executed_lines"]:
                 print(f"Line {line} not in test coverage for {file}")
                 continue
-                
+
 
 def coverage_report(analysis_coverage: str, test_coverage: str):
     with open(analysis_coverage) as f:
@@ -20,9 +21,9 @@ def coverage_report(analysis_coverage: str, test_coverage: str):
     with open(test_coverage) as f:
         content = json.load(f)
         test_coverage = content["totals"]["covered_lines"]
-    
+
     # sanity_check(coverage, content)
-    
+
     covered_by = {}
     total_covered_lines = 0
     print(len(coverage))
@@ -47,26 +48,30 @@ def coverage_report(analysis_coverage: str, test_coverage: str):
                 covered_by[analysis] += 1
     return covered_by, total_covered_lines, test_coverage
 
+
 def compare_only_one(analysis_dir: str, test_dir: str):
-    test_cov = Path(test_dir)/"cov.json"
+    test_cov = Path(test_dir) / "cov.json"
     for ac in Path(analysis_dir).glob("dynapyt_coverage-*/coverage*.json"):
         print(f"{ac} {test_cov}")
         covered_by, total_covered_lines, test_coverage = coverage_report(str(ac), str(test_cov))
         with open("coverage_comparison.csv", "a") as f:
-                f.write(f"{str(ac)} {total_covered_lines}, {test_coverage}\n")
+            f.write(f"{str(ac)} {total_covered_lines}, {test_coverage}\n")
+
 
 def coverage_comparison(analysis_dir: str, test_dir: str):
     for i in range(1, 50):
-        analysis_coverage = list((Path(analysis_dir).resolve()/f"reports_{i}").glob("dynapyt_coverage-*/coverage*.json"))
+        analysis_coverage = list(
+            (Path(analysis_dir).resolve() / f"reports_{i}").glob("dynapyt_coverage-*/coverage*.json")
+        )
         if len(analysis_coverage) != 1:
             print(f"There is not 1 file for DyLin coverage for {i} {analysis_coverage}")
             continue
         analysis_coverage = analysis_coverage[0]
-        test_coverage = Path(test_dir)/f"testcov_{i}/cov.json"
+        test_coverage = Path(test_dir) / f"testcov_{i}/cov.json"
         if not analysis_coverage.exists() or not test_coverage.exists():
             print(f"One coverage does not exist {i}")
             continue
-        with open(analysis_coverage.parent.parent/"timing.txt") as f:
+        with open(analysis_coverage.parent.parent / "timing.txt") as f:
             timing = f.read().strip()
         project_name = timing.split(" ")[0]
         covered_by, total_covered_lines, test_coverage = coverage_report(analysis_coverage, test_coverage)
@@ -76,6 +81,6 @@ def coverage_comparison(analysis_dir: str, test_dir: str):
         # print(f"Analysis covered lines: {total_covered_lines}")
         # print(f"Test coverage: {test_coverage}")
 
+
 if __name__ == '__main__':
     Fire()
-                

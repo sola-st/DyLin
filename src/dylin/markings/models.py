@@ -1,7 +1,7 @@
 from typing import Callable, Dict, List, Optional, Set, Tuple
 
 
-class Marking():
+class Marking:
     def __init__(self, name: str):
         self.name = name
 
@@ -20,7 +20,7 @@ class Marking():
         return self.name
 
 
-class StoredElement():
+class StoredElement:
     def __init__(self, markings: List[Marking], location: Tuple[int, str]):
         # consider using a dict, is faster
         self.markings = set(markings)
@@ -48,6 +48,7 @@ def union(input: List[Set[Marking]], associated: Set[Marking] = None) -> Set[Mar
         res = res | i
     return res
 
+
 def clear(input: List[Set[Marking]], associated: Set[Marking] = None):
     if not associated:
         return set()
@@ -70,9 +71,7 @@ def disjunctive_union(input: List[Set[Marking]], associated: Set[Marking] = None
     return res
 
 
-def contains(input: Dict[str, Set[Marking]],
-                associated: Set[Marking],
-                argnames: List[str] = list()) -> bool:
+def contains(input: Dict[str, Set[Marking]], associated: Set[Marking], argnames: List[str] = list()) -> bool:
     for m_l in associated:
         for m in input.values():
             if m_l in m:
@@ -80,9 +79,7 @@ def contains(input: Dict[str, Set[Marking]],
     return False
 
 
-def contains_all(input: Dict[str, Set[Marking]],
-                associated: Set[Marking],
-                argnames: List[str] = list()) -> bool:
+def contains_all(input: Dict[str, Set[Marking]], associated: Set[Marking], argnames: List[str] = list()) -> bool:
     containsAll = True
     for m_l in associated:
         for m in input.values():
@@ -92,49 +89,45 @@ def contains_all(input: Dict[str, Set[Marking]],
         return False
     return containsAll
 
-def first_contains_all(input: Dict[str, Set[Marking]],
-                associated: Set[Marking],
-                argnames: List[str] = list()) -> bool:
+
+def first_contains_all(input: Dict[str, Set[Marking]], associated: Set[Marking], argnames: List[str] = list()) -> bool:
     new_in = dict(list(input.items())[:1])
     return contains_all(new_in, associated, argnames)
 
 
-def not_all_given_args_contain(input: Dict[str, Set[Marking]],
-                               associated: Set[Marking],
-                               argnames: List[str]) -> bool:
+def not_all_given_args_contain(input: Dict[str, Set[Marking]], associated: Set[Marking], argnames: List[str]) -> bool:
     all_argvals_contain = True
     for i_val in input:
         if i_val in argnames and input[i_val] != associated:
             all_argvals_contain = False
     return not all_argvals_contain
 
-def none_contain(input: Dict[str, Set[Marking]],
-                associated: Set[Marking],
-                argnames: List[str] = list()) -> bool:
+
+def none_contain(input: Dict[str, Set[Marking]], associated: Set[Marking], argnames: List[str] = list()) -> bool:
     for a_m in associated:
         for i in input.values():
             if a_m in i:
                 return False
     return True
 
-def not_all_or_none_contains(input: Dict[str, Set[Marking]],
-          associated: Set[Marking],
-          argnames: List[str] = list()) -> bool:
+
+def not_all_or_none_contains(
+    input: Dict[str, Set[Marking]], associated: Set[Marking], argnames: List[str] = list()
+) -> bool:
     all = contains_all(input, associated, argnames)
     none_contains = none_contain(input, associated, argnames)
     return not (all or none_contains)
 
-class Source():
+
+class Source:
     '''
     TODO allow setting markings to specific output values,
     parameters
     '''
 
-    def __init__(self,
-                 associated: Set[Marking],
-                 function: Callable = union,
-                 assign_to_output=True,
-                 assign_to_self=False):
+    def __init__(
+        self, associated: Set[Marking], function: Callable = union, assign_to_output=True, assign_to_self=False
+    ):
         self.associated_markings = associated
         self.function = function
         # makes sure to assign output markings to returned objects
@@ -146,19 +139,17 @@ class Source():
         return self.function.__call__(input_markings, self.associated_markings)
 
 
-class Sink():
-    def __init__(self,
-                 associated: Set[Marking],
-                 error_msg: str,
-                 argnames: List[str] = None,
-                 validate: Callable = contains_all):
+class Sink:
+    def __init__(
+        self, associated: Set[Marking], error_msg: str, argnames: List[str] = None, validate: Callable = contains_all
+    ):
         self.associated_markings = associated
         self.argnames = argnames
         self.validate = validate
         self.error_msg = error_msg
 
     def _get_argname(self, index: int) -> str:
-        if index > len(self.argnames)-1:
+        if index > len(self.argnames) - 1:
             return str(index)
         return self.argnames[index]
 
@@ -178,11 +169,8 @@ class Sink():
         return None
 
 
-class TaintConfig():
-    def __init__(self,
-                 sources: Dict[str, Source],
-                 sinks: Dict[str, Sink],
-                 markings: Dict[str, Marking]):
+class TaintConfig:
+    def __init__(self, sources: Dict[str, Source], sinks: Dict[str, Sink], markings: Dict[str, Marking]):
         self.sources = sources
         self.sinks = sinks
         self.markings = markings

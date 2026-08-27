@@ -16,7 +16,22 @@ def post_process_special(url):
     if url == "https://github.com/pallets/click.git":
         (Path("click").resolve() / "tests" / "test_imports.py").unlink(missing_ok=True)
     elif url == "https://github.com/dpkp/kafka-python.git":
-        subprocess.run(["pip", "install", "crc32c", "docker-py", "lz4", "mock", "pytest-mock", "python-snappy", "Sphinx", "sphinx-rtd-theme", "tox", "xxhash"])
+        subprocess.run(
+            [
+                "pip",
+                "install",
+                "crc32c",
+                "docker-py",
+                "lz4",
+                "mock",
+                "pytest-mock",
+                "python-snappy",
+                "Sphinx",
+                "sphinx-rtd-theme",
+                "tox",
+                "xxhash",
+            ]
+        )
 
 
 if __name__ == "__main__":
@@ -50,10 +65,10 @@ if __name__ == "__main__":
         if url == "https://github.com/tiangolo/typer.git":
             subprocess.run(["pip", "install", f"{name}/[all]"])
         elif url == "https://github.com/dpkp/kafka-python.git":
-            with open(str(Path(name)/"setup.py")) as file:
+            with open(str(Path(name) / "setup.py")) as file:
                 content = file.read()
             content = content.replace("exclude=[\'test\']", "")
-            with open(str(Path(name)/"setup.py"), "w") as file:
+            with open(str(Path(name) / "setup.py"), "w") as file:
                 file.write(content)
             subprocess.run(["pip", "install", f"{name}"])
         elif url == "https://github.com/praetorian-inc/gato.git":
@@ -65,9 +80,9 @@ if __name__ == "__main__":
         print("Installed requirements")
     else:
         if requirements:
-            print((here/url/requirements).exists())
+            print((here / url / requirements).exists())
             subprocess.run(["pip", "install", "-r", f"{str((here/url/requirements).resolve())}"])
-        print((here/url).exists())
+        print((here / url).exists())
         subprocess.run(["ls", f"{str(here)}/.."])
         subprocess.run(["pip", "install", "-e", f"{str((here/url).resolve())}/"])
 
@@ -114,10 +129,10 @@ if __name__ == "__main__":
         analyses.remove("dylin.analyses.GradientAnalysis.GradientAnalysis")
         analyses.remove("dylin.analyses.TensorflowNonFinitesAnalysis.TensorflowNonFinitesAnalysis")
     if name == "openleadr_python":
-        with open(str(Path(name)/"test"/"test_reports.py")) as f:
+        with open(str(Path(name) / "test" / "test_reports.py")) as f:
             content = f.read()
         content = content.replace("assert(", "assert (")
-        with open(str(Path(name)/"test"/"test_reports.py"), "w") as f:
+        with open(str(Path(name) / "test" / "test_reports.py"), "w") as f:
             f.write(content)
     analyses = [f"{ana};output_dir=/tmp" for ana in analyses]
     if url == "https://github.com/tiangolo/typer.git":

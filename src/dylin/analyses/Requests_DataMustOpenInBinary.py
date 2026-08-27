@@ -4,7 +4,6 @@ from dynapyt.instrument.filters import only
 
 from typing import Callable, Tuple, Dict
 
-
 """
     It is strongly recommended that you open files in binary mode. This is because Requests may attempt to provide
     the Content-Length header for you, and if it does this value will be set to the number of bytes in the file.
@@ -19,9 +18,7 @@ class Requests_DataMustOpenInBinary(BaseDyLinAnalysis):
         self.analysis_name = "Requests_DataMustOpenInBinary"
 
     @only(patterns=["post"])
-    def pre_call(
-        self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict
-    ) -> None:
+    def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict) -> None:
         # The target class names for monitoring
         targets = ["requests.api"]
 
@@ -49,6 +46,8 @@ class Requests_DataMustOpenInBinary(BaseDyLinAnalysis):
                             f"It is strongly recommended that you open files in binary mode at {dyn_ast}. "
                             f"This is because Requests may attempt to provide the Content-Length header for you, "
                             f"and if it does this value will be set to the number of bytes in the file. "
-                            f"Errors may occur if you open the file in text mode."
+                            f"Errors may occur if you open the file in text mode.",
                         )
+
+
 # =========================================================================

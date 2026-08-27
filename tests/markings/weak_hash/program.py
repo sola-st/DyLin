@@ -4,19 +4,22 @@ from flask import Flask, make_response, request
 
 # source: https://codeql.github.com/codeql-query-help/python/py-weak-sensitive-data-hashing/
 
-d = {"Insecure hash function used for storing cookies": "ObjectMarkingAnalysis",
-     "configName": "weak_hash"}
+d = {"Insecure hash function used for storing cookies": "ObjectMarkingAnalysis", "configName": "weak_hash"}
+
 
 def insecure_hash(input: str, salt: str):
     i = input.encode('utf-8')
     s = salt.encode('utf-8')
-    return hashlib.sha256(i + s).hexdigest() # BAD for passwords
+    return hashlib.sha256(i + s).hexdigest()  # BAD for passwords
+
 
 def secure_hash(password: str):
     ph = PasswordHasher()
-    return ph.hash(password) # GOOD for passwords
+    return ph.hash(password)  # GOOD for passwords
+
 
 app = Flask("Weak hash")
+
 
 @app.route('/insecure')
 def insecure():
@@ -27,6 +30,7 @@ def insecure():
     resp.set_cookie("password", hashed)
     f'END; used insecure hash function'
     return resp
+
 
 @app.route('/looks_insecure')
 def looks_insecure():
@@ -43,6 +47,7 @@ def looks_insecure():
     resp.set_cookie("password", hashed)
     return resp
 
+
 @app.route('/secure')
 def secure():
     password = secure_hash(request.args.get("password"))
@@ -50,7 +55,8 @@ def secure():
     resp.set_cookie("password", password)
     return resp
 
+
 client = app.test_client()
 response = client.get('/insecure?password=super_secret')
-#response = client.get('/looks_insecure?password=super_secret')
-#response = client.get('/secure?password=super_secret')
+# response = client.get('/looks_insecure?password=super_secret')
+# response = client.get('/secure?password=super_secret')

@@ -4,7 +4,6 @@ from dynapyt.instrument.filters import only
 
 from typing import Callable, Tuple, Dict
 
-
 """
     Regular expression passed to regexp_span_tokenize must not be empty
     src: https://www.nltk.org/api/nltk.tokenize.util.html
@@ -18,9 +17,7 @@ class NLTK_regexp_span_tokenize(BaseDyLinAnalysis):
         self.analysis_name = "NLTK_regexp_span_tokenize"
 
     @only(patterns=["regexp_span_tokenize"])
-    def pre_call(
-        self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict
-    ) -> None:
+    def pre_call(self, dyn_ast: str, iid: int, function: Callable, pos_args: Tuple, kw_args: Dict) -> None:
         # The target class names for monitoring
         targets = ["nltk.tokenize.util"]
 
@@ -44,10 +41,7 @@ class NLTK_regexp_span_tokenize(BaseDyLinAnalysis):
             if regexp == '':
 
                 # Spec content
-                self.add_finding(
-                    iid,
-                    dyn_ast,
-                    "B-8",
-                    f"Regular expression must not be empty at {dyn_ast}."
-                )
+                self.add_finding(iid, dyn_ast, "B-8", f"Regular expression must not be empty at {dyn_ast}.")
+
+
 # =========================================================================

@@ -1,6 +1,7 @@
 from fire import Fire
 from pathlib import Path
 
+
 def compare(static_dir: str, dynamic: str):
     with open(dynamic, "r") as f:
         dynamic_findings = f.read().split("\n")
@@ -12,6 +13,7 @@ def compare(static_dir: str, dynamic: str):
             static_location = ":".join(sf.split(":")[:2])
             if static_location in dynamic_issues:
                 print(f"Static: {sf} Dynamic: {dynamic_issues[static_location]}")
+
 
 if __name__ == "__main__":
     Fire(compare)

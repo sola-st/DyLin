@@ -223,6 +223,15 @@ def instrument_and_run_analysis_direct(
         print("\nAnalysis timed out!")
 
 
+    finally:
+        session_file = Path("/tmp/dynapyt_analyses-1234-abcd.txt")
+        if session_file.exists():
+            try:
+                session_file.unlink()
+            except OSError:
+                pass
+
+
 def main():
     parser = argparse.ArgumentParser(description="DyLin: Dynamic Linter for Python")
     parser.add_argument(
@@ -315,59 +324,72 @@ def main():
         sys.exit(1)
     run_command = " ".join(run_cmd_list)
 
-    # Build the checkers/analysis list
-    if args.analysis is not None:
-        analysis_file = Path(args.analysis).resolve()
-        if analysis_file.exists() and str(analysis_file).endswith(".py"):
-            # Read code and find the subclass of BaseDyLinAnalysis
-            code = analysis_file.read_text()
-            tree = ast.parse(code)
-            class_name = None
-            for node in ast.walk(tree):
-                if isinstance(node, ast.ClassDef):
-                    for base in node.bases:
-                        if (isinstance(base, ast.Name) and base.id == "BaseDyLinAnalysis") or (
-                            isinstance(base, ast.Attribute) and base.attr == "BaseDyLinAnalysis"
-                        ):
-                            class_name = node.name
+    temp_dir_obj = None
+    created_analysis_files = []
+    try:
+        # Build the checkers/analysis list
+        if args.analysis is not None:
+            analysis_file = Path(args.analysis).resolve()
+            if analysis_file.exists() and str(analysis_file).endswith(".py"):
+                # Read code and find the subclass of BaseDyLinAnalysis
+                code = analysis_file.read_text()
+                tree = ast.parse(code)
+                class_name = None
+                for node in ast.walk(tree):
+                    if isinstance(node, ast.ClassDef):
+                        for base in node.bases:
+                            if (isinstance(base, ast.Name) and base.id == "BaseDyLinAnalysis") or (
+                                isinstance(base, ast.Attribute) and base.attr == "BaseDyLinAnalysis"
+                            ):
+                                class_name = node.name
+                                break
+                        if class_name:
                             break
-                    if class_name:
-                        break
-            if not class_name:
+                if not class_name:
+                    print(
+                        f"Error: Could not find any subclass of BaseDyLinAnalysis in {analysis_file}",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
+                txt_file = analysis_file.parent / f"{analysis_file.stem}.txt"
+                if not txt_file.exists():
+                    created_analysis_files.append(txt_file)
+                txt_file.write_text(f"{analysis_file.stem}.{class_name}\n")
+                analysis_file = txt_file
+        else:
+            checkers_str = select_checkers(include=args.include, exclude=args.exclude)
+            if not checkers_str.strip():
                 print(
-                    f"Error: Could not find any subclass of BaseDyLinAnalysis in {analysis_file}",
+                    "Error: No checkers selected with the given --include/--exclude parameters.",
                     file=sys.stderr,
                 )
                 sys.exit(1)
-            txt_file = analysis_file.parent / f"{analysis_file.stem}.txt"
-            txt_file.write_text(f"{analysis_file.stem}.{class_name}\n")
-            analysis_file = txt_file
-    else:
-        checkers_str = select_checkers(include=args.include, exclude=args.exclude)
-        if not checkers_str.strip():
-            print(
-                "Error: No checkers selected with the given --include/--exclude parameters.",
-                file=sys.stderr,
-            )
-            sys.exit(1)
 
-        tmp = tempfile.NamedTemporaryFile(mode="w", suffix=".txt", prefix="dylin_analysis_", delete=False)
-        tmp.write(checkers_str)
-        tmp.close()
-        analysis_file = Path(tmp.name)
+            temp_dir_obj = tempfile.TemporaryDirectory(prefix="dylin_analysis_")
+            analysis_file = Path(temp_dir_obj.name) / "analysis.txt"
+            analysis_file.write_text(checkers_str)
 
-    runner_fn = instrument_and_run_analysis_direct if args.no_docker else instrument_and_run_analysis
-    runner_fn(
-        project_root=project_root,
-        analysis_file=analysis_file,
-        output_dir=output_dir,
-        setup_cmd=args.setup,
-        run_command=run_command,
-        coverage=args.coverage,
-        quiet=args.quiet,
-        timeout=args.timeout,
-        memory_limit=args.memory_limit,
-    )
+        runner_fn = instrument_and_run_analysis_direct if args.no_docker else instrument_and_run_analysis
+        runner_fn(
+            project_root=project_root,
+            analysis_file=analysis_file,
+            output_dir=output_dir,
+            setup_cmd=args.setup,
+            run_command=run_command,
+            coverage=args.coverage,
+            quiet=args.quiet,
+            timeout=args.timeout,
+            memory_limit=args.memory_limit,
+        )
+    finally:
+        if temp_dir_obj is not None:
+            temp_dir_obj.cleanup()
+        for f in created_analysis_files:
+            if f.exists():
+                try:
+                    f.unlink()
+                except OSError:
+                    pass
 
 
 if __name__ == "__main__":

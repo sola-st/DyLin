@@ -50,11 +50,14 @@ for idx, item in enumerate(list_9):
 a = ", ".join(str(choice) for choice in get_list())
 
 l = [1, 2, 3, 4, 5]
+
+
 def foo():
     for item in l:
         if item == 2:
             return item
 
-foo() # should not warn
+
+foo()  # should not warn
 l.pop()
-foo() # should not warn
+foo()  # should not warn
