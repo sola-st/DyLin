@@ -5,13 +5,13 @@ It contains deliberate bugs that should be caught by two DyLin checkers.
 
 | File | Checker triggered | Code (DyLin issue) |
 |------|------------------|--------------------|
-| `main.py:12` | **SL-01 InPlaceSort** | `sorted()` called on a list but the return value is discarded |
-| `main.py:19` | **PC-01 InvalidFunctionComparison** | A function object is compared to `None` with `==` |
+| `main.py` | **SL-01 InPlaceSort** | `sorted()` called on a list but the return value is discarded |
+| `main.py` | **PC-01 InvalidFunctionComparison** | A function object is compared to a number with `==` |
 
 ## Prerequisites
 
 - Docker daemon running
-- DyLin installed in the current Python environment: `pip install -e .` (from the repo root)
+- DyLin and the Docker Python package installed: `pip install -e . docker` (from the repo root)
 
 ## Running
 
@@ -21,8 +21,8 @@ From the **repo root**:
 mkdir -p /tmp/dylin_cli_demo_output
 
 dylin \
-  --project-root test_projects/cli_demo \
-  --analysis     test_projects/cli_demo/analysis.txt \
+  --project-root cli_tests/cli_demo \
+  --include      SL-01,PC-01 \
   --output-dir   /tmp/dylin_cli_demo_output \
   --coverage \
   -- python main.py
@@ -32,7 +32,7 @@ The CLI will:
 1. Build a Docker image with DynaPyt installed.
 2. Copy the project inside the container.
 3. Instrument `main.py` with the selected checkers.
-4. Run `python main.py` and stream output to your terminal.
+4. Run `python main.py` and save its output in `run_output.log`.
 5. Store the merged coverage files in the same output directory.
 
-Findings from both checkers should appear in the streamed output.
+Inspect `output.txt`, `output.json`, and `findings.csv` in the output directory for findings. See the [main README](../../README.md) for direct mode, custom analyses, and more options.
