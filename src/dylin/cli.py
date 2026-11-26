@@ -9,8 +9,7 @@ import docker
 
 from dylin.select_checkers import select_checkers
 
-# Repo root: src/dylin/cli.py -> src/dylin -> src -> repo root
-_DYLIN_ROOT = Path(__file__).parent.parent.parent.resolve()
+_DYLIN_IMAGE = "ghcr.io/sola-st/dylin:latest"
 
 
 def _build_entrypoint_script(tmp_output_dir, setup_cmd, run_command, coverage, quiet):
@@ -43,31 +42,8 @@ def instrument_and_run_analysis(
     """Docker-based DynaPyt instrumentation + run, with DyLin pre-installed in the container."""
     client = docker.from_env()
 
-    # Build a Docker image with DynaPyt (DyLin is installed at runtime from mounted source)
-    with tempfile.TemporaryDirectory() as temp_dir:
-        temp_dir_path = Path(temp_dir)
-
-        dockerfile_content = """\
-FROM python:3.13-slim
-RUN apt-get update && apt-get install -y gcc git
-RUN pip install --upgrade pip
-RUN pip install git+https://github.com/sola-st/DynaPyt.git@main#egg=dynapyt
-RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
-"""
-        (temp_dir_path / "Dockerfile").write_text(dockerfile_content)
-
-        print("Building Docker image with DynaPyt installed...")
-        try:
-            image, logs = client.images.build(path=str(temp_dir_path), tag="dynapyt_runner", rm=True)
-            for log in logs:
-                if "stream" in log:
-                    print(log["stream"], end="")
-        except docker.errors.BuildError as e:
-            print("Failed to build Docker image:")
-            for log in e.build_logs:
-                if "stream" in log:
-                    print(log["stream"], end="")
-            return
+    print(f"Pulling Docker image {_DYLIN_IMAGE}...")
+    client.images.pull(_DYLIN_IMAGE)
 
     print(f"\nRunning container for project {project_root}...")
     print(f"Analysis file: {analysis_file}")
@@ -98,13 +74,12 @@ RUN pip install git+https://github.com/sola-st/DyLin.git@main#egg=dylin
 
     try:
         container = client.containers.run(
-            "dynapyt_runner",
+            _DYLIN_IMAGE,
             command=["/bin/bash", "-c", f"{entrypoint_script}"],
             mounts=[
                 docker.types.Mount(target="/project_root", source=str(project_root), type="bind", read_only=True),
                 docker.types.Mount(target="/analysis", source=str(analysis_file.parent), type="bind", read_only=False),
                 docker.types.Mount(target="/tmp/dynapyt_output", source=str(output_dir), type="bind", read_only=False),
-                docker.types.Mount(target="/dylin_src", source=str(_DYLIN_ROOT), type="bind", read_only=True),
             ],
             remove=True,
             detach=True,
