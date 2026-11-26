@@ -19,6 +19,15 @@ pip install -e . docker
 
 The `docker` Python package is required by the CLI, including direct runs. The default runner also requires Docker and a running Docker daemon. Its image installs DynaPyt and DyLin from their GitHub `main` branches, so it requires network access and may differ from your local checkout.
 
+The container image is published at `ghcr.io/sola-st/dylin:latest` on pushes to `main`; each image is also tagged with its commit SHA. It includes Python 3.13, Git, GCC, pytest, and DyLin. To build it from a checkout and run it:
+
+```bash
+docker build -t dylin .
+docker run --rm -it dylin bash
+```
+
+Inside the container, use `dylin --direct` to analyze a project mounted into the container. The default Docker runner requires access to a Docker daemon.
+
 ## Analyze a project
 
 Run a command that exercises the code you want to inspect. DyLin detects behavior reached during that execution, so a test suite or representative workload is useful.
