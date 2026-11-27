@@ -7,6 +7,6 @@ RUN apt-get update \
 WORKDIR /build
 COPY pyproject.toml README.md ./
 COPY src ./src
-RUN pip install --no-cache-dir . docker pytest
+RUN pip install --no-cache-dir '.[full]' pytest
 
 WORKDIR /workspace

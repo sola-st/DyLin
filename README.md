@@ -14,12 +14,16 @@ DyLin requires Python 3.10 or newer and Git. From a checkout, install it in a vi
 ```bash
 python -m venv .venv
 source .venv/bin/activate
-pip install -e . docker
+pip install -e '.[lite]'
 ```
 
-The `docker` Python package is required by the CLI, including direct runs. The default runner also requires Docker, a running Docker daemon, and network access to pull the latest published image. The image's DyLin version may differ from your local checkout.
+For all machine learning checkers, install `pip install 'dylin[full]'` (or `pip install -e '.[full]'` from a checkout). `pip install 'dylin[lite]'` and plain `pip install dylin` install the core dependencies, including NumPy, without TensorFlow, PyTorch, pandas, or scikit-learn. Extras add dependencies; installing lite does not remove packages already present.
 
-The container image is published at `ghcr.io/sola-st/dylin:latest` on pushes to `main`; each image is also tagged with its commit SHA. It includes Python 3.13, Git, GCC, pytest, and DyLin. To build it from a checkout and run it:
+In direct mode, the default checker selection skips analyses whose optional dependencies are missing and reports them. An explicit selection of an unavailable analysis reports an error. ML-03 includes separate pandas and TensorFlow analyses, so the available part can still run. Install optional packages in the DyLin environment before starting the CLI; dependency detection occurs before `--setup` runs. Custom analysis files must have their own dependencies installed.
+
+The default runner requires Docker, a running Docker daemon, and network access to build its image. It builds the image from the installed DyLin source on Python 3.13-slim and installs the optional machine learning dependencies required by the selected built-in analyses. Custom analyses must install their own dependencies with `--setup`.
+
+To build the standalone image from a checkout and run it:
 
 ```bash
 docker build -t dylin .

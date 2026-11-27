@@ -27,13 +27,19 @@ classifiers = [
 dependencies = [
   "dynapyt@git+https://github.com/sola-st/DynaPyt@main",
   "numpy",
-  "tensorflow",
-  "scikit-learn",
   "libcst",
-  "pandas",
   "PyYAML",
   "filelock",
   "fire",
+  "docker",
+]
+
+[project.optional-dependencies]
+lite = []
+full = [
+  "tensorflow",
+  "scikit-learn",
+  "pandas",
   "torch",
 ]
 

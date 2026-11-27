@@ -1,5 +1,7 @@
 import argparse
 import ast
+import importlib.util
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -9,7 +11,62 @@ import docker
 
 from dylin.select_checkers import select_checkers
 
-_DYLIN_IMAGE = "ghcr.io/sola-st/dylin:latest"
+_DOCKERFILE = """\
+FROM python:3.13-slim
+RUN apt-get update && apt-get install -y --no-install-recommends git gcc && rm -rf /var/lib/apt/lists/*
+RUN pip install --no-cache-dir 'dynapyt @ git+https://github.com/sola-st/DynaPyt@main' numpy libcst PyYAML filelock fire docker pytest {optional_dependencies}
+COPY dylin /opt/dylin/dylin
+ENV PYTHONPATH=/opt/dylin
+WORKDIR /workspace
+"""
+
+
+def _build_dylin_image(client, analysis_file):
+    """Build an image containing the DyLin source used by this CLI."""
+    optional_dependencies = set()
+    for analysis in analysis_file.read_text().splitlines():
+        parts = analysis.split(";")[0].strip().split(".")
+        if len(parts) >= 2:
+            optional_dependencies.update(_OPTIONAL_ANALYSIS_MODULES.get(parts[-2], ()))
+    # The import name differs from the distribution name.
+    if "sklearn" in optional_dependencies:
+        optional_dependencies.remove("sklearn")
+        optional_dependencies.add("scikit-learn")
+    with tempfile.TemporaryDirectory(prefix="dylin_image_") as context:
+        context_path = Path(context)
+        shutil.copytree(Path(__file__).resolve().parent, context_path / "dylin",
+                        ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+        (context_path / "Dockerfile").write_text(
+            _DOCKERFILE.format(optional_dependencies=" ".join(sorted(optional_dependencies)))
+        )
+        image, _ = client.images.build(path=str(context_path), rm=True)
+        return image
+
+_OPTIONAL_ANALYSIS_MODULES = {
+    "InconsistentPreprocessing": ("sklearn",),
+    "NonFinitesAnalysis": ("pandas",),
+    "TensorflowNonFinitesAnalysis": ("tensorflow",),
+    "GradientAnalysis": ("tensorflow", "torch"),
+}
+
+
+def _available_direct_analyses(checkers, default_selection):
+    available = []
+    skipped = []
+    for analysis in checkers.splitlines():
+        module = analysis.split(";")[0].split(".")[-2]
+        missing = [name for name in _OPTIONAL_ANALYSIS_MODULES.get(module, ())
+                   if importlib.util.find_spec(name) is None]
+        if missing:
+            skipped.append(f"{module} ({', '.join(missing)})")
+        else:
+            available.append(analysis)
+    if skipped:
+        message = "Unavailable analyses: " + ", ".join(skipped) + ". Install dylin[full] to enable them."
+        if not default_selection:
+            raise ValueError(message)
+        print("Skipping " + message, file=sys.stderr)
+    return "\n".join(available)
 
 
 def _build_entrypoint_script(tmp_output_dir, setup_cmd, run_command, coverage, quiet):
@@ -42,8 +99,8 @@ def instrument_and_run_analysis(
     """Docker-based DynaPyt instrumentation + run, with DyLin pre-installed in the container."""
     client = docker.from_env()
 
-    print(f"Pulling Docker image {_DYLIN_IMAGE}...")
-    client.images.pull(_DYLIN_IMAGE)
+    print("Building Docker image from the installed DyLin source...")
+    image = _build_dylin_image(client, analysis_file)
 
     print(f"\nRunning container for project {project_root}...")
     print(f"Analysis file: {analysis_file}")
@@ -74,7 +131,7 @@ def instrument_and_run_analysis(
 
     try:
         container = client.containers.run(
-            _DYLIN_IMAGE,
+            image.id,
             command=["/bin/bash", "-c", f"{entrypoint_script}"],
             mounts=[
                 docker.types.Mount(target="/project_root", source=str(project_root), type="bind", read_only=True),
@@ -333,6 +390,11 @@ def main():
                 analysis_file = txt_file
         else:
             checkers_str = select_checkers(include=args.include, exclude=args.exclude)
+            if args.no_docker:
+                try:
+                    checkers_str = _available_direct_analyses(checkers_str, args.include.lower() == "all")
+                except ValueError as exc:
+                    parser.error(str(exc))
             if not checkers_str.strip():
                 print(
                     "Error: No checkers selected with the given --include/--exclude parameters.",
